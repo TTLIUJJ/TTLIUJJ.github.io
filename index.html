@@ -275,6 +275,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/17/从零开始的JSP-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/17/从零开始的JSP-2/" itemprop="url">从零开始的JSP(2)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T21:45:58+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JSP内置对象"><a href="#JSP内置对象" class="headerlink" title="JSP内置对象"></a>JSP内置对象</h1><p>JSP内置对象是Web容器创建的一组对象，不使用new关键就可以使用的内置对象。<br>比如上面的九九乘法表中的out。<br><strong>JSP九大内置对象：</strong><br>out、request、response、session、application、Page、PageContent、exception、config</p>
+<h2 id="out对象"><a href="#out对象" class="headerlink" title="out对象"></a>out对象</h2><p>out对象是JspWriter类的实例，是向客户端输出内容常用的对象。<br>常用的方法：</p>
+<ol>
+<li>void println() 向客户端打印字符串</li>
+<li>void flush() 将缓冲区内容输出到客户端</li>
+<li>void clear() 清除缓冲区内容，如果在flush之后调用抛出异常</li>
+<li>void chearBuffer() 清除缓冲区内容</li>
+<li>int getBufferSize() 返回缓冲区以字节数的大小，如果不设立缓冲区则为0</li>
+<li>int getRemaining() 返回缓冲区剩余大小</li>
+<li>boolean isAutoFlush() 返回缓冲区满时，是自动清空还是抛出异常</li>
+<li>void close() 关闭输出流<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    out.println(<span class="string">"&lt;h2&gt;两句诗&lt;/h2&gt;"</span>);</div><div class="line">    out.println(<span class="string">"苟利国家生死以&lt;br/&gt;"</span>);</div><div class="line">    out.println(<span class="string">"岂因祸福避趋之&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">&lt;br/&gt;缓冲区大小：&lt;%= out.getBufferSize() %&gt;</div><div class="line">&lt;br/&gt;缓冲区剩余大小：&lt;%= out.getRemaining() %&gt;</div><div class="line">&lt;br/&gt;是否自动清除缓冲区大小：&lt;%= out.isAutoFlush() %&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="request对象"><a href="#request对象" class="headerlink" title="request对象"></a>request对象</h2><p>表单有两种提交方式：get和post</p>
+<ol>
+<li>get：以明文的方式通过URL提交数据，数据在URL中可以看到。提交的数据最多不超过2KB。安全性较低但效率比post方式高。合适提交数量不大，但安全性不高的数据。比如：搜索、查询等功能。</li>
+<li>post: 将用户提交的信息封装在HTML的头部信息内。适合提交数据量较大，安全性高的用户信息。比如：注册、修改、上传等功能。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/16/排序算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -510,7 +669,7 @@
       
         
           
-            <h1 id="JSP基础语法"><a href="#JSP基础语法" class="headerlink" title="JSP基础语法"></a>JSP基础语法</h1><h4 id="JSP页面元素的构成："><a href="#JSP页面元素的构成：" class="headerlink" title="JSP页面元素的构成："></a>JSP页面元素的构成：</h4><p>静态内容、指令、表达式、小脚本、声明和注释</p>
+            <h1 id="JSP基础语法"><a href="#JSP基础语法" class="headerlink" title="JSP基础语法"></a>JSP基础语法</h1><h2 id="JSP页面元素的构成："><a href="#JSP页面元素的构成：" class="headerlink" title="JSP页面元素的构成："></a>JSP页面元素的构成：</h2><p>静态内容、指令、表达式、小脚本、声明和注释</p>
 <p><strong>JSP指令</strong><br>page指令：通常位于Jsp页面的顶端，同一个页面可以有多个page指令。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> %&gt;</div></pre></td></tr></table></figure></p>
 <p>include指令：将一个外部文件嵌入到当前的JSP文件中，同时解析这个页面中的JSP语句。<br>taglib指令：使用标签库定义新的自定义标签，在JSP页面中启用定制行为。</p>
 <p><strong>JSP注释</strong><br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%-- 这是一个默认的注释方式 --%&gt;</div></pre></td></tr></table></figure></p>
@@ -518,7 +677,7 @@
 <p><strong>JSP声明</strong><br>在JSP页面中定义的变量或者方法<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%! </div><div class="line">	String s = <span class="string">"PoackBandit"</span>;	</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> x + y;</div><div class="line">	&#125;</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
 <p><strong>JSP表达式</strong><br>在JSP页面中执行的表达式，表达式不以分号结尾<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//分别调用上面声明的s变量和函数add()</span></div><div class="line">&lt;%=s %&gt;</div><div class="line">&lt;%=add(<span class="number">3</span>, <span class="number">4</span>) %&gt;</div></pre></td></tr></table></figure></p>
 <p><strong>JSP页面的生命周期</strong><br>用户发出请求index.jsp，如果这是页面第一次被请求，那么JSP引擎把该JSP文件转换成为一个Servlet，并生成字节码文件，并执行jspInit()，再解析执行jspService()；若页面不是第一次被请求，那么直接访问字节码文件。<br> jspService()方法被调用来处理客户端的请求。对每一个请求，JSP引擎创建一个新的线程来处理该请求。如果有多个客户端同时请求该JSP文件，则JSP引擎会创建多个线程。每一个客户端请求对应一个线程。以多线程方式执行可以大大降低对系统的资源需求，提高系统的并发量及响应时间。但也要注意多线程的带来的问题，由于该Servlet始终驻于内存，所以响应是非常快的。</p>
-<h4 id="使用JSP打印九九乘法表"><a href="#使用JSP打印九九乘法表" class="headerlink" title="使用JSP打印九九乘法表"></a>使用JSP打印九九乘法表</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;%!</div><div class="line">      <span class="function"><span class="keyword">void</span> <span class="title">ffff</span><span class="params">(JspWriter out)</span> <span class="keyword">throws</span> Exception</span></div><div class="line"><span class="function">      </span>&#123;</div><div class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++i)&#123;</div><div class="line">              <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; ++j)&#123;</div><div class="line">                  out.println(i + <span class="string">"*"</span> + j + <span class="string">"="</span> + i*j + <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</div><div class="line">              &#125;</div><div class="line">              out.println(<span class="string">"&lt;br/&gt;"</span>);</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">  %&gt;</div><div class="line"></div><div class="line">  &lt;%</div><div class="line">      ffff(out);</div><div class="line">  %&gt;</div></pre></td></tr></table></figure>
+<h2 id="使用JSP打印九九乘法表"><a href="#使用JSP打印九九乘法表" class="headerlink" title="使用JSP打印九九乘法表"></a>使用JSP打印九九乘法表</h2><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;%!</div><div class="line">      <span class="function"><span class="keyword">void</span> <span class="title">ffff</span><span class="params">(JspWriter out)</span> <span class="keyword">throws</span> Exception</span></div><div class="line"><span class="function">      </span>&#123;</div><div class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++i)&#123;</div><div class="line">              <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; ++j)&#123;</div><div class="line">                  out.println(i + <span class="string">"*"</span> + j + <span class="string">"="</span> + i*j + <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</div><div class="line">              &#125;</div><div class="line">              out.println(<span class="string">"&lt;br/&gt;"</span>);</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">  %&gt;</div><div class="line"></div><div class="line">  &lt;%</div><div class="line">      ffff(out);</div><div class="line">  %&gt;</div></pre></td></tr></table></figure>
 
           
         
@@ -731,7 +890,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
