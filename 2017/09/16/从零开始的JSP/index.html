@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="test1import java.util.*">
+<meta name="description" content="JSP基础语法Jsp页面元素的构成：静态内容、指令、表达式、小脚本、声明和注释 JSP指令page指令：通常位于Jsp页面的顶端，同一个页面可以有多个page指令。1&amp;lt;%@ page language=&quot;java&quot; contentType=&quot;text/html;charset=UTF-8&quot; import=&quot;java.util.*&quot; %&amp;gt; include指令：将一个外部文件嵌入到当前的J">
 <meta name="keywords" content="JSP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零开始的JSP">
 <meta property="og:url" content="http://yoursite.com/2017/09/16/从零开始的JSP/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="test1import java.util.*">
+<meta property="og:description" content="JSP基础语法Jsp页面元素的构成：静态内容、指令、表达式、小脚本、声明和注释 JSP指令page指令：通常位于Jsp页面的顶端，同一个页面可以有多个page指令。1&amp;lt;%@ page language=&quot;java&quot; contentType=&quot;text/html;charset=UTF-8&quot; import=&quot;java.util.*&quot; %&amp;gt; include指令：将一个外部文件嵌入到当前的J">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-16T07:03:55.312Z">
+<meta property="og:updated_time" content="2017-09-17T13:20:28.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的JSP">
-<meta name="twitter:description" content="test1import java.util.*">
+<meta name="twitter:description" content="JSP基础语法Jsp页面元素的构成：静态内容、指令、表达式、小脚本、声明和注释 JSP指令page指令：通常位于Jsp页面的顶端，同一个页面可以有多个page指令。1&amp;lt;%@ page language=&quot;java&quot; contentType=&quot;text/html;charset=UTF-8&quot; import=&quot;java.util.*&quot; %&amp;gt; include指令：将一个外部文件嵌入到当前的J">
 
 
 
@@ -368,7 +368,14 @@
       
 
       
-        <h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*</div></pre></td></tr></table></figure>
+        <h1 id="JSP基础语法"><a href="#JSP基础语法" class="headerlink" title="JSP基础语法"></a>JSP基础语法</h1><h4 id="Jsp页面元素的构成："><a href="#Jsp页面元素的构成：" class="headerlink" title="Jsp页面元素的构成："></a>Jsp页面元素的构成：</h4><p>静态内容、指令、表达式、小脚本、声明和注释</p>
+<p><strong>JSP指令</strong><br>page指令：通常位于Jsp页面的顶端，同一个页面可以有多个page指令。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> %&gt;</div></pre></td></tr></table></figure></p>
+<p>include指令：将一个外部文件嵌入到当前的JSP文件中，同时解析这个页面中的JSP语句。<br>taglib指令：使用标签库定义新的自定义标签，在JSP页面中启用定制行为。</p>
+<p><strong>JSP注释</strong><br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%-- 这是一个默认的注释方式 --%&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>JSP脚本</strong><br>在JSP页面中执行的java代码<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">	out.println(<span class="string">"Hello World!"</span>);</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>JSP声明</strong><br>在JSP页面中定义的变量或者方法<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%! </div><div class="line">	String s = <span class="string">"PoackBandit"</span>;	</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> x + y;</div><div class="line">	&#125;</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>JSP表达式</strong><br>在JSP页面中执行的表达式，表达式不以分号结尾<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//分别调用上面声明的s变量和函数add()</span></div><div class="line">&lt;%=s %&gt;</div><div class="line">&lt;%=add(<span class="number">3</span>, <span class="number">4</span>) %&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>JSP页面的生命周期</strong><br>用户发出请求index.jsp，如果这是页面第一次被请求，那么JSP引擎把该JSP文件转换成为一个Servlet，并生成字节码文件，并执行jspInit()，再解析执行jspService()；若页面不是第一次被请求，那么直接访问字节码文件。<br> jspService()方法被调用来处理客户端的请求。对每一个请求，JSP引擎创建一个新的线程来处理该请求。如果有多个客户端同时请求该JSP文件，则JSP引擎会创建多个线程。每一个客户端请求对应一个线程。以多线程方式执行可以大大降低对系统的资源需求，提高系统的并发量及响应时间。但也要注意多线程的带来的问题，由于该Servlet始终驻于内存，所以响应是非常快的。</p>
 
       
     </div>
@@ -548,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#test"><span class="nav-number">1.</span> <span class="nav-text">test</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP基础语法"><span class="nav-number">1.</span> <span class="nav-text">JSP基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp页面元素的构成："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Jsp页面元素的构成：</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
