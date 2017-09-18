@@ -275,6 +275,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/从零开始的JSP-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/从零开始的JSP-5/" itemprop="url">从零开始的JSP(5)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T23:31:33+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="指令与动作"><a href="#指令与动作" class="headerlink" title="指令与动作"></a>指令与动作</h1><h2 id="include指令"><a href="#include指令" class="headerlink" title="include指令"></a>include指令</h2><p>作用是与Django里的模板语言include一样的，显示被包含页面的内容<br>语法：<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%@ include file=<span class="string">"URL"</span> %&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="include动作"><a href="#include动作" class="headerlink" title="include动作"></a>include动作</h2><p>语法：<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//page：要包含的页面</span></div><div class="line"><span class="comment">//flush：被包含的页面是否从缓冲区读取</span></div><div class="line">&lt;jsp:include page=<span class="string">"url"</span> flush=<span class="string">"false"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="include指令和动作的区别"><a href="#include指令和动作的区别" class="headerlink" title="include指令和动作的区别"></a>include指令和动作的区别</h2><p>除了语法格式的不同，指令和动作还有区别如下：</p>
+<ol>
+<li>发生作用的时间：include指令发生在编译页面期间，include动作发生在请求期间</li>
+<li>包含的内容：include指令为文件的实际内容，include动作为页面的输出</li>
+<li>转换成Servlet：主页面和包含页面转换为一个Servlet，主页面和包含页面转换为独立的Servlet</li>
+<li>编译时间：include指令需要解析资源较慢，include动作较快</li>
+<li>执行时间：include指令快，includ动作每次需要解析资源较慢</li>
+</ol>
+<h2 id="forward动作"><a href="#forward动作" class="headerlink" title="forward动作"></a>forward动作</h2><p>语法：<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:forward page=<span class="string">"URL"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<p>等同于<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//服务器转发语句</span></div><div class="line">request.getRequestDispatcher(<span class="string">"url"</span>).forward(reqeust, response)</div></pre></td></tr></table></figure></p>
+<h2 id="param动作"><a href="#param动作" class="headerlink" title="param动作"></a>param动作</h2><p>语法：<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//常常与&lt;jsp:forward&gt;一起使用，作为其的子标签</span></div><div class="line">&lt;jsp:param name=<span class="string">"参数名"</span> value=<span class="string">"参数值"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>举个例子：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:forward page=<span class="string">"another.jsp"</span>&gt;</div><div class="line">	&lt;jsp:param name=<span class="string">"address"</span> value=<span class="string">"ttliujj@gmail.com"</span>&gt;</div><div class="line">&lt;/jsp:forward&gt;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/从零开始的JSP-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1345,7 +1500,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
