@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="10000小时">
 <meta property="og:description" content="JSP内置对象JSP内置对象是Web容器创建的一组对象，不使用new关键就可以使用的内置对象。比如上面的九九乘法表中的out。JSP九大内置对象：out、request、response、session、application、Page、PageContext、exception、config out对象out对象是JspWriter类的实例，是向客户端输出内容常用的对象。常用的方法：  void">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-18T08:00:09.620Z">
+<meta property="og:updated_time" content="2017-09-18T08:04:43.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的JSP(2)">
 <meta name="twitter:description" content="JSP内置对象JSP内置对象是Web容器创建的一组对象，不使用new关键就可以使用的内置对象。比如上面的九九乘法表中的out。JSP九大内置对象：out、request、response、session、application、Page、PageContext、exception、config out对象out对象是JspWriter类的实例，是向客户端输出内容常用的对象。常用的方法：  void">
@@ -408,7 +408,7 @@
 </ol>
 <figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">    out.println(<span class="string">"this is out object"</span>);</div><div class="line"></div><div class="line">    PrintWriter outer = response.getWriter();</div><div class="line">    outer.println(<span class="string">"PrintWriter输出流的内容会优先于out实例的输出流&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;%= response.getCharacterEncoding() %&gt;&lt;br/&gt;</div><div class="line">&lt;%--&lt;%--%&gt;</div><div class="line">    &lt;%--<span class="comment">//请求重定向--%&gt;</span></div><div class="line">    &lt;%--response.sendRedirect(<span class="string">"register.jsp"</span>);--%&gt;</div><div class="line">&lt;%--%&gt;--%&gt;</div></pre></td></tr></table></figure>
 <h3 id="请求重定向和请求转发"><a href="#请求重定向和请求转发" class="headerlink" title="请求重定向和请求转发"></a>请求重定向和请求转发</h3><p><strong>请求重定向：</strong>客户端行为，response.sendRedirect()，本质上讲等同于两次请求，前一次的请求对象不会被保存，地址栏的URL地址会改变。<br>举个例子：A页面请求将数据提交到C页面，但是实际上A请求B, B在请求C,此时C不能接收到A的数据<br><strong>请求转发：</strong>服务器行为，request.getRequestDispatcher().forword(request, response)是一次请求，转发会请求对象会保存，地址栏的URL地址不会改变。</p>
-<h2 id="Session对象"><a href="#Session对象" class="headerlink" title="Session对象"></a>Session对象</h2><p>###session概念：<br>在服务器的内存中保存着不同用户的session。</p>
+<h2 id="Session对象"><a href="#Session对象" class="headerlink" title="Session对象"></a>Session对象</h2><h3 id="session概念："><a href="#session概念：" class="headerlink" title="session概念："></a>session概念：</h3><p>在服务器的内存中保存着不同用户的session。</p>
 <ol>
 <li>session表示客户端与服务器的一次回话</li>
 <li>Web中的session指的是用户在浏览某个网站时，从进入网站到浏览关闭所经过的这段时间，也就是用户浏览网站所花费的时间</li>
@@ -461,7 +461,7 @@
 <li>String getServerInfo() 返回JSP引擎名字和版本号</li>
 </ol>
 <figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;在当前页面测试application&lt;/h1&gt;</div><div class="line">&lt;%</div><div class="line">    application.setAttribute(<span class="string">"city"</span>, <span class="string">"xiamen"</span>);</div><div class="line">    application.setAttribute(<span class="string">"name"</span>, <span class="string">"ackerman"</span>);</div><div class="line">    application.setAttribute(<span class="string">"number"</span>, <span class="number">34</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">所在城市：&lt;%= application.getAttribute(<span class="string">"city"</span>)%&gt;&lt;br/&gt;</div><div class="line">已有属性：&lt;%</div><div class="line">    Enumeration e = application.getAttributeNames();</div><div class="line">    <span class="keyword">while</span>(e.hasMoreElements())&#123;</div><div class="line">        out.println(e.nextElement() + <span class="string">"&lt;br/&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">%&gt;</div><div class="line">引擎版本：&lt;%= application.getServerInfo() %&gt;</div></pre></td></tr></table></figure>
-<p>如果我们在该项目的其他页面中，进行城市、属性和版本进行相同的查询工作，会得到一样的结果（除非）。</p>
+<p>如果我们在该项目的其他页面中，进行城市、属性和版本进行相同的查询工作，会得到一样的结果（除非服务器关闭）。</p>
 <h2 id="Page对象"><a href="#Page对象" class="headerlink" title="Page对象"></a>Page对象</h2><p>page对象就是指向当前JSP页面本身，有点像类中的this指针，它是java.lang.Object类的实例。常用方法如下：</p>
 <ol>
 <li>class getClass() 返回此Object类</li>
@@ -506,9 +506,9 @@
 <li>String getMessage() 返回描述异常的消息</li>
 <li>String toString() 返回关于异常的简短描述信息</li>
 <li>void printStackTrace() 显示异常及其栈轨迹</li>
-<li>Throwable FillStackTrace() 重写异常的执行栈轨迹<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%<span class="meta">@page</span>  errorPage=<span class="string">"exception.jsp"</span> %&gt;</div><div class="line"></div><div class="line">	&lt;h1&gt;测试异常页面&lt;/h1&gt;</div><div class="line">    &lt;%</div><div class="line">        System.out.println(<span class="number">100</span>/<span class="number">0</span>);</div><div class="line">    %&gt;</div></pre></td></tr></table></figure>
-</li>
+<li>Throwable FillStackTrace() 重写异常的执行栈轨迹</li>
 </ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%<span class="meta">@page</span>  errorPage=<span class="string">"exception.jsp"</span> %&gt;</div><div class="line"></div><div class="line">	&lt;h1&gt;测试异常页面&lt;/h1&gt;</div><div class="line">    &lt;%</div><div class="line">        System.out.println(<span class="number">100</span>/<span class="number">0</span>);</div><div class="line">    %&gt;</div></pre></td></tr></table></figure>
 <p>下面是exception.jsp<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;%= exception.getMessage()%&gt;&lt;br/&gt;</div><div class="line">&lt;%= exception.toString() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
 
       
@@ -549,6 +549,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/18/从零开始的JSP-3/" rel="prev" title="从零开始的JSP(3)">
+                从零开始的JSP(3) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -628,7 +632,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -650,7 +654,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -685,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP内置对象"><span class="nav-number">1.</span> <span class="nav-text">JSP内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#out对象"><span class="nav-number">1.1.</span> <span class="nav-text">out对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#request对象"><span class="nav-number">1.2.</span> <span class="nav-text">request对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Response对象"><span class="nav-number">1.3.</span> <span class="nav-text">Response对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求重定向和请求转发"><span class="nav-number">1.3.1.</span> <span class="nav-text">请求重定向和请求转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session对象"><span class="nav-number">1.4.</span> <span class="nav-text">Session对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#session对象的概念"><span class="nav-number">1.4.1.</span> <span class="nav-text">session对象的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session的生命周期"><span class="nav-number">1.4.2.</span> <span class="nav-text">session的生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#application对象"><span class="nav-number">1.5.</span> <span class="nav-text">application对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Page对象"><span class="nav-number">1.6.</span> <span class="nav-text">Page对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pageContext对象"><span class="nav-number">1.7.</span> <span class="nav-text">pageContext对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config对象"><span class="nav-number">1.8.</span> <span class="nav-text">Config对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exception对象"><span class="nav-number">1.9.</span> <span class="nav-text">Exception对象</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP内置对象"><span class="nav-number">1.</span> <span class="nav-text">JSP内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#out对象"><span class="nav-number">1.1.</span> <span class="nav-text">out对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#request对象"><span class="nav-number">1.2.</span> <span class="nav-text">request对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Response对象"><span class="nav-number">1.3.</span> <span class="nav-text">Response对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求重定向和请求转发"><span class="nav-number">1.3.1.</span> <span class="nav-text">请求重定向和请求转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session对象"><span class="nav-number">1.4.</span> <span class="nav-text">Session对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#session概念："><span class="nav-number">1.4.1.</span> <span class="nav-text">session概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session对象的概念"><span class="nav-number">1.4.2.</span> <span class="nav-text">session对象的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session的生命周期"><span class="nav-number">1.4.3.</span> <span class="nav-text">session的生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#application对象"><span class="nav-number">1.5.</span> <span class="nav-text">application对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Page对象"><span class="nav-number">1.6.</span> <span class="nav-text">Page对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pageContext对象"><span class="nav-number">1.7.</span> <span class="nav-text">pageContext对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config对象"><span class="nav-number">1.8.</span> <span class="nav-text">Config对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exception对象"><span class="nav-number">1.9.</span> <span class="nav-text">Exception对象</span></a></li></ol></li></ol></div>
             
 
           </div>

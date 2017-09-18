@@ -275,6 +275,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/从零开始的JSP-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/从零开始的JSP-3/" itemprop="url">从零开始的JSP(3)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T16:01:12+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h1><h2 id="JavaBean简介"><a href="#JavaBean简介" class="headerlink" title="JavaBean简介"></a>JavaBean简介</h2><p>JavaBean就是符合某种特定的规范的Java类，使用JavaBean的好处是解决代码的重复编写，减少代码冗余，功能区分明确，提高了代码的维护性。</p>
+<p><strong>JavaBean的设计原则</strong><br>包含以下4点：</p>
+<ol>
+<li>公有类</li>
+<li>无参数的公有构造函数</li>
+<li>getter和setter函数</li>
+<li>私有属性域</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Students</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Students</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;<span class="keyword">this</span>.name=name;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> name;&#125;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>JSP动作元素</strong><br>JSP动作元素为请求处理阶段提供信息。动作元素遵循XML元素的语法，有一个包含元素名的开始标签，可以有属性、可选内容、与开始标签匹配的结束标签。</p>
+<h2 id="JavaBean的使用"><a href="#JavaBean的使用" class="headerlink" title="JavaBean的使用"></a>JavaBean的使用</h2><h3 id="普通方法"><a href="#普通方法" class="headerlink" title="普通方法"></a>普通方法</h3><p>如上面的Students知道创建JavaBean类的就像普通的Java类一样（在设计规范的规定下）。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"com.ackerman.Students"</span>%&gt;</div><div class="line"> </div><div class="line">  &lt;h1&gt;使用普通方法创建JavaBean的实例&lt;/h1&gt;</div><div class="line">  &lt;%</div><div class="line">      Students stupid = <span class="keyword">new</span> Students();</div><div class="line">      stupid.setName(<span class="string">"Ackerman"</span>);</div><div class="line">  %&gt;</div><div class="line"></div><div class="line">  输出效果：&lt;%= stupid.getName() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="JSP动作标签方法"><a href="#JSP动作标签方法" class="headerlink" title="JSP动作标签方法"></a>JSP动作标签方法</h3><h4 id="：在JSP页面中实例化JavaBean对象"><a href="#：在JSP页面中实例化JavaBean对象" class="headerlink" title="：在JSP页面中实例化JavaBean对象"></a><jsp:usebean\>：在JSP页面中实例化JavaBean对象</jsp:usebean\></h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:useBean id=<span class="string">"标示符"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"java包和类名"</span> scope=<span class="string">"作用范围"</span>&gt;</div></pre></td></tr></table></figure>
+<p>####<jsp:setproperty\>：在给已经实例化的JavaBean对象的属性赋值，一共有四中方式<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:setProperty name=<span class="string">"JavaBean实例名"</span> property=<span class="string">"*"</span>&gt;（与表单关联）</div><div class="line"></div><div class="line">&lt;jsp:setProperty name=<span class="string">"JavaBean实例名"</span> property=<span class="string">"具体的属性名"</span>&gt;（与表单关联）</div><div class="line"></div><div class="line">&lt;jsp:setProperty name=<span class="string">"student1"</span> property=<span class="string">"name"</span> value=<span class="string">"yoyocheckenow"</span>/&gt;（手工设置）</div><div class="line"></div><div class="line">&lt;jsp:setProperty name=<span class="string">"student1"</span> property=<span class="string">"name"</span> param=<span class="string">"传递的参数"</span>/&gt;（与request请求的数据有关）</div></pre></td></tr></table></figure></jsp:setproperty\></p>
+<p>下面是用法展示：<br>先写一个登录login.jsp的页面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;form action=<span class="string">"dologin.jsp"</span> name=<span class="string">"loginForm"</span> method=<span class="string">"post"</span>&gt;</div><div class="line">    &lt;table&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td&gt;用户名：&lt;/td&gt;</div><div class="line">            &lt;td&gt;&lt;input type="text" name="name"/&gt;&lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td colspan="2"&gt;&lt;input type="submit"&gt;&lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>将login.jsp的参数传递到dologin.jsp页面<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//实例化Students对象</span></div><div class="line">&lt;jsp:useBean id=<span class="string">"student1"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.ackerman.Students"</span> scope=<span class="string">"page"</span>/&gt;</div><div class="line"></div><div class="line">&lt;h1&gt;setProperty动作元素使用方法&lt;/h1&gt;</div><div class="line"></div><div class="line"><span class="comment">//第一种方法：根据表单匹配所有的属性</span></div><div class="line"><span class="comment">//login.jsp表单的name="name"属性值要与Students中的name私有域保持一致</span></div><div class="line">&lt;jsp:setProperty name=<span class="string">"student1"</span> property=<span class="string">"*"</span>/&gt;</div><div class="line"></div><div class="line"><span class="comment">//第二种方法：根据表单匹配对象的属性</span></div><div class="line">&lt;jsp:setProperty name=<span class="string">"student1"</span> property=<span class="string">"name"</span>/&gt;</div><div class="line"></div><div class="line"><span class="comment">//第三种方法：设置Students私有域name的值为yoyochecknow</span></div><div class="line">&lt;jsp:setProperty name=<span class="string">"student1"</span> property=<span class="string">"name"</span> value=<span class="string">"yoyocheckenow"</span>/&gt;</div><div class="line"></div><div class="line"><span class="comment">//第四种方法：通过URL传参数</span></div><div class="line"><span class="comment">//在login.jsp做如下的修改：</span></div><div class="line"><span class="comment">//&lt;form action="dologin.jsp?ff=hello" name="loginForm" method="post"&gt;</span></div><div class="line"><span class="comment">//这样就可以将URL传递的ff属性值赋值给Students的私有域name</span></div><div class="line">&lt;jsp:setProperty name=<span class="string">"student1"</span> property=<span class="string">"name"</span> param=<span class="string">"ff"</span>/&gt;</div><div class="line"></div><div class="line">得到的name属性值：&lt;%= student1.getName() %&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="：获取制定JavaBean对象的属性值"><a href="#：获取制定JavaBean对象的属性值" class="headerlink" title="：获取制定JavaBean对象的属性值"></a><jsp:getproperty\>：获取制定JavaBean对象的属性值</jsp:getproperty\></h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:getProperty name=<span class="string">"JavaBean实例名"</span> property=<span class="string">"属性名"</span>&gt;</div></pre></td></tr></table></figure>
+<p>修改dologin.jsp中的代码，获取JavaBean对象的属性值<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">得到的name属性值：&lt;jsp:getProperty name=<span class="string">"student1"</span> property=<span class="string">"name"</span>&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="JavaBean的四个作用域范围"><a href="#JavaBean的四个作用域范围" class="headerlink" title="JavaBean的四个作用域范围"></a>JavaBean的四个作用域范围</h3><p>说明：使用useBean的scope属性可以用来指定JavaBean的作用范围。</p>
+<ol>
+<li>page 默认值，仅在当前页面有效</li>
+<li>request 可以通过HttpReqeust.getAttribute()方法取得JavaBean对象</li>
+<li>session 可以通过HttpSession.getAttribute()方法取得JavaBean对象</li>
+<li>application 可以通过application.getAttribute()方法取得JavaBean对象</li>
+</ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:useBean id=<span class="string">"student1"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.ackerman.Students"</span> scope=<span class="string">"作用域范围"</span>&gt;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/17/从零开始的JSP-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -408,7 +573,7 @@
 </ol>
 <figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">    out.println(<span class="string">"this is out object"</span>);</div><div class="line"></div><div class="line">    PrintWriter outer = response.getWriter();</div><div class="line">    outer.println(<span class="string">"PrintWriter输出流的内容会优先于out实例的输出流&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;%= response.getCharacterEncoding() %&gt;&lt;br/&gt;</div><div class="line">&lt;%--&lt;%--%&gt;</div><div class="line">    &lt;%--<span class="comment">//请求重定向--%&gt;</span></div><div class="line">    &lt;%--response.sendRedirect(<span class="string">"register.jsp"</span>);--%&gt;</div><div class="line">&lt;%--%&gt;--%&gt;</div></pre></td></tr></table></figure>
 <h3 id="请求重定向和请求转发"><a href="#请求重定向和请求转发" class="headerlink" title="请求重定向和请求转发"></a>请求重定向和请求转发</h3><p><strong>请求重定向：</strong>客户端行为，response.sendRedirect()，本质上讲等同于两次请求，前一次的请求对象不会被保存，地址栏的URL地址会改变。<br>举个例子：A页面请求将数据提交到C页面，但是实际上A请求B, B在请求C,此时C不能接收到A的数据<br><strong>请求转发：</strong>服务器行为，request.getRequestDispatcher().forword(request, response)是一次请求，转发会请求对象会保存，地址栏的URL地址不会改变。</p>
-<h2 id="Session对象"><a href="#Session对象" class="headerlink" title="Session对象"></a>Session对象</h2><p>###session概念：<br>在服务器的内存中保存着不同用户的session。</p>
+<h2 id="Session对象"><a href="#Session对象" class="headerlink" title="Session对象"></a>Session对象</h2><h3 id="session概念："><a href="#session概念：" class="headerlink" title="session概念："></a>session概念：</h3><p>在服务器的内存中保存着不同用户的session。</p>
 <ol>
 <li>session表示客户端与服务器的一次回话</li>
 <li>Web中的session指的是用户在浏览某个网站时，从进入网站到浏览关闭所经过的这段时间，也就是用户浏览网站所花费的时间</li>
@@ -461,7 +626,7 @@
 <li>String getServerInfo() 返回JSP引擎名字和版本号</li>
 </ol>
 <figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;在当前页面测试application&lt;/h1&gt;</div><div class="line">&lt;%</div><div class="line">    application.setAttribute(<span class="string">"city"</span>, <span class="string">"xiamen"</span>);</div><div class="line">    application.setAttribute(<span class="string">"name"</span>, <span class="string">"ackerman"</span>);</div><div class="line">    application.setAttribute(<span class="string">"number"</span>, <span class="number">34</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">所在城市：&lt;%= application.getAttribute(<span class="string">"city"</span>)%&gt;&lt;br/&gt;</div><div class="line">已有属性：&lt;%</div><div class="line">    Enumeration e = application.getAttributeNames();</div><div class="line">    <span class="keyword">while</span>(e.hasMoreElements())&#123;</div><div class="line">        out.println(e.nextElement() + <span class="string">"&lt;br/&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">%&gt;</div><div class="line">引擎版本：&lt;%= application.getServerInfo() %&gt;</div></pre></td></tr></table></figure>
-<p>如果我们在该项目的其他页面中，进行城市、属性和版本进行相同的查询工作，会得到一样的结果（除非）。</p>
+<p>如果我们在该项目的其他页面中，进行城市、属性和版本进行相同的查询工作，会得到一样的结果（除非服务器关闭）。</p>
 <h2 id="Page对象"><a href="#Page对象" class="headerlink" title="Page对象"></a>Page对象</h2><p>page对象就是指向当前JSP页面本身，有点像类中的this指针，它是java.lang.Object类的实例。常用方法如下：</p>
 <ol>
 <li>class getClass() 返回此Object类</li>
@@ -506,9 +671,9 @@
 <li>String getMessage() 返回描述异常的消息</li>
 <li>String toString() 返回关于异常的简短描述信息</li>
 <li>void printStackTrace() 显示异常及其栈轨迹</li>
-<li>Throwable FillStackTrace() 重写异常的执行栈轨迹<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%<span class="meta">@page</span>  errorPage=<span class="string">"exception.jsp"</span> %&gt;</div><div class="line"></div><div class="line">	&lt;h1&gt;测试异常页面&lt;/h1&gt;</div><div class="line">    &lt;%</div><div class="line">        System.out.println(<span class="number">100</span>/<span class="number">0</span>);</div><div class="line">    %&gt;</div></pre></td></tr></table></figure>
-</li>
+<li>Throwable FillStackTrace() 重写异常的执行栈轨迹</li>
 </ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%<span class="meta">@page</span>  errorPage=<span class="string">"exception.jsp"</span> %&gt;</div><div class="line"></div><div class="line">	&lt;h1&gt;测试异常页面&lt;/h1&gt;</div><div class="line">    &lt;%</div><div class="line">        System.out.println(<span class="number">100</span>/<span class="number">0</span>);</div><div class="line">    %&gt;</div></pre></td></tr></table></figure>
 <p>下面是exception.jsp<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;%= exception.getMessage()%&gt;&lt;br/&gt;</div><div class="line">&lt;%= exception.toString() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
 
           
@@ -1014,7 +1179,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1036,7 +1201,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
