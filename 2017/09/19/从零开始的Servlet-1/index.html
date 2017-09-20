@@ -95,20 +95,22 @@
 
 
 
-<meta name="description" content="Servlet基础Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。 Tomcat容器等级Tomcat的容器分为四个等级：Tomcat容器管理Container容器Container容器管理Engine容器Engine容器管理HOST容器HOST容器管理S">
+<meta name="description" content="Servlet基础Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。 Tomcat容器等级Tomcat的容器分为四个等级：Servlet的容器管理Context容器，一个Context对应于一个web工程 创建ServletServelet的继承体系如下：">
 <meta name="keywords" content="Servlet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零开始的Servlet(1)">
 <meta property="og:url" content="http://yoursite.com/2017/09/19/从零开始的Servlet-1/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="Servlet基础Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。 Tomcat容器等级Tomcat的容器分为四个等级：Tomcat容器管理Container容器Container容器管理Engine容器Engine容器管理HOST容器HOST容器管理S">
+<meta property="og:description" content="Servlet基础Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。 Tomcat容器等级Tomcat的容器分为四个等级：Servlet的容器管理Context容器，一个Context对应于一个web工程 创建ServletServelet的继承体系如下：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/nba/1.jpg1.jpg">
-<meta property="og:updated_time" content="2017-09-19T15:18:34.676Z">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/java/servlet2.jpg">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/java/servlet1.png">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/java/servlet3.jpg">
+<meta property="og:updated_time" content="2017-09-20T03:38:02.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的Servlet(1)">
-<meta name="twitter:description" content="Servlet基础Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。 Tomcat容器等级Tomcat的容器分为四个等级：Tomcat容器管理Container容器Container容器管理Engine容器Engine容器管理HOST容器HOST容器管理S">
-<meta name="twitter:image" content="http://owj98yrme.bkt.clouddn.com/nba/1.jpg1.jpg">
+<meta name="twitter:description" content="Servlet基础Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。 Tomcat容器等级Tomcat的容器分为四个等级：Servlet的容器管理Context容器，一个Context对应于一个web工程 创建ServletServelet的继承体系如下：">
+<meta name="twitter:image" content="http://owj98yrme.bkt.clouddn.com/java/servlet2.jpg">
 
 
 
@@ -371,9 +373,35 @@
 
       
         <h1 id="Servlet基础"><a href="#Servlet基础" class="headerlink" title="Servlet基础"></a>Servlet基础</h1><p>Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。</p>
-<h2 id="Tomcat容器等级"><a href="#Tomcat容器等级" class="headerlink" title="Tomcat容器等级"></a>Tomcat容器等级</h2><p>Tomcat的容器分为四个等级：<br>Tomcat容器管理Container容器<br>Container容器管理Engine容器<br>Engine容器管理HOST容器<br>HOST容器管理Servlet容器<br>Servlet的容器管理Context，一个Context对应于一个web工程</p>
-<h2 id="手工创建Servlet"><a href="#手工创建Servlet" class="headerlink" title="手工创建Servlet"></a>手工创建Servlet</h2><p>Servelet的继承体系如下：<br>自定义Servlet –&gt; Abstract class HttpServlet –&gt; Abstract class GenericServlet –&gt; interface Servlet</p>
-<p><img src="http://owj98yrme.bkt.clouddn.com/nba/1.jpg1.jpg" alt=""><br>啊哈哈的</p>
+<h2 id="Tomcat容器等级"><a href="#Tomcat容器等级" class="headerlink" title="Tomcat容器等级"></a>Tomcat容器等级</h2><p>Tomcat的容器分为四个等级：<br>Servlet的容器管理Context容器，一个Context对应于一个web工程<br><img src="http://owj98yrme.bkt.clouddn.com/java/servlet2.jpg" alt=""></p>
+<h2 id="创建Servlet"><a href="#创建Servlet" class="headerlink" title="创建Servlet"></a>创建Servlet</h2><p>Servelet的继承体系如下：<br>自定义Servlet –&gt; Abstract class HttpServlet –&gt; Abstract class GenericServlet –&gt; interface Servlet</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/java/servlet1.png" alt=""></p>
+<h3 id="写个小例子"><a href="#写个小例子" class="headerlink" title="写个小例子"></a>写个小例子</h3><ol>
+<li>继承HttpServlet</li>
+<li>重写doGet()和doPost()方法</li>
+<li>在web.xml中注册Servlet</li>
+</ol>
+<p>这个方式和Django里的View.py里处理request和response的方式有点像。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.servlet.ackerman;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line"><span class="comment">//        super.doGet(request, response);</span></div><div class="line">        System.out.println(<span class="string">"处理Get（）请求"</span>);</div><div class="line">        PrintWriter out = response.getWriter();</div><div class="line">        response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">        out.println(<span class="string">"&lt;Strong&gt;Hello World&lt;/Strong&gt;"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line"><span class="comment">//        super.doPost(req, resp);</span></div><div class="line">        System.out.println(<span class="string">"处理Post（）请求"</span>);</div><div class="line">        PrintWriter out = response.getWriter();</div><div class="line">        response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">        out.println(<span class="string">"&lt;Strong&gt;Hello MyBaby&lt;/Strong&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接着在web.xml注册HelloServlet类，就像在Django的admin.py里注册一样<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">servlet</span>.<span class="title">ackerman</span>.<span class="title">HelloServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">class</span>&gt;</span></div><div class="line"><span class="class">&lt;/<span class="title">servlet</span>&gt;</span></div><div class="line"><span class="class">&lt;<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">servlet</span>-<span class="title">name</span>&gt;<span class="title">HelloServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">name</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/<span class="title">HelloServlet</span>&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></div><div class="line"><span class="class">&lt;/<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在页面上使用Servlet，注意这里的href和action的链接与上面的url-pattern要匹配<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;第一个Servlet例子&lt;/h1&gt;</div><div class="line">&lt;a href="HelloServlet"&gt;Get方式请求HelloServlet&lt;/a&gt;</div><div class="line">&lt;form action=<span class="string">"HelloServlet"</span> method=<span class="string">"POST"</span>&gt;</div><div class="line">  &lt;input type=<span class="string">"submit"</span> value=<span class="string">"Post方式提交HelloServlet"</span>/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Servlet的执行流程"><a href="#Servlet的执行流程" class="headerlink" title="Servlet的执行流程"></a>Servlet的执行流程</h2><p>Get方式请求HelloServlet –&gt; <a href="appNames/HelloServlet" \=""> –&gt; 在web.xml寻找对应的url-pattern –&gt; 在web.xml寻找对应的servlet-class –&gt; 寻找HelloServlet类中的doGet()请求方法</a></p>
+<h2 id="Servlet生命周期"><a href="#Servlet生命周期" class="headerlink" title="Servlet生命周期"></a>Servlet生命周期</h2><p>三个阶段：</p>
+<ol>
+<li>初始化阶段，调用init()方法加载Servlet类(如果Servlet已经被加载，直接进行第二步)。</li>
+<li>响应客户请求阶段，调用service()方法。由service()方法根据提交方式选择执行doGet()或者doPost()方法。</li>
+<li>终止阶段，调用destroy方法。</li>
+</ol>
+<p><img src="http://owj98yrme.bkt.clouddn.com/java/servlet3.jpg" alt=""></p>
+<h3 id="servlet加载的三种情况"><a href="#servlet加载的三种情况" class="headerlink" title="servlet加载的三种情况"></a>servlet加载的三种情况</h3><p>首先要记得Servlet实例化对象是长期存放在内存中的。<br>在下列时刻Servlet容器装载Servlet：</p>
+<ol>
+<li><p>Servlet容器启动时自动装载某些Servlet，实现它只需要在web.xml文件中Servlet标签中添加如下代码，数字越小表示优先级越高。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;loadon-startup&gt;1&lt;/loadon-startup&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在Servlet容器启动后，客户首次向Servlet发送请求。</p>
+</li>
+<li>Servlet类文件被更新后，重新装载Servlet。</li>
+</ol>
+<p>Servlet被装载后，Servlet容器创建一个Servlet实例并且调用Servlet的init()方法进行初始化。在整个Servlet的整个生命周期内，init()方法只被调用一次。</p>
 
       
     </div>
@@ -549,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet基础"><span class="nav-number">1.</span> <span class="nav-text">Servlet基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat容器等级"><span class="nav-number">1.1.</span> <span class="nav-text">Tomcat容器等级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手工创建Servlet"><span class="nav-number">1.2.</span> <span class="nav-text">手工创建Servlet</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet基础"><span class="nav-number">1.</span> <span class="nav-text">Servlet基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat容器等级"><span class="nav-number">1.1.</span> <span class="nav-text">Tomcat容器等级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Servlet"><span class="nav-number">1.2.</span> <span class="nav-text">创建Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写个小例子"><span class="nav-number">1.2.1.</span> <span class="nav-text">写个小例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet的执行流程"><span class="nav-number">1.3.</span> <span class="nav-text">Servlet的执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet生命周期"><span class="nav-number">1.4.</span> <span class="nav-text">Servlet生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#servlet加载的三种情况"><span class="nav-number">1.4.1.</span> <span class="nav-text">servlet加载的三种情况</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
