@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Servlet," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -95,20 +95,17 @@
 
 
 
-<meta name="description" content="ServletMVC模型Java Web的Model2开发模型就是MVC思想的体现。 Servlet练手小项目使用Servlet技术实现购物车效果">
-<meta name="keywords" content="Servlet">
+<meta name="description" content="单例模式的作用：保证整个应用中某个实例中有且仅有一个。 饿汉模式类的静态成员属于类所有，一旦类加载的时候，instance实例就会被创建。由于instance对象在类加载时候马上被创建的，所以称之为饿汉。 1234567891011121314151617class HungryMan&amp;#123;    /*    1. 私有化构造方法，不允许外部直接创建对象    2. 创建类的唯一实例">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从零开始的Servlet(2)">
-<meta property="og:url" content="http://yoursite.com/2017/09/20/从零开始的Servlet-2/index.html">
+<meta property="og:title" content="设计模式--单例模式">
+<meta property="og:url" content="http://yoursite.com/2017/10/27/设计模式-单例模式/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="ServletMVC模型Java Web的Model2开发模型就是MVC思想的体现。 Servlet练手小项目使用Servlet技术实现购物车效果">
+<meta property="og:description" content="单例模式的作用：保证整个应用中某个实例中有且仅有一个。 饿汉模式类的静态成员属于类所有，一旦类加载的时候，instance实例就会被创建。由于instance对象在类加载时候马上被创建的，所以称之为饿汉。 1234567891011121314151617class HungryMan&amp;#123;    /*    1. 私有化构造方法，不允许外部直接创建对象    2. 创建类的唯一实例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/servlet4.jpg">
-<meta property="og:updated_time" content="2017-09-22T11:44:25.868Z">
+<meta property="og:updated_time" content="2017-10-27T12:36:16.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从零开始的Servlet(2)">
-<meta name="twitter:description" content="ServletMVC模型Java Web的Model2开发模型就是MVC思想的体现。 Servlet练手小项目使用Servlet技术实现购物车效果">
-<meta name="twitter:image" content="http://owj98yrme.bkt.clouddn.com/servlet4.jpg">
+<meta name="twitter:title" content="设计模式--单例模式">
+<meta name="twitter:description" content="单例模式的作用：保证整个应用中某个实例中有且仅有一个。 饿汉模式类的静态成员属于类所有，一旦类加载的时候，instance实例就会被创建。由于instance对象在类加载时候马上被创建的，所以称之为饿汉。 1234567891011121314151617class HungryMan&amp;#123;    /*    1. 私有化构造方法，不允许外部直接创建对象    2. 创建类的唯一实例">
 
 
 
@@ -138,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/20/从零开始的Servlet-2/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/27/设计模式-单例模式/"/>
 
 
 
 
 
-  <title>从零开始的Servlet(2) | 10000小时</title>
+  <title>设计模式--单例模式 | 10000小时</title>
   
 
 
@@ -281,7 +278,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/20/从零开始的Servlet-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/设计模式-单例模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔头刘德华">
@@ -298,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">从零开始的Servlet(2)</h1>
+          <h1 class="post-title" itemprop="name headline">设计模式--单例模式</h1>
         
 
         <div class="post-meta">
@@ -310,8 +307,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T16:17:25+08:00">
-                2017-09-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T10:31:10+08:00">
+                2017-10-27
               </time>
             
 
@@ -320,6 +317,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -348,8 +367,15 @@
       
 
       
-        <h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><h2 id="MVC模型"><a href="#MVC模型" class="headerlink" title="MVC模型"></a>MVC模型</h2><p>Java Web的Model2开发模型就是MVC思想的体现。<br><img src="http://owj98yrme.bkt.clouddn.com/servlet4.jpg" alt=""></p>
-<h2 id="Servlet练手小项目"><a href="#Servlet练手小项目" class="headerlink" title="Servlet练手小项目"></a>Servlet练手小项目</h2><p><strong>使用Servlet技术实现购物车效果</strong></p>
+        <p>单例模式的作用：保证整个应用中某个实例中有且仅有一个。</p>
+<h4 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h4><p>类的静态成员属于类所有，一旦类加载的时候，instance实例就会被创建。<br>由于instance对象在类加载时候马上被创建的，所以称之为饿汉。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HungryMan</span></span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">    1. 私有化构造方法，不允许外部直接创建对象</span></div><div class="line"><span class="comment">    2. 创建类的唯一实例 </span></div><div class="line"><span class="comment">    3. 提供一个获取实例的方法</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HungryMan instance = <span class="keyword">new</span> HungryMan();</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungryMan</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//...doSomething</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungryMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h4><p>当类加载时候，类的实例并未被创建，只有当调用者第一次使用getInstance时候，类的唯一实例才会被创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazyMan</span></span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">    1. 私有化构造方法，不允许外部直接创建对象</span></div><div class="line"><span class="comment">    2. 声明类的唯一实例</span></div><div class="line"><span class="comment">    3. 提供一个获取实例的方法</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyMan instance;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span>  <span class="title">LazyMan</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//doSomething            </span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</div><div class="line">            instance = <span class="keyword">new</span> LazyMan();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>####　区别<br>饿汉模式加载类的时候比较慢，因为要创建instance实例<br>懒汉模式加载类的时候比较快，因为没有创建instance实例，故在第一次获取实例的时候，会比较慢。</p>
+<p>懒汉模式是线程不安全的。<br>举个例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">假设开始线程0进入，判断instance为空，在将要创建实例时，cpu切换，</div><div class="line">线程1又进来了，同样instance为空 创建了实例，这是cpu切换回来到0线程，继续创建实例。</div><div class="line">可见，经过分析共创建了两个实例，还谈什么单例。</div></pre></td></tr></table></figure></p>
+<p>下面是线程安全的懒汉模式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</div><div class="line">    	<span class="comment">//线程0</span></div><div class="line">        <span class="keyword">synchronized</span>(LazyMan.class)&#123;</div><div class="line">        	<span class="comment">//线程１</span></div><div class="line">            <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</div><div class="line">                instance = <span class="keyword">new</span> LazyMan();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>为什么需要判断两次instance == nulll<br>假设线程0进来，卡在所示的位置，然后切换cpu，进程1卡在所示位置，那么如果不进行内层的if判断的话，instance又会被创建两次了。</p>
 
       
     </div>
@@ -365,12 +391,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
-          
-        </div>
-      
 
       
       
@@ -380,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/19/从零开始的Servlet-1/" rel="next" title="从零开始的Servlet(1)">
-                <i class="fa fa-chevron-left"></i> 从零开始的Servlet(1)
+              <a href="/2017/10/14/Ajax/" rel="next" title="Ajax">
+                <i class="fa fa-chevron-left"></i> Ajax
               </a>
             
           </div>
@@ -389,10 +409,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/22/排序算法/" rel="prev" title="排序算法">
-                排序算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -529,7 +545,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet"><span class="nav-number">1.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC模型"><span class="nav-number">1.1.</span> <span class="nav-text">MVC模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet练手小项目"><span class="nav-number">1.2.</span> <span class="nav-text">Servlet练手小项目</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#饿汉模式"><span class="nav-number">1.</span> <span class="nav-text">饿汉模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#懒汉模式"><span class="nav-number">2.</span> <span class="nav-text">懒汉模式</span></a></li></ol></div>
             
 
           </div>
