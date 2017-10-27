@@ -275,6 +275,289 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/17/从零开始的JSP-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/17/从零开始的JSP-2/" itemprop="url">从零开始的JSP(2)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T21:45:58+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JSP内置对象"><a href="#JSP内置对象" class="headerlink" title="JSP内置对象"></a>JSP内置对象</h1><p>JSP内置对象是Web容器创建的一组对象，不使用new关键就可以使用的内置对象。<br>比如上面的九九乘法表中的out。<br><strong>JSP九大内置对象：</strong><br>out、request、response、session、application、Page、PageContext、exception、config</p>
+<h2 id="out对象"><a href="#out对象" class="headerlink" title="out对象"></a>out对象</h2><p>out对象是JspWriter类的实例，是向客户端输出内容常用的对象。<br>常用的方法：</p>
+<ol>
+<li>void println() 向客户端打印字符串</li>
+<li>void flush() 将缓冲区内容输出到客户端</li>
+<li>void clear() 清除缓冲区内容，如果在flush之后调用抛出异常</li>
+<li>void chearBuffer() 清除缓冲区内容</li>
+<li>int getBufferSize() 返回缓冲区以字节数的大小，如果不设立缓冲区则为0</li>
+<li>int getRemaining() 返回缓冲区剩余大小</li>
+<li>boolean isAutoFlush() 返回缓冲区满时，是自动清空还是抛出异常</li>
+<li>void close() 关闭输出流<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    out.println(<span class="string">"&lt;h2&gt;两句诗&lt;/h2&gt;"</span>);</div><div class="line">    out.println(<span class="string">"苟利国家生死以&lt;br/&gt;"</span>);</div><div class="line">    out.println(<span class="string">"岂因祸福避趋之&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">&lt;br/&gt;缓冲区大小：&lt;%= out.getBufferSize() %&gt;</div><div class="line">&lt;br/&gt;缓冲区剩余大小：&lt;%= out.getRemaining() %&gt;</div><div class="line">&lt;br/&gt;是否自动清除缓冲区大小：&lt;%= out.isAutoFlush() %&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="request对象"><a href="#request对象" class="headerlink" title="request对象"></a>request对象</h2><p>get和post的的区别</p>
+<ol>
+<li>get：以明文的方式通过URL提交数据，数据在URL中可以看到。提交的数据最多不超过2KB。安全性较低但效率比post方式高。合适提交数量不大，但安全性不高的数据。比如：搜索、查询等功能。</li>
+<li>post: 将用户提交的信息封装在HTML的头部信息内。适合提交数据量较大，安全性高的用户信息。比如：注册、修改、上传等功能。</li>
+</ol>
+<p>客户端的请求信息被封装在request对象中，通过它才能了解到客户的需求，然后做出响应。它是HttpServletRequest类的实例。request对象具有请求域，即完成客户端的请求之前，该对象一直有效，常用方法如下：</p>
+<ol>
+<li>String getParameter(String name) 返回name指定的参数值</li>
+<li>String [] getParameterValues(String name) 返回包含参数name的所有值的数组</li>
+<li>void setAttribute(String, Object) 存储此请求中的属性</li>
+<li>Object getAttrubute(String name) 返回指定属性的属性值</li>
+<li>String getContentType() 返回请求体的MIME类型</li>
+<li>String getProtocol() 返回请求用的协议类型和版本号</li>
+<li>String getServerName() 返回接受请求的服务器主机名</li>
+</ol>
+<p>下面是一个提交参数的页面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;form action=<span class="string">"request.jsp"</span> name=<span class="string">"registerForm"</span> method=<span class="string">"post"</span>&gt;</div><div class="line">    &lt;table&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td&gt;用户名：&lt;/td&gt;</div><div class="line">            &lt;td&gt;&lt;input type="text" name="username"/&gt;&lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td&gt;爱好：&lt;/td&gt;</div><div class="line">            &lt;td&gt;</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"read"</span>&gt;阅读</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"sport"</span>&gt;运动</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"music"</span>&gt;音乐</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"poem"</span>&gt;诗词</div><div class="line">            &lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td colspan="2"&gt;&lt;input type="submit"&gt;&lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>处理参数的请求的页面（request.jsp）<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">       <span class="comment">//设置接受请求时中文乱码的问题</span></div><div class="line">       request.setCharacterEncoding(<span class="string">"utf-8"</span>);</div><div class="line">   %&gt;</div><div class="line">   </div><div class="line">   <span class="comment">//获取请求参数</span></div><div class="line">   &lt;%= request.getParameter(<span class="string">"username"</span>) %&gt;</div><div class="line">   </div><div class="line">   &lt;%</div><div class="line">   	<span class="comment">//通过参数favorite获取属性值的数组</span></div><div class="line">       String [] fav = request.getParameterValues(<span class="string">"favorite"</span>);</div><div class="line">       <span class="keyword">if</span>(fav != <span class="keyword">null</span>) &#123;</div><div class="line">           <span class="keyword">for</span> (String s : fav) &#123;</div><div class="line">               out.println(s + <span class="string">"&amp;nbsp&amp;nbsp&amp;nbsp"</span>);</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   %&gt;</div></pre></td></tr></table></figure></p>
+<p>其他的request对象的用法<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    request.setAttribute(<span class="string">"password"</span>, <span class="string">"pockbandit"</span>);</div><div class="line">%&gt;</div><div class="line"></div><div class="line">&lt;%= request.getAttribute(<span class="string">"password"</span>) %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getContentType() %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getProtocol() %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getServerName() %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getServerPort() %&gt;&lt;br/&gt;</div><div class="line">请求文件的长度：&lt;%= request.getContentLength() %&gt;&lt;br/&gt;</div><div class="line">请求客户端的IP地址：&lt;%= request.getRemoteAddr() %&gt;&lt;br/&gt;</div><div class="line">请求的真实路径：&lt;%= request.getRealPath(<span class="string">"reqeust.jsp"</span>) %&gt;&lt;br/&gt;</div><div class="line">请求的上下文路径：&lt;%= request.getContextPath() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h2><p>response对象包含了响应客户请求的有关信息，但是在JSP中很少直接使用它，它是HttpServletResponse类的实例。response对象具有页面的作用域，即访问一个页面时，该页面的response对象只能对这次的访问有效，其它页面的response对象对象当前页面无效。常用方法如下：</p>
+<ol>
+<li>String getCharacterEncoding() 返回响应用的是何种字符编码</li>
+<li>void setContentType(String type) 设置响应的MIME类型</li>
+<li>PrintWriter getWriter() 返回可以向客户端输出字符的一个对象</li>
+<li>sendRedirect(java.lang.String location) 重定向客户端的请求</li>
+</ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">    out.println(<span class="string">"this is out object"</span>);</div><div class="line"></div><div class="line">    PrintWriter outer = response.getWriter();</div><div class="line">    outer.println(<span class="string">"PrintWriter输出流的内容会优先于out实例的输出流&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;%= response.getCharacterEncoding() %&gt;&lt;br/&gt;</div><div class="line">&lt;%--&lt;%--%&gt;</div><div class="line">    &lt;%--<span class="comment">//请求重定向--%&gt;</span></div><div class="line">    &lt;%--response.sendRedirect(<span class="string">"register.jsp"</span>);--%&gt;</div><div class="line">&lt;%--%&gt;--%&gt;</div></pre></td></tr></table></figure>
+<h3 id="请求重定向和请求转发"><a href="#请求重定向和请求转发" class="headerlink" title="请求重定向和请求转发"></a>请求重定向和请求转发</h3><p><strong>请求重定向：</strong>客户端行为，response.sendRedirect()，本质上讲等同于两次请求，前一次的请求对象不会被保存，地址栏的URL地址会改变。<br>举个例子：A页面请求将数据提交到C页面，但是实际上A请求B, B在请求C,此时C不能接收到A的数据<br><strong>请求转发：</strong>服务器行为，request.getRequestDispatcher().forword(request, response)是一次请求，转发会请求对象会保存，地址栏的URL地址不会改变。</p>
+<h2 id="Session对象"><a href="#Session对象" class="headerlink" title="Session对象"></a>Session对象</h2><h3 id="session概念："><a href="#session概念：" class="headerlink" title="session概念："></a>session概念：</h3><p>在服务器的内存中保存着不同用户的session。</p>
+<ol>
+<li>session表示客户端与服务器的一次回话</li>
+<li>Web中的session指的是用户在浏览某个网站时，从进入网站到浏览关闭所经过的这段时间，也就是用户浏览网站所花费的时间</li>
+<li>session实际上是一个特定的时间概念</li>
+</ol>
+<h3 id="session对象的概念"><a href="#session对象的概念" class="headerlink" title="session对象的概念"></a>session对象的概念</h3><p>sessioin对象是HttpSession类的实例。</p>
+<ol>
+<li>session对象在第一个JSP页面被装载时自动创建，完成会话期间管理。</li>
+<li>从一个客户打开浏览器并连接到服务器开始，到客户端关闭浏览器离开这个服务器结束，称为一个会话。</li>
+<li>当一个客户访问一个服务器时，可能会在服务器的几个页面之间切换，服务器应当通过某种办法知道这是一个客户，就需要session对象。</li>
+</ol>
+<p>session对象常用方法如下：</p>
+<ol>
+<li>long getCreationTime() 返回session创建时间</li>
+<li>String getId() 返回session被创建时JSP引擎将它设为唯一ID号</li>
+<li>Object SetAttribute(String name, Object Value) 设置属性及其值绑定到此次会话</li>
+<li>Object getAttrubute(String name) 返回属性的值，找不到返回null</li>
+<li>String [] getValueNames() 返回一个包含此session中所有可能的属性数组</li>
+<li>int getMaxInactiveInterval() 返回session的生命周期（单位秒）</li>
+</ol>
+<p>下面是session.jsp的使用页面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">    &lt;%</div><div class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy/MM/dd HH:mm:ss"</span>);</div><div class="line">        Date d = <span class="keyword">new</span> Date(session.getCreationTime());</div><div class="line">        session.setAttribute(<span class="string">"name"</span>, <span class="string">"ackerman"</span>);</div><div class="line">        session.setAttribute(<span class="string">"man"</span>, <span class="string">"manman"</span>);</div><div class="line">        session.setAttribute(<span class="string">"number"</span>, <span class="number">34</span>);</div><div class="line">        </div><div class="line"><span class="comment">//        session的生命周期只有10秒</span></div><div class="line">        session.setMaxInactiveInterval(<span class="number">10</span>);</div><div class="line">    %&gt;</div><div class="line">    session创建时间：&lt;%= d %&gt;&lt;br/&gt;</div><div class="line">    session的ID编号：&lt;%= session.getId() %&gt;&lt;br/&gt;</div><div class="line">    session取属性值：&lt;%= session.getAttribute(<span class="string">"name"</span>) %&gt;&lt;br/&gt;</div><div class="line">    session属性数组：&lt;%</div><div class="line">        String [] names =  session.getValueNames();</div><div class="line">        <span class="keyword">if</span>(names != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">for</span>(String s: names)&#123;</div><div class="line">                out.println(s + <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    %&gt;&lt;br/&gt;</div><div class="line"></div><div class="line">    &lt;a href="session2.jsp" target="_blank"&gt;跳转页面，验证session的有效性&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>下面是跳转的session2.jsp<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;%= session.getAttribute(<span class="string">"name"</span>) %&gt;&lt;br/&gt;</div><div class="line">&lt;%= session.getId() %&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="session的生命周期"><a href="#session的生命周期" class="headerlink" title="session的生命周期"></a>session的生命周期</h3><p><strong>创建阶段：</strong>当客户端第一次访问某个jsp或者Servlet时候，服务器会为当前会话创建一个SessionId，每当客户端向服务端发送请求时，都会将此Id携带过去，服务端会对此SessionId进行校验。</p>
+<p><strong>活动阶段：</strong></p>
+<ol>
+<li>某次会话当中通过超链接打开的新页面都属于同一次会话</li>
+<li>只要当前会话页面没有全部关闭，重新打开新的浏览器窗口访问同一个项目资源属于同一次会话。</li>
+<li>除非本次会话所有页面都关闭后再重新访问某个JSP或者Servlet将会创建新的会话。（原有会话还存在，旧的sessionId仍然存在于服务端，只不过再也没有客用户端会携带此Id进行访问）。</li>
+</ol>
+<p><strong>销毁阶段：</strong>有三种方式可以销毁session会话</p>
+<ol>
+<li>调用了session.invalidate()方法</li>
+<li>session过期（设置的MaxInactiveInterval过期时间或者web.xml设置过期时间）</li>
+<li>服务器重新启动</li>
+</ol>
+<h2 id="application对象"><a href="#application对象" class="headerlink" title="application对象"></a>application对象</h2><p><strong>application对象的概念：</strong></p>
+<ol>
+<li>application对象实现了用户间数据的共享，可存放全局变量</li>
+<li>application开始于服务器的启动，终止于服务器的关闭</li>
+<li>在用户的前后连接或不同用户之间的连接中，可以对application对象的同一属性进行操作</li>
+<li>在任何地方对appication对象属性的操作，都会影响到其他用户对其的访问</li>
+<li>服务器的启动和关闭决定了application对象的生命周期</li>
+<li>application对象是ServletContext类的实例</li>
+</ol>
+<p><strong>application对象的常用方法：</strong></p>
+<ol>
+<li>void setAttribute(String name, Object value)</li>
+<li>Object getAttribute(String name)</li>
+<li>Enumeration getAttributeNames() 返回所有可用属性的枚举</li>
+<li>String getServerInfo() 返回JSP引擎名字和版本号</li>
+</ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;在当前页面测试application&lt;/h1&gt;</div><div class="line">&lt;%</div><div class="line">    application.setAttribute(<span class="string">"city"</span>, <span class="string">"xiamen"</span>);</div><div class="line">    application.setAttribute(<span class="string">"name"</span>, <span class="string">"ackerman"</span>);</div><div class="line">    application.setAttribute(<span class="string">"number"</span>, <span class="number">34</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">所在城市：&lt;%= application.getAttribute(<span class="string">"city"</span>)%&gt;&lt;br/&gt;</div><div class="line">已有属性：&lt;%</div><div class="line">    Enumeration e = application.getAttributeNames();</div><div class="line">    <span class="keyword">while</span>(e.hasMoreElements())&#123;</div><div class="line">        out.println(e.nextElement() + <span class="string">"&lt;br/&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">%&gt;</div><div class="line">引擎版本：&lt;%= application.getServerInfo() %&gt;</div></pre></td></tr></table></figure>
+<p>如果我们在该项目的其他页面中，进行城市、属性和版本进行相同的查询工作，会得到一样的结果（除非服务器关闭）。</p>
+<h2 id="Page对象"><a href="#Page对象" class="headerlink" title="Page对象"></a>Page对象</h2><p>page对象就是指向当前JSP页面本身，有点像类中的this指针，它是java.lang.Object类的实例。常用方法如下：</p>
+<ol>
+<li>class getClass() 返回此Object类</li>
+<li>int hashCode() 返回此Object的hash码</li>
+<li>boolean equals(Object obj) 判断此Object是否与指定的Object对象相等</li>
+<li>void copy(Object obj)把此Object拷贝到指定的Object对象中</li>
+<li>Object clone() 克隆此Object对象</li>
+<li>String toString() </li>
+<li>void notify() 唤醒一个等待的线程</li>
+<li>void notifyAll()</li>
+<li>void wait(int timeout) 使一个线程处于等待直到timeout结束或唤醒</li>
+<li>void wait() 使一个线程一直处于等待直到被唤醒</li>
+</ol>
+<h2 id="pageContext对象"><a href="#pageContext对象" class="headerlink" title="pageContext对象"></a>pageContext对象</h2><p>概念：</p>
+<ol>
+<li>pageContext对象提供了对JSP页面内所有的对象及名字空间的访问</li>
+<li>pageContext对象可以访问本页所在的session，也可以取本页面所在的appication的某一个属性值</li>
+<li>pageContext对象相当于页面中所有功能的集大成者</li>
+<li>pageContext对象的本类名也叫作pageContext</li>
+</ol>
+<p>常用方法：</p>
+<ol>
+<li>JspWriter getOut() 返回当前客户端响应被使用的JspWriter流（out）</li>
+<li>HttpSession getSession() 返回当前页面中的HttpSession对象（session）</li>
+<li>Object getPage() 返回当前页面的Object对象（page）</li>
+<li>ServletRequest getRequest() 返回当前页面的ServletRequest对象（request）</li>
+<li>ServletResponse getResponse() 返回当前页面的ServletResponse对象（response）</li>
+<li>void setAttribute(String, Object)</li>
+<li>Object getAttribute(Strring, int) 在指定范围内取属性的值</li>
+<li>int getAttributeScope(String) 返回某属性的作用范围</li>
+<li>void forward(String relativeUrlPath) 使当前页面重导到另一页面，浏览器的地址不会被改变</li>
+<li>void include(String relativeUrlPath) 在当前位置包含另一文件</li>
+</ol>
+<h2 id="Config对象"><a href="#Config对象" class="headerlink" title="Config对象"></a>Config对象</h2><p>config对象是在一个servlet初始化时，JSP引擎向它传递信息用的，此信息包括Servlet初始化要用到的参数（通过属性名和属性值构成）以及服务器有关的信息（通过传递一个ServletContext对象）。<br>常用的方法如下：</p>
+<ol>
+<li>ServletContext getServletContext() 返回含有服务器相关信息的ServletContext对象</li>
+<li>String getInitParameter(String name) 返回初始化参数的值</li>
+<li>Enumeration getInitParameterNames() 返回Servlet初始化所需所有参数的枚举</li>
+</ol>
+<h2 id="Exception对象"><a href="#Exception对象" class="headerlink" title="Exception对象"></a>Exception对象</h2><p>exception对象是一个异常对象，当一个页面在运行过程中发生了异常，就产生了这个对象。如果一个JSP页面要应用此对象，就必须把isErrorPage设为true，否则无法编译。他实际上是java.lang.Throwable的对象。<br>常用方法如下：</p>
+<ol>
+<li>String getMessage() 返回描述异常的消息</li>
+<li>String toString() 返回关于异常的简短描述信息</li>
+<li>void printStackTrace() 显示异常及其栈轨迹</li>
+<li>Throwable FillStackTrace() 重写异常的执行栈轨迹</li>
+</ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%<span class="meta">@page</span>  errorPage=<span class="string">"exception.jsp"</span> %&gt;</div><div class="line"></div><div class="line">	&lt;h1&gt;测试异常页面&lt;/h1&gt;</div><div class="line">    &lt;%</div><div class="line">        System.out.println(<span class="number">100</span>/<span class="number">0</span>);</div><div class="line">    %&gt;</div></pre></td></tr></table></figure>
+<p>下面是exception.jsp<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;%= exception.getMessage()%&gt;&lt;br/&gt;</div><div class="line">&lt;%= exception.toString() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/16/从零开始的JSP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -593,7 +876,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
