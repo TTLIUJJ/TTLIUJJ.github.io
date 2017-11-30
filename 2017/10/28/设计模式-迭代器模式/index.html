@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="10000小时">
 <meta property="og:description" content="定义： 提供一种方法访问一个容器对象中的每个元素，而又不暴露该对象的内部细节。 迭代器模式的运用提到迭代器，首先它是与集合相关的，集合可以看作是一个可以包含对象的容器。例如List，Set，Map，迭代器的作用就是把容器中的对象一个接一个地遍历出来。 12345678910111213141516import java.util.ArrayList;import java.util.Iterato">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-28T07:35:01.235Z">
+<meta property="og:updated_time" content="2017-10-28T16:40:42.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式--迭代器模式">
 <meta name="twitter:description" content="定义： 提供一种方法访问一个容器对象中的每个元素，而又不暴露该对象的内部细节。 迭代器模式的运用提到迭代器，首先它是与集合相关的，集合可以看作是一个可以包含对象的容器。例如List，Set，Map，迭代器的作用就是把容器中的对象一个接一个地遍历出来。 12345678910111213141516import java.util.ArrayList;import java.util.Iterato">
@@ -374,8 +374,9 @@
 <ol>
 <li>抽象容器，一般是一个接口， 提供一个iterator() 方法，如java中的Collection、List和Set等类的接口。</li>
 <li>具体容器，容器的实现类 ，如ArrayList, LinkedList和HashSet等。</li>
-<li>抽象迭代器， 定义遍历集合中的所需要的方法，一般包含三个方法。<br>&gt;<br>next()    取得迭代器中准备的下一个元素<br>hasNext()    判断是否遍历结束<br>remove() 将迭代器的下一个元素移除</li>
+<li>抽象迭代器， 定义遍历集合中的所需要的方法，一般包含三个方法。    </li>
 </ol>
+<p>&gt;<br>next()    取得迭代器中准备的下一个元素<br>hasNext()    判断是否遍历结束<br>remove() 将迭代器的下一个元素移除</p>
 <p>4.具体迭代器，实现抽象迭代器的方法。</p>
 <p>抽象迭代器</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyIterator</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -422,6 +423,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/31/Java并发编程的艺术-学习笔记-1/" rel="prev" title="Java并发编程的艺术 学习笔记(1)">
+                Java并发编程的艺术 学习笔记(1) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -501,7 +506,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -512,7 +517,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
