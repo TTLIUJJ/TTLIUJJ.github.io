@@ -275,6 +275,751 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/设计模式-工厂模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/27/设计模式-工厂模式/" itemprop="url">设计模式--工厂模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T20:41:05+08:00">
+                2017-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>工厂模式：实例化对象，用工厂方法代替new操作。</p>
+<h4 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h4><p>简单工厂模式又称静态工厂方法模式。重命名上就可以看出这个模式一定很简单。它存在的目的很简单：定义一个用于创建对象的接口。<br>1) 工厂类角色：这是本模式的核心，含有一定的商业逻辑和判断逻辑，用来创建产品。<br>2) 抽象产品角色：它一般是具体产品继承的父类或者实现的接口。<br>3) 具体产品角色：工厂类所创建的对象就是此角色的实例。在java中由一个具体类实现。</p>
+<p>产品类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BMW</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BMW</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW320</span> <span class="keyword">extends</span> <span class="title">BMW</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BMW320</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create BMW320"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW520</span> <span class="keyword">extends</span> <span class="title">BMW</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BMW520</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create BMW520"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>工厂类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMWFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> BMW <span class="title">createBMW</span><span class="params">(<span class="keyword">int</span> type)</span></span>&#123;</div><div class="line">        <span class="keyword">switch</span> (type)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="number">320</span>: <span class="keyword">return</span> <span class="keyword">new</span> BMW320();</div><div class="line">            <span class="keyword">case</span> <span class="number">520</span>: <span class="keyword">return</span> <span class="keyword">new</span> BMW520();</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPattern</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        BMWFactory factory = <span class="keyword">new</span> BMWFactory();</div><div class="line">        factory.createBMW(<span class="number">520</span>);</div><div class="line">        factory.createBMW(<span class="number">320</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="工厂方式模式"><a href="#工厂方式模式" class="headerlink" title="工厂方式模式"></a>工厂方式模式</h4><p>工厂方法模式组成：<br>1)抽象工厂角色： 这是工厂方法模式的核心，它与应用程序无关。是具体工厂角色必须实现的接口或者必须继承的父类。在java中它由抽象类或者接口来实现。<br>2)具体工厂角色：它含有和具体业务逻辑有关的代码。由应用程序调用以创建对应的具体产品的对象。<br> 3)抽象产品角色：它是具体产品继承的父类或者是实现的接口。在java中一般有抽象类或者接口来实现。<br>4)具体产品角色：具体工厂角色所创建的对象就是此角色的实例。在java中由具体的类来实现。 </p>
+<p>产品类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Audi</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Audi</span><span class="params">()</span></span>&#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA4</span> <span class="keyword">extends</span> <span class="title">Audi</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AudiA4</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create AudiA4"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA6</span> <span class="keyword">extends</span> <span class="title">Audi</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AudiA6</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create AudiA6"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>工厂类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">AudiFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Audi <span class="title">createAudi</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA4Factory</span> <span class="keyword">implements</span> <span class="title">AudiFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> AudiA4 <span class="title">createAudi</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AudiA4();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA6Factory</span> <span class="keyword">implements</span> <span class="title">AudiFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> AudiA6 <span class="title">createAudi</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AudiA6();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPattern</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        AudiA4Factory audiA4Factory = <span class="keyword">new</span> AudiA4Factory();</div><div class="line">        AudiA4 audiA4 = audiA4Factory.createAudi();</div><div class="line">        </div><div class="line">        AudiA6Factory audiA6Factory = <span class="keyword">new</span> AudiA6Factory();</div><div class="line">        AudiA6 audiA6 = audiA6Factory.createAudi();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 工厂方法模式仿佛已经很完美的对对象的创建进行了包装，使得客户程序中仅仅处理抽象产品角色提供的接口，但使得对象的数量成倍增长。当产品种类非常多时，会出现大量的与之对应的工厂对象，这不是我们所希望的。</p>
+<h4 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h4><p>为什么引入抽象工厂模式：<br>抽象工厂模式是工厂方法模式的升级版本，他用来创建一组相关或者相互依赖的对象。比如奔驰C200使用发动机A和铁A，而奔驰C300使用发动机型号B和铁B，那么使用抽象工厂模式，在为C200系列生产相关配件时，就无需制定配件的型号，它会自动根据车型生产对应的配件。</p>
+<p>产品类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//发动机类型</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Engine</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EngineA</span> <span class="keyword">implements</span> <span class="title">Engine</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EngineA</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"with EngineA"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EngineB</span> <span class="keyword">implements</span> <span class="title">Engine</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EngineB</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"with EngineB"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//钢铁的类型</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Iron</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IronA</span> <span class="keyword">implements</span> <span class="title">Iron</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IronA</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"is IronA"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IronB</span> <span class="keyword">implements</span> <span class="title">Iron</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IronB</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"is IronB"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>工厂类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//工厂接口</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">BenzFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Engine <span class="title">withEngine</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> Iron <span class="title">ironType</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//奔驰C200装配工厂</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BenzC200Factory</span> <span class="keyword">implements</span> <span class="title">BenzFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> EngineA <span class="title">withEngine</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EngineA();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IronA <span class="title">ironType</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IronA();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//奔驰C300装配工厂</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BenzC300Factory</span> <span class="keyword">implements</span> <span class="title">BenzFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> EngineB <span class="title">withEngine</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EngineB();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IronB <span class="title">ironType</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IronB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPattern</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        BenzC200Factory benzC200Factory = <span class="keyword">new</span> BenzC200Factory();</div><div class="line">        benzC200Factory.ironType();</div><div class="line">        benzC200Factory.withEngine();</div><div class="line"></div><div class="line">        BenzC300Factory benzC300Factory = <span class="keyword">new</span> BenzC300Factory();</div><div class="line">        benzC300Factory.ironType();</div><div class="line">        benzC300Factory.withEngine();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>无论是简单工厂模式，工厂方法模式，还是抽象工厂模式，他们都属于工厂模式，在形式和特点上也是极为相似的，他们的最终目的都是为了解耦。在使用时，我们不必去在意这个模式到底工厂方法模式还是抽象工厂模式，因为他们之间的演变常常是令人琢磨不透的。经常你会发现，明明使用的工厂方法模式，当新需求来临，稍加修改，加入了一个新方法后，由于类中的产品构成了不同等级结构中的产品族，它就变成抽象工厂模式了；而对于抽象工厂模式，当减少一个方法使的提供的产品不再构成产品族之后，它就演变成了工厂方法模式。<br> 所以，在使用工厂模式时，只需要关心降低耦合度的目的是否达到了。</p>
+<p> 关于抽象工厂模式的起源：<br> 贴一个连接：<a href="http://blog.csdn.net/jason0539/article/details/44976775" target="_blank" rel="external">抽象工厂的起源</a> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/设计模式-单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/27/设计模式-单例模式/" itemprop="url">设计模式--单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T10:31:10+08:00">
+                2017-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>单例模式的作用：保证整个应用中某个实例中有且仅有一个。</p>
+<h4 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h4><p>类的静态成员属于类所有，一旦类加载的时候，instance实例就会被创建。<br>由于instance对象在类加载时候马上被创建的，所以称之为饿汉。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HungryMan</span></span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">    1. 私有化构造方法，不允许外部直接创建对象</span></div><div class="line"><span class="comment">    2. 创建类的唯一实例 </span></div><div class="line"><span class="comment">    3. 提供一个获取实例的方法</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HungryMan instance = <span class="keyword">new</span> HungryMan();</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungryMan</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//...doSomething</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungryMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h4><p>当类加载时候，类的实例并未被创建，只有当调用者第一次使用getInstance时候，类的唯一实例才会被创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazyMan</span></span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">    1. 私有化构造方法，不允许外部直接创建对象</span></div><div class="line"><span class="comment">    2. 声明类的唯一实例</span></div><div class="line"><span class="comment">    3. 提供一个获取实例的方法</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyMan instance;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span>  <span class="title">LazyMan</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//doSomething            </span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</div><div class="line">            instance = <span class="keyword">new</span> LazyMan();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>####区别</p>
+<p>饿汉模式加载类的时候比较慢，因为要创建instance实例<br>懒汉模式加载类的时候比较快，因为没有创建instance实例，故在第一次获取实例的时候，会比较慢。</p>
+<p>懒汉模式是线程不安全的。<br>举个例子：<br>假设开始线程0进入，判断instance为空，在将要创建实例时，cpu切换，线程1又进来了，同样instance为空 创建了实例，这是cpu切换回来到0线程，继续创建实例。<br>可见，经过分析共创建了两个实例，还谈什么单例。</p>
+<p>下面是线程安全的懒汉模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</div><div class="line">    	<span class="comment">//线程0</span></div><div class="line">        <span class="keyword">synchronized</span>(LazyMan.class)&#123;</div><div class="line">        	<span class="comment">//线程１</span></div><div class="line">            <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</div><div class="line">                instance = <span class="keyword">new</span> LazyMan();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为什么需要判断两次instance == nulll<br>假设线程0进来，卡在所示的位置，然后切换cpu，进程1卡在所示位置，那么如果不进行内层的if判断的话，instance又会被创建两次了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/14/Ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/14/Ajax/" itemprop="url">Ajax</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-14T23:41:42+08:00">
+                2017-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>本博文不考虑不支持XMLHttpRequest对象的情况</strong></p>
+<p>#初识Ajax</p>
+<h2 id="XMLHttpRequest对象是Ajax基础"><a href="#XMLHttpRequest对象是Ajax基础" class="headerlink" title="XMLHttpRequest对象是Ajax基础"></a>XMLHttpRequest对象是Ajax基础</h2><h3 id="XMLHttpRequest对象"><a href="#XMLHttpRequest对象" class="headerlink" title="XMLHttpRequest对象"></a>XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页进行某部分的更新。</p>
+<h3 id="创建XMLHttpRequest对象的语法"><a href="#创建XMLHttpRequest对象的语法" class="headerlink" title="创建XMLHttpRequest对象的语法"></a>创建XMLHttpRequest对象的语法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xmr = <span class="keyword">new</span> XMLHttpRequest();</div></pre></td></tr></table></figure>
+<h3 id="XMLHttpRequest的请求"><a href="#XMLHttpRequest的请求" class="headerlink" title="XMLHttpRequest的请求"></a>XMLHttpRequest的请求</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xmr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">xmr.open(<span class="string">"GET"</span>, <span class="string">"myUrl"</span>, ture);</div><div class="line">xmr.send();</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">	方法							描述</div><div class="line">open(method, url, async)  	method：请求的类型；GET 或 POST</div><div class="line">							url：文件在服务器上的位置</div><div class="line">							async：<span class="literal">true</span>（异步）或 <span class="literal">false</span>（同步）</div><div class="line">							</div><div class="line">send(string)				string：仅用于POST请求</div></pre></td></tr></table></figure>
+<h4 id="GET和POST方法的选择"><a href="#GET和POST方法的选择" class="headerlink" title="GET和POST方法的选择"></a>GET和POST方法的选择</h4><p>与POST相比，GET更简单也更快，并且在大部分情况下能使用。<br>然后在以下情况使用POST请求：<br>&gt;<br>无法使用缓存文件（更新服务器上的文件或数据库）<br>向服务器发送大量数据<br>发送包含未知字符的用户输入，POST比GET更加可靠和稳定</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/22/排序算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/22/排序算法/" itemprop="url">排序算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T21:03:32+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="五种排序算法"><a href="#五种排序算法" class="headerlink" title="五种排序算法"></a>五种排序算法</h1><h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序两个鲜明的特点：</p>
+<ol>
+<li><strong>运行时间和输入无关：</strong>为了找出最小的元素而扫描一遍数组并不能为下一趟扫描提供任何有用的信息。一个已经有序的数组或者是元素全部相等的元素和一个随机排序的数组所用的排序时间一样长。</li>
+<li><strong>数据移动是最少的：</strong>显然可见，移动数据只发生在是外层循环中。故选择排序只用了N次交换，这是其他大部分算法不具备的。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.algorithms;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Arrays;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sort</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(x &lt; y)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(x &gt; y)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exchange</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">        <span class="keyword">double</span> temp = A[i];</div><div class="line">        A[i] = A[j];</div><div class="line">        A[j] = temp;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectionSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> N = A.length;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)&#123;</div><div class="line">            <span class="keyword">int</span> min = i;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; N; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(compareTo(A[min], A[j]) == <span class="number">1</span>)&#123;</div><div class="line">                    min = j;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            exchange(A, i, min);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">double</span>[] A1 = &#123;<span class="number">5</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">6</span>&#125;;</div><div class="line">        selectionSort(A1);</div><div class="line">        System.out.println(Arrays.toString(A1));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序和选择排序有一个相同的地方是：当前索引左边的所有元素都是有序的。<br>与选择排序不同的是：插入排序所需的时间取决于排序数组中元素的初始顺序。例如，一个很大且其中的元素已经（或接近有序）的数组进行排序会比对随机顺序的数组或者是逆序数组（最坏情况）进行来的快。<br><strong>特点：</strong>插入排序对于部分有序的数组十分高效，也很适合于小规模数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> N = A.length;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; ++i)&#123;</div><div class="line">        <span class="comment">//因为[0, j-1]，已经是有序</span></div><div class="line">        <span class="comment">//如果当索引j大于索引j-1的值，那么数组[0, j]就是有序的，跳出循环</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span> &amp;&amp; (compareTo(A[j-<span class="number">1</span>], A[j]) == <span class="number">1</span>); --j)&#123;</div><div class="line">            exchange(A, j-<span class="number">1</span>, j);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序是一种基于插入排序的快速排序算法。<br>对于大规模的乱序排序算法，插入排序会很慢，因为它只会交换相邻的元素，因此元素只能一点点地从数组的一端移动到另一端。希尔排序为了加快排序，交换不相邻的元素对数组局部进行排序，并最终用插入排序将局部有序的数组排序。<br><strong>特点：</strong>对于中等大小的数组运行时间可接受。它的代码量小，且不需要额外的内存空间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> N = A.length;</div><div class="line">    <span class="keyword">int</span> h = <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span>(h &lt; N/<span class="number">3</span>)&#123;</div><div class="line">        h = <span class="number">3</span> * h + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(h &gt;= <span class="number">1</span>)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = h; i &lt; N; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt;= h &amp;&amp; compareTo(A[j-h], A[j]) == <span class="number">1</span>; j -= h)</div><div class="line">            exchange(A, j-h, j);</div><div class="line">        &#125;</div><div class="line">        h = h / <span class="number">3</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>将一个数组排序，可以先（递归地）将它分成两半分别排序，然后将结果归并起来。<br><strong>优点：</strong>它能够保证将任意长度为N的数组排序所需的时间和NlogN成正比；<br><strong>缺点：</strong>所需额外的辅助空间和N成正比。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span>[] aux;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">     aux = <span class="keyword">new</span> <span class="keyword">double</span>[A.length];</div><div class="line">     mergeSortAPI(A, <span class="number">0</span>, A.length-<span class="number">1</span>);</div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="comment">//进行分割数组操作</span></div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSortAPI</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span></span>&#123;</div><div class="line">     <span class="keyword">if</span>(lo &gt;= hi)&#123;</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">         <span class="comment">//可以设置当lo + x &gt;= hi时，使用插入排序，减少递归带来的性能损耗</span></div><div class="line">     &#125;</div><div class="line">     <span class="keyword">int</span> mid = lo + (hi - lo) / <span class="number">2</span>;</div><div class="line">     mergeSortAPI(A, lo, mid);</div><div class="line">     mergeSortAPI(A, mid+<span class="number">1</span>, hi);</div><div class="line">     merge(A, lo, mid, hi);</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi)</span></span>&#123;</div><div class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> k = lo; k &lt;= hi; ++k)&#123;</div><div class="line">         aux[k] = A[k];</div><div class="line">     &#125;</div><div class="line">     <span class="keyword">int</span> i = lo;</div><div class="line">     <span class="keyword">int</span> j = mid+<span class="number">1</span>;</div><div class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> k = lo; k &lt;= hi; ++k)&#123;</div><div class="line">         <span class="keyword">if</span>(i &gt; mid)&#123;</div><div class="line">             A[k] = aux[j++];</div><div class="line">         &#125;</div><div class="line">         <span class="keyword">else</span> <span class="keyword">if</span>(j &gt; hi)&#123;</div><div class="line">             A[k] = aux[i++];</div><div class="line">         &#125;</div><div class="line">         <span class="keyword">else</span> <span class="keyword">if</span>(compareTo(aux[i], aux[j]) == -<span class="number">1</span>)&#123;</div><div class="line">             A[k] = aux[i++];</div><div class="line">         &#125;</div><div class="line">         <span class="keyword">else</span>&#123;</div><div class="line">             A[k] = aux[j++];</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是一种分治的排序算法。它将一个数组分成两个子数组，将两部分独立地排序。快速排序和归并排序是互补的：归并排序将数组分成两个子数组分别排序，并将有序的子数组归并以将整个数组排序；快速排序则是当两个数组都有序时，整个数组也自然就有序了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">    quickSortAPI(A, <span class="number">0</span>, A.length-<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSortAPI</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(lo &gt;= hi)&#123;</div><div class="line">        <span class="comment">//这里可以使用插入排序，降低递归带来的效率下降</span></div><div class="line">        <span class="comment">//判断条件应该是 lo + x &gt;= hi</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> pivot = partition(A, lo, hi);</div><div class="line">    quickSortAPI(A, lo, pivot-<span class="number">1</span>);</div><div class="line">    quickSortAPI(A, pivot+<span class="number">1</span>, hi);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> pivot = lo;</div><div class="line">    <span class="keyword">int</span> i = lo;</div><div class="line">    <span class="keyword">int</span> j = hi+<span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>( ; ; )&#123;</div><div class="line"></div><div class="line">        <span class="comment">//这里的边界条件是i &lt; hi, 如果当i == hi时</span></div><div class="line">        <span class="comment">//在进行下次循环的时候访问的A[hi+1]就会越界</span></div><div class="line">        <span class="keyword">while</span>(compareTo(A[++i], A[pivot]) == -<span class="number">1</span> &amp;&amp; i &lt; hi)&#123;&#125;</div><div class="line">        <span class="keyword">while</span>(compareTo(A[pivot], A[--j]) == -<span class="number">1</span> &amp;&amp; j &gt; lo)&#123;&#125;</div><div class="line"></div><div class="line">        <span class="comment">//这里的边界条件是相同的道理,如果 i == j == hi 时候未跳出</span></div><div class="line">        <span class="comment">//在for循环的第一次while的A[hi+1]就会越界</span></div><div class="line">        <span class="keyword">if</span>(i &gt;= j)&#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        exchange(A, i, j);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    exchange(A, pivot, j);</div><div class="line">    <span class="comment">//pivot记得放在正确的位置</span></div><div class="line">    <span class="comment">//A[lo, j-1] &lt;= A[j] &lt;= A[j+1, hi] 成立</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> j;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="三向切分的快速排序"><a href="#三向切分的快速排序" class="headerlink" title="三向切分的快速排序"></a>三向切分的快速排序</h3><p><strong>优点：</strong>三向切分的快速排序比归并排序、标准快速排序和其他排序方法在包括重复元素很多的实际应用中更快。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickThreeWaySort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">    quickThreeWay(A, <span class="number">0</span>, A.length-<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickThreeWay</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(lo &gt;= hi)&#123;</div><div class="line">        <span class="comment">//同上</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">double</span> pivot = A[lo];</div><div class="line">    <span class="keyword">int</span> lt = lo;	<span class="comment">//小于pivot的指针</span></div><div class="line">    <span class="keyword">int</span> i = lo + <span class="number">1</span>;	<span class="comment">//等于pivot的指针</span></div><div class="line">    <span class="keyword">int</span> gt = hi;	<span class="comment">//大于pivot的指针</span></div><div class="line">    <span class="keyword">while</span>(i &lt;= gt)&#123;</div><div class="line">        <span class="keyword">int</span> cmp = compareTo(A[i], pivot);</div><div class="line">        <span class="keyword">if</span>(cmp &lt; <span class="number">0</span>)&#123;</div><div class="line">            exchange(A, i++, lt++);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(cmp &gt; <span class="number">0</span>)&#123;</div><div class="line">            exchange(A, i, gt--);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//跳出while循环后</span></div><div class="line">    <span class="comment">//A[lo, lt-1] &lt; pivot=A[lt, gt] &lt; A[gt+1, hi]成立</span></div><div class="line"></div><div class="line">    quickThreeWay(A, lo, lt-<span class="number">1</span>);</div><div class="line">    quickThreeWay(A, gt+<span class="number">1</span>, hi);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">    quickSortAPI(A, <span class="number">0</span>, A.length-<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSortAPI</span><span class="params">(<span class="keyword">double</span>[] A, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(lo &gt;= hi)&#123;</div><div class="line">        <span class="comment">//这里可以使用插入排序，降低递归带来的效率下降</span></div><div class="line">        <span class="comment">//判断条件应该是 lo + x &gt;= hi</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> pivot = partition(A, lo, hi);</div><div class="line">    quickSortAPI(A, lo, pivot-<span class="number">1</span>);</div><div class="line">    quickSortAPI(A, pivot+<span class="number">1</span>, hi);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">double</span>[] A)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> N = A.length;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N -<span class="number">1</span> ; ++i)&#123;</div><div class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N-<span class="number">1</span>-i; ++j)&#123;</div><div class="line">             <span class="keyword">if</span>(compareTo(A[j], A[j+<span class="number">1</span>]) == <span class="number">1</span>)&#123;</div><div class="line">                 exchange(A, j, j+<span class="number">1</span>);</div><div class="line">                 flag = <span class="keyword">false</span>;</div><div class="line">             &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(flag == <span class="keyword">true</span>)&#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/20/从零开始的Servlet-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/20/从零开始的Servlet-2/" itemprop="url">从零开始的Servlet(2)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T16:17:25+08:00">
+                2017-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><h2 id="MVC模型"><a href="#MVC模型" class="headerlink" title="MVC模型"></a>MVC模型</h2><p>Java Web的Model2开发模型就是MVC思想的体现。<br><img src="http://owj98yrme.bkt.clouddn.com/servlet4.jpg" alt=""></p>
+<h2 id="Servlet练手小项目"><a href="#Servlet练手小项目" class="headerlink" title="Servlet练手小项目"></a>Servlet练手小项目</h2><p><strong>使用Servlet技术实现购物车效果</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/19/从零开始的Servlet-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1075,572 +1820,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/17/从零开始的JSP-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/17/从零开始的JSP-2/" itemprop="url">从零开始的JSP(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T21:45:58+08:00">
-                2017-09-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JSP内置对象"><a href="#JSP内置对象" class="headerlink" title="JSP内置对象"></a>JSP内置对象</h1><p>JSP内置对象是Web容器创建的一组对象，不使用new关键就可以使用的内置对象。<br>比如上面的九九乘法表中的out。<br><strong>JSP九大内置对象：</strong><br>out、request、response、session、application、Page、PageContext、exception、config</p>
-<h2 id="out对象"><a href="#out对象" class="headerlink" title="out对象"></a>out对象</h2><p>out对象是JspWriter类的实例，是向客户端输出内容常用的对象。<br>常用的方法：</p>
-<ol>
-<li>void println() 向客户端打印字符串</li>
-<li>void flush() 将缓冲区内容输出到客户端</li>
-<li>void clear() 清除缓冲区内容，如果在flush之后调用抛出异常</li>
-<li>void chearBuffer() 清除缓冲区内容</li>
-<li>int getBufferSize() 返回缓冲区以字节数的大小，如果不设立缓冲区则为0</li>
-<li>int getRemaining() 返回缓冲区剩余大小</li>
-<li>boolean isAutoFlush() 返回缓冲区满时，是自动清空还是抛出异常</li>
-<li>void close() 关闭输出流<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    out.println(<span class="string">"&lt;h2&gt;两句诗&lt;/h2&gt;"</span>);</div><div class="line">    out.println(<span class="string">"苟利国家生死以&lt;br/&gt;"</span>);</div><div class="line">    out.println(<span class="string">"岂因祸福避趋之&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">&lt;br/&gt;缓冲区大小：&lt;%= out.getBufferSize() %&gt;</div><div class="line">&lt;br/&gt;缓冲区剩余大小：&lt;%= out.getRemaining() %&gt;</div><div class="line">&lt;br/&gt;是否自动清除缓冲区大小：&lt;%= out.isAutoFlush() %&gt;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="request对象"><a href="#request对象" class="headerlink" title="request对象"></a>request对象</h2><p>get和post的的区别</p>
-<ol>
-<li>get：以明文的方式通过URL提交数据，数据在URL中可以看到。提交的数据最多不超过2KB。安全性较低但效率比post方式高。合适提交数量不大，但安全性不高的数据。比如：搜索、查询等功能。</li>
-<li>post: 将用户提交的信息封装在HTML的头部信息内。适合提交数据量较大，安全性高的用户信息。比如：注册、修改、上传等功能。</li>
-</ol>
-<p>客户端的请求信息被封装在request对象中，通过它才能了解到客户的需求，然后做出响应。它是HttpServletRequest类的实例。request对象具有请求域，即完成客户端的请求之前，该对象一直有效，常用方法如下：</p>
-<ol>
-<li>String getParameter(String name) 返回name指定的参数值</li>
-<li>String [] getParameterValues(String name) 返回包含参数name的所有值的数组</li>
-<li>void setAttribute(String, Object) 存储此请求中的属性</li>
-<li>Object getAttrubute(String name) 返回指定属性的属性值</li>
-<li>String getContentType() 返回请求体的MIME类型</li>
-<li>String getProtocol() 返回请求用的协议类型和版本号</li>
-<li>String getServerName() 返回接受请求的服务器主机名</li>
-</ol>
-<p>下面是一个提交参数的页面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;form action=<span class="string">"request.jsp"</span> name=<span class="string">"registerForm"</span> method=<span class="string">"post"</span>&gt;</div><div class="line">    &lt;table&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td&gt;用户名：&lt;/td&gt;</div><div class="line">            &lt;td&gt;&lt;input type="text" name="username"/&gt;&lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td&gt;爱好：&lt;/td&gt;</div><div class="line">            &lt;td&gt;</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"read"</span>&gt;阅读</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"sport"</span>&gt;运动</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"music"</span>&gt;音乐</div><div class="line">                &lt;input type=<span class="string">"checkbox"</span> name=<span class="string">"favorite"</span> value=<span class="string">"poem"</span>&gt;诗词</div><div class="line">            &lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">            &lt;td colspan="2"&gt;&lt;input type="submit"&gt;&lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>处理参数的请求的页面（request.jsp）<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">       <span class="comment">//设置接受请求时中文乱码的问题</span></div><div class="line">       request.setCharacterEncoding(<span class="string">"utf-8"</span>);</div><div class="line">   %&gt;</div><div class="line">   </div><div class="line">   <span class="comment">//获取请求参数</span></div><div class="line">   &lt;%= request.getParameter(<span class="string">"username"</span>) %&gt;</div><div class="line">   </div><div class="line">   &lt;%</div><div class="line">   	<span class="comment">//通过参数favorite获取属性值的数组</span></div><div class="line">       String [] fav = request.getParameterValues(<span class="string">"favorite"</span>);</div><div class="line">       <span class="keyword">if</span>(fav != <span class="keyword">null</span>) &#123;</div><div class="line">           <span class="keyword">for</span> (String s : fav) &#123;</div><div class="line">               out.println(s + <span class="string">"&amp;nbsp&amp;nbsp&amp;nbsp"</span>);</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   %&gt;</div></pre></td></tr></table></figure></p>
-<p>其他的request对象的用法<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    request.setAttribute(<span class="string">"password"</span>, <span class="string">"pockbandit"</span>);</div><div class="line">%&gt;</div><div class="line"></div><div class="line">&lt;%= request.getAttribute(<span class="string">"password"</span>) %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getContentType() %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getProtocol() %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getServerName() %&gt;&lt;br/&gt;</div><div class="line">&lt;%= request.getServerPort() %&gt;&lt;br/&gt;</div><div class="line">请求文件的长度：&lt;%= request.getContentLength() %&gt;&lt;br/&gt;</div><div class="line">请求客户端的IP地址：&lt;%= request.getRemoteAddr() %&gt;&lt;br/&gt;</div><div class="line">请求的真实路径：&lt;%= request.getRealPath(<span class="string">"reqeust.jsp"</span>) %&gt;&lt;br/&gt;</div><div class="line">请求的上下文路径：&lt;%= request.getContextPath() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h2><p>response对象包含了响应客户请求的有关信息，但是在JSP中很少直接使用它，它是HttpServletResponse类的实例。response对象具有页面的作用域，即访问一个页面时，该页面的response对象只能对这次的访问有效，其它页面的response对象对象当前页面无效。常用方法如下：</p>
-<ol>
-<li>String getCharacterEncoding() 返回响应用的是何种字符编码</li>
-<li>void setContentType(String type) 设置响应的MIME类型</li>
-<li>PrintWriter getWriter() 返回可以向客户端输出字符的一个对象</li>
-<li>sendRedirect(java.lang.String location) 重定向客户端的请求</li>
-</ol>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">    response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">    out.println(<span class="string">"this is out object"</span>);</div><div class="line"></div><div class="line">    PrintWriter outer = response.getWriter();</div><div class="line">    outer.println(<span class="string">"PrintWriter输出流的内容会优先于out实例的输出流&lt;br/&gt;"</span>);</div><div class="line">%&gt;</div><div class="line">&lt;%= response.getCharacterEncoding() %&gt;&lt;br/&gt;</div><div class="line">&lt;%--&lt;%--%&gt;</div><div class="line">    &lt;%--<span class="comment">//请求重定向--%&gt;</span></div><div class="line">    &lt;%--response.sendRedirect(<span class="string">"register.jsp"</span>);--%&gt;</div><div class="line">&lt;%--%&gt;--%&gt;</div></pre></td></tr></table></figure>
-<h3 id="请求重定向和请求转发"><a href="#请求重定向和请求转发" class="headerlink" title="请求重定向和请求转发"></a>请求重定向和请求转发</h3><p><strong>请求重定向：</strong>客户端行为，response.sendRedirect()，本质上讲等同于两次请求，前一次的请求对象不会被保存，地址栏的URL地址会改变。<br>举个例子：A页面请求将数据提交到C页面，但是实际上A请求B, B在请求C,此时C不能接收到A的数据<br><strong>请求转发：</strong>服务器行为，request.getRequestDispatcher().forword(request, response)是一次请求，转发会请求对象会保存，地址栏的URL地址不会改变。</p>
-<h2 id="Session对象"><a href="#Session对象" class="headerlink" title="Session对象"></a>Session对象</h2><h3 id="session概念："><a href="#session概念：" class="headerlink" title="session概念："></a>session概念：</h3><p>在服务器的内存中保存着不同用户的session。</p>
-<ol>
-<li>session表示客户端与服务器的一次回话</li>
-<li>Web中的session指的是用户在浏览某个网站时，从进入网站到浏览关闭所经过的这段时间，也就是用户浏览网站所花费的时间</li>
-<li>session实际上是一个特定的时间概念</li>
-</ol>
-<h3 id="session对象的概念"><a href="#session对象的概念" class="headerlink" title="session对象的概念"></a>session对象的概念</h3><p>sessioin对象是HttpSession类的实例。</p>
-<ol>
-<li>session对象在第一个JSP页面被装载时自动创建，完成会话期间管理。</li>
-<li>从一个客户打开浏览器并连接到服务器开始，到客户端关闭浏览器离开这个服务器结束，称为一个会话。</li>
-<li>当一个客户访问一个服务器时，可能会在服务器的几个页面之间切换，服务器应当通过某种办法知道这是一个客户，就需要session对象。</li>
-</ol>
-<p>session对象常用方法如下：</p>
-<ol>
-<li>long getCreationTime() 返回session创建时间</li>
-<li>String getId() 返回session被创建时JSP引擎将它设为唯一ID号</li>
-<li>Object SetAttribute(String name, Object Value) 设置属性及其值绑定到此次会话</li>
-<li>Object getAttrubute(String name) 返回属性的值，找不到返回null</li>
-<li>String [] getValueNames() 返回一个包含此session中所有可能的属性数组</li>
-<li>int getMaxInactiveInterval() 返回session的生命周期（单位秒）</li>
-</ol>
-<p>下面是session.jsp的使用页面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">    &lt;%</div><div class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy/MM/dd HH:mm:ss"</span>);</div><div class="line">        Date d = <span class="keyword">new</span> Date(session.getCreationTime());</div><div class="line">        session.setAttribute(<span class="string">"name"</span>, <span class="string">"ackerman"</span>);</div><div class="line">        session.setAttribute(<span class="string">"man"</span>, <span class="string">"manman"</span>);</div><div class="line">        session.setAttribute(<span class="string">"number"</span>, <span class="number">34</span>);</div><div class="line">        </div><div class="line"><span class="comment">//        session的生命周期只有10秒</span></div><div class="line">        session.setMaxInactiveInterval(<span class="number">10</span>);</div><div class="line">    %&gt;</div><div class="line">    session创建时间：&lt;%= d %&gt;&lt;br/&gt;</div><div class="line">    session的ID编号：&lt;%= session.getId() %&gt;&lt;br/&gt;</div><div class="line">    session取属性值：&lt;%= session.getAttribute(<span class="string">"name"</span>) %&gt;&lt;br/&gt;</div><div class="line">    session属性数组：&lt;%</div><div class="line">        String [] names =  session.getValueNames();</div><div class="line">        <span class="keyword">if</span>(names != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">for</span>(String s: names)&#123;</div><div class="line">                out.println(s + <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    %&gt;&lt;br/&gt;</div><div class="line"></div><div class="line">    &lt;a href="session2.jsp" target="_blank"&gt;跳转页面，验证session的有效性&lt;/a&gt;</div></pre></td></tr></table></figure></p>
-<p>下面是跳转的session2.jsp<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;%= session.getAttribute(<span class="string">"name"</span>) %&gt;&lt;br/&gt;</div><div class="line">&lt;%= session.getId() %&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="session的生命周期"><a href="#session的生命周期" class="headerlink" title="session的生命周期"></a>session的生命周期</h3><p><strong>创建阶段：</strong>当客户端第一次访问某个jsp或者Servlet时候，服务器会为当前会话创建一个SessionId，每当客户端向服务端发送请求时，都会将此Id携带过去，服务端会对此SessionId进行校验。</p>
-<p><strong>活动阶段：</strong></p>
-<ol>
-<li>某次会话当中通过超链接打开的新页面都属于同一次会话</li>
-<li>只要当前会话页面没有全部关闭，重新打开新的浏览器窗口访问同一个项目资源属于同一次会话。</li>
-<li>除非本次会话所有页面都关闭后再重新访问某个JSP或者Servlet将会创建新的会话。（原有会话还存在，旧的sessionId仍然存在于服务端，只不过再也没有客用户端会携带此Id进行访问）。</li>
-</ol>
-<p><strong>销毁阶段：</strong>有三种方式可以销毁session会话</p>
-<ol>
-<li>调用了session.invalidate()方法</li>
-<li>session过期（设置的MaxInactiveInterval过期时间或者web.xml设置过期时间）</li>
-<li>服务器重新启动</li>
-</ol>
-<h2 id="application对象"><a href="#application对象" class="headerlink" title="application对象"></a>application对象</h2><p><strong>application对象的概念：</strong></p>
-<ol>
-<li>application对象实现了用户间数据的共享，可存放全局变量</li>
-<li>application开始于服务器的启动，终止于服务器的关闭</li>
-<li>在用户的前后连接或不同用户之间的连接中，可以对application对象的同一属性进行操作</li>
-<li>在任何地方对appication对象属性的操作，都会影响到其他用户对其的访问</li>
-<li>服务器的启动和关闭决定了application对象的生命周期</li>
-<li>application对象是ServletContext类的实例</li>
-</ol>
-<p><strong>application对象的常用方法：</strong></p>
-<ol>
-<li>void setAttribute(String name, Object value)</li>
-<li>Object getAttribute(String name)</li>
-<li>Enumeration getAttributeNames() 返回所有可用属性的枚举</li>
-<li>String getServerInfo() 返回JSP引擎名字和版本号</li>
-</ol>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;在当前页面测试application&lt;/h1&gt;</div><div class="line">&lt;%</div><div class="line">    application.setAttribute(<span class="string">"city"</span>, <span class="string">"xiamen"</span>);</div><div class="line">    application.setAttribute(<span class="string">"name"</span>, <span class="string">"ackerman"</span>);</div><div class="line">    application.setAttribute(<span class="string">"number"</span>, <span class="number">34</span>);</div><div class="line">%&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">所在城市：&lt;%= application.getAttribute(<span class="string">"city"</span>)%&gt;&lt;br/&gt;</div><div class="line">已有属性：&lt;%</div><div class="line">    Enumeration e = application.getAttributeNames();</div><div class="line">    <span class="keyword">while</span>(e.hasMoreElements())&#123;</div><div class="line">        out.println(e.nextElement() + <span class="string">"&lt;br/&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">%&gt;</div><div class="line">引擎版本：&lt;%= application.getServerInfo() %&gt;</div></pre></td></tr></table></figure>
-<p>如果我们在该项目的其他页面中，进行城市、属性和版本进行相同的查询工作，会得到一样的结果（除非服务器关闭）。</p>
-<h2 id="Page对象"><a href="#Page对象" class="headerlink" title="Page对象"></a>Page对象</h2><p>page对象就是指向当前JSP页面本身，有点像类中的this指针，它是java.lang.Object类的实例。常用方法如下：</p>
-<ol>
-<li>class getClass() 返回此Object类</li>
-<li>int hashCode() 返回此Object的hash码</li>
-<li>boolean equals(Object obj) 判断此Object是否与指定的Object对象相等</li>
-<li>void copy(Object obj)把此Object拷贝到指定的Object对象中</li>
-<li>Object clone() 克隆此Object对象</li>
-<li>String toString() </li>
-<li>void notify() 唤醒一个等待的线程</li>
-<li>void notifyAll()</li>
-<li>void wait(int timeout) 使一个线程处于等待直到timeout结束或唤醒</li>
-<li>void wait() 使一个线程一直处于等待直到被唤醒</li>
-</ol>
-<h2 id="pageContext对象"><a href="#pageContext对象" class="headerlink" title="pageContext对象"></a>pageContext对象</h2><p>概念：</p>
-<ol>
-<li>pageContext对象提供了对JSP页面内所有的对象及名字空间的访问</li>
-<li>pageContext对象可以访问本页所在的session，也可以取本页面所在的appication的某一个属性值</li>
-<li>pageContext对象相当于页面中所有功能的集大成者</li>
-<li>pageContext对象的本类名也叫作pageContext</li>
-</ol>
-<p>常用方法：</p>
-<ol>
-<li>JspWriter getOut() 返回当前客户端响应被使用的JspWriter流（out）</li>
-<li>HttpSession getSession() 返回当前页面中的HttpSession对象（session）</li>
-<li>Object getPage() 返回当前页面的Object对象（page）</li>
-<li>ServletRequest getRequest() 返回当前页面的ServletRequest对象（request）</li>
-<li>ServletResponse getResponse() 返回当前页面的ServletResponse对象（response）</li>
-<li>void setAttribute(String, Object)</li>
-<li>Object getAttribute(Strring, int) 在指定范围内取属性的值</li>
-<li>int getAttributeScope(String) 返回某属性的作用范围</li>
-<li>void forward(String relativeUrlPath) 使当前页面重导到另一页面，浏览器的地址不会被改变</li>
-<li>void include(String relativeUrlPath) 在当前位置包含另一文件</li>
-</ol>
-<h2 id="Config对象"><a href="#Config对象" class="headerlink" title="Config对象"></a>Config对象</h2><p>config对象是在一个servlet初始化时，JSP引擎向它传递信息用的，此信息包括Servlet初始化要用到的参数（通过属性名和属性值构成）以及服务器有关的信息（通过传递一个ServletContext对象）。<br>常用的方法如下：</p>
-<ol>
-<li>ServletContext getServletContext() 返回含有服务器相关信息的ServletContext对象</li>
-<li>String getInitParameter(String name) 返回初始化参数的值</li>
-<li>Enumeration getInitParameterNames() 返回Servlet初始化所需所有参数的枚举</li>
-</ol>
-<h2 id="Exception对象"><a href="#Exception对象" class="headerlink" title="Exception对象"></a>Exception对象</h2><p>exception对象是一个异常对象，当一个页面在运行过程中发生了异常，就产生了这个对象。如果一个JSP页面要应用此对象，就必须把isErrorPage设为true，否则无法编译。他实际上是java.lang.Throwable的对象。<br>常用方法如下：</p>
-<ol>
-<li>String getMessage() 返回描述异常的消息</li>
-<li>String toString() 返回关于异常的简短描述信息</li>
-<li>void printStackTrace() 显示异常及其栈轨迹</li>
-<li>Throwable FillStackTrace() 重写异常的执行栈轨迹</li>
-</ol>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%<span class="meta">@page</span>  errorPage=<span class="string">"exception.jsp"</span> %&gt;</div><div class="line"></div><div class="line">	&lt;h1&gt;测试异常页面&lt;/h1&gt;</div><div class="line">    &lt;%</div><div class="line">        System.out.println(<span class="number">100</span>/<span class="number">0</span>);</div><div class="line">    %&gt;</div></pre></td></tr></table></figure>
-<p>下面是exception.jsp<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;%= exception.getMessage()%&gt;&lt;br/&gt;</div><div class="line">&lt;%= exception.toString() %&gt;&lt;br/&gt;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/16/从零开始的JSP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/16/从零开始的JSP/" itemprop="url">从零开始的JSP(1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T14:33:12+08:00">
-                2017-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JSP基础语法"><a href="#JSP基础语法" class="headerlink" title="JSP基础语法"></a>JSP基础语法</h1><h2 id="JSP页面元素的构成："><a href="#JSP页面元素的构成：" class="headerlink" title="JSP页面元素的构成："></a>JSP页面元素的构成：</h2><p>静态内容、指令、表达式、小脚本、声明和注释</p>
-<p><strong>JSP指令</strong><br>page指令：通常位于Jsp页面的顶端，同一个页面可以有多个page指令。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> %&gt;</div></pre></td></tr></table></figure></p>
-<p>include指令：将一个外部文件嵌入到当前的JSP文件中，同时解析这个页面中的JSP语句。<br>taglib指令：使用标签库定义新的自定义标签，在JSP页面中启用定制行为。</p>
-<p><strong>JSP注释</strong><br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%-- 这是一个默认的注释方式 --%&gt;</div></pre></td></tr></table></figure></p>
-<p><strong>JSP脚本</strong><br>在JSP页面中执行的java代码<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line">	out.println(<span class="string">"Hello World!"</span>);</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
-<p><strong>JSP声明</strong><br>在JSP页面中定义的变量或者方法<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%! </div><div class="line">	String s = <span class="string">"PoackBandit"</span>;	</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> x + y;</div><div class="line">	&#125;</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
-<p><strong>JSP表达式</strong><br>在JSP页面中执行的表达式，表达式不以分号结尾<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//分别调用上面声明的s变量和函数add()</span></div><div class="line">&lt;%=s %&gt;</div><div class="line">&lt;%=add(<span class="number">3</span>, <span class="number">4</span>) %&gt;</div></pre></td></tr></table></figure></p>
-<p><strong>JSP页面的生命周期</strong><br>用户发出请求index.jsp，如果这是页面第一次被请求，那么JSP引擎把该JSP文件转换成为一个Servlet，并生成字节码文件，并执行jspInit()，再解析执行jspService()；若页面不是第一次被请求，那么直接访问字节码文件。<br> jspService()方法被调用来处理客户端的请求。对每一个请求，JSP引擎创建一个新的线程来处理该请求。如果有多个客户端同时请求该JSP文件，则JSP引擎会创建多个线程。每一个客户端请求对应一个线程。以多线程方式执行可以大大降低对系统的资源需求，提高系统的并发量及响应时间。但也要注意多线程的带来的问题，由于该Servlet始终驻于内存，所以响应是非常快的。</p>
-<h2 id="使用JSP打印九九乘法表"><a href="#使用JSP打印九九乘法表" class="headerlink" title="使用JSP打印九九乘法表"></a>使用JSP打印九九乘法表</h2><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;%!</div><div class="line">      <span class="function"><span class="keyword">void</span> <span class="title">ffff</span><span class="params">(JspWriter out)</span> <span class="keyword">throws</span> Exception</span></div><div class="line"><span class="function">      </span>&#123;</div><div class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++i)&#123;</div><div class="line">              <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; ++j)&#123;</div><div class="line">                  out.println(i + <span class="string">"*"</span> + j + <span class="string">"="</span> + i*j + <span class="string">"&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</div><div class="line">              &#125;</div><div class="line">              out.println(<span class="string">"&lt;br/&gt;"</span>);</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">  %&gt;</div><div class="line"></div><div class="line">  &lt;%</div><div class="line">      ffff(out);</div><div class="line">  %&gt;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/16/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T11:57:40+08:00">
-                2017-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1689,7 +1873,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
