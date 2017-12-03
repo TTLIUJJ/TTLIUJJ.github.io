@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="题目一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。 解题思路对于每个台阶来说，青蛙都可以选择踩不踩 12345678public class Solution &amp;#123;    public int JumpFloorII(int target) &amp;#123;        if(target &amp;lt;= 1)&amp;#123;">
+<meta name="description" content="题目从上往下打印出二叉树的每个节点，同层节点从左至右打印。 解题思路层序遍历二叉树 将ArrayList换成LinkedList效率会高一点…… 123456789101112131415161718192021222324252627282930313233343536import java.util.ArrayList;/**public class TreeNode &amp;#123;    in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer_9">
-<meta property="og:url" content="http://yoursite.com/2017/11/30/剑指Offer-9/index.html">
+<meta property="og:title" content="剑指Offer_21">
+<meta property="og:url" content="http://yoursite.com/2017/12/03/剑指Offer-21/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="题目一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。 解题思路对于每个台阶来说，青蛙都可以选择踩不踩 12345678public class Solution &amp;#123;    public int JumpFloorII(int target) &amp;#123;        if(target &amp;lt;= 1)&amp;#123;">
+<meta property="og:description" content="题目从上往下打印出二叉树的每个节点，同层节点从左至右打印。 解题思路层序遍历二叉树 将ArrayList换成LinkedList效率会高一点…… 123456789101112131415161718192021222324252627282930313233343536import java.util.ArrayList;/**public class TreeNode &amp;#123;    in">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-30T12:17:00.341Z">
+<meta property="og:updated_time" content="2017-12-03T03:38:27.754Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指Offer_9">
-<meta name="twitter:description" content="题目一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。 解题思路对于每个台阶来说，青蛙都可以选择踩不踩 12345678public class Solution &amp;#123;    public int JumpFloorII(int target) &amp;#123;        if(target &amp;lt;= 1)&amp;#123;">
+<meta name="twitter:title" content="剑指Offer_21">
+<meta name="twitter:description" content="题目从上往下打印出二叉树的每个节点，同层节点从左至右打印。 解题思路层序遍历二叉树 将ArrayList换成LinkedList效率会高一点…… 123456789101112131415161718192021222324252627282930313233343536import java.util.ArrayList;/**public class TreeNode &amp;#123;    in">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/30/剑指Offer-9/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/03/剑指Offer-21/"/>
 
 
 
 
 
-  <title>剑指Offer_9 | 10000小时</title>
+  <title>剑指Offer_21 | 10000小时</title>
   
 
 
@@ -278,7 +278,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/剑指Offer-9/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/03/剑指Offer-21/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔头刘德华">
@@ -295,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指Offer_9</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer_21</h1>
         
 
         <div class="post-meta">
@@ -307,8 +307,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T20:09:54+08:00">
-                2017-11-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T11:36:16+08:00">
+                2017-12-03
               </time>
             
 
@@ -317,28 +317,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -367,11 +345,10 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>对于每个台阶来说，青蛙都可以选择踩不踩</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">JumpFloorII</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(target &lt;= <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> target;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>)Math.pow(<span class="number">2</span>, target-<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>不用Math的函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="number">1</span> &lt;&lt; --target;</div></pre></td></tr></table></figure>
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>层序遍历二叉树</p>
+<p>将ArrayList换成LinkedList效率会高一点……</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">public class TreeNode &#123;</span></div><div class="line"><span class="comment">    int val = 0;</span></div><div class="line"><span class="comment">    TreeNode left = null;</span></div><div class="line"><span class="comment">    TreeNode right = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    public TreeNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">PrintFromTopToBottom</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        ArrayList&lt;Integer&gt; ret = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        ArrayList&lt;TreeNode&gt; nodeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> ret;</div><div class="line">        &#125;</div><div class="line">        nodeList.add(root);</div><div class="line">        <span class="keyword">while</span>(!nodeList.isEmpty())&#123;</div><div class="line">            TreeNode node = nodeList.get(<span class="number">0</span>);</div><div class="line">            nodeList.remove(<span class="number">0</span>);</div><div class="line">            ret.add(node.val);</div><div class="line">            <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)&#123;</div><div class="line">                nodeList.add(node.left);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)&#123;</div><div class="line">                nodeList.add(node.right);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -395,8 +372,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/30/剑指Offer-8/" rel="next" title="剑指Offer_8">
-                <i class="fa fa-chevron-left"></i> 剑指Offer_8
+              <a href="/2017/12/03/剑指Offer-20/" rel="next" title="剑指Offer_20">
+                <i class="fa fa-chevron-left"></i> 剑指Offer_20
               </a>
             
           </div>
@@ -404,10 +381,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/30/剑指Offer-10/" rel="prev" title="剑指Offer_10">
-                剑指Offer_10 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
