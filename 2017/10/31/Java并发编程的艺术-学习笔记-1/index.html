@@ -95,14 +95,17 @@
 
 
 
+<meta name="description" content="并发编程的挑战减少上下文切换a. 无锁并发编程。多线程竞争锁的时候，会引起上下文切换，可以用一些办法来避免使用锁，如将数据的ID按照Hash算法取模分段，不同的线程处理不同段的数据。 b. CAS算法。Java的Atomic包使用CAS算法来更新数据，不需要加锁 c. 使用最少的线程，避免创建不需要的线程。 d. 协程。在单线程里面实现多任务调度，并在单线程里维持多个任务间的切换。 避免死锁a.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发编程的艺术 学习笔记(1)">
 <meta property="og:url" content="http://yoursite.com/2017/10/31/Java并发编程的艺术-学习笔记-1/index.html">
 <meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="并发编程的挑战减少上下文切换a. 无锁并发编程。多线程竞争锁的时候，会引起上下文切换，可以用一些办法来避免使用锁，如将数据的ID按照Hash算法取模分段，不同的线程处理不同段的数据。 b. CAS算法。Java的Atomic包使用CAS算法来更新数据，不需要加锁 c. 使用最少的线程，避免创建不需要的线程。 d. 协程。在单线程里面实现多任务调度，并在单线程里维持多个任务间的切换。 避免死锁a.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-31T12:21:07.347Z">
+<meta property="og:updated_time" content="2017-12-10T02:42:16.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程的艺术 学习笔记(1)">
+<meta name="twitter:description" content="并发编程的挑战减少上下文切换a. 无锁并发编程。多线程竞争锁的时候，会引起上下文切换，可以用一些办法来避免使用锁，如将数据的ID按照Hash算法取模分段，不同的线程处理不同段的数据。 b. CAS算法。Java的Atomic包使用CAS算法来更新数据，不需要加锁 c. 使用最少的线程，避免创建不需要的线程。 d. 协程。在单线程里面实现多任务调度，并在单线程里维持多个任务间的切换。 避免死锁a.">
 
 
 
@@ -364,7 +367,15 @@
       
 
       
-        
+        <h1 id="并发编程的挑战"><a href="#并发编程的挑战" class="headerlink" title="并发编程的挑战"></a>并发编程的挑战</h1><h2 id="减少上下文切换"><a href="#减少上下文切换" class="headerlink" title="减少上下文切换"></a>减少上下文切换</h2><p>a. 无锁并发编程。多线程竞争锁的时候，会引起上下文切换，可以用一些办法来避免使用锁，如将数据的ID按照Hash算法取模分段，不同的线程处理不同段的数据。</p>
+<p>b. CAS算法。Java的Atomic包使用CAS算法来更新数据，不需要加锁</p>
+<p>c. 使用最少的线程，避免创建不需要的线程。</p>
+<p>d. 协程。在单线程里面实现多任务调度，并在单线程里维持多个任务间的切换。</p>
+<h2 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h2><p>a. 避免一个线程同时获取多个锁</p>
+<p>b. 避免一个线程在锁内同时占用多个资源，尽量保证每个锁只占用一个资源</p>
+<p>c. 尝试使用定时锁，使用lock.tryLock(timeout) 来代替使用内部锁的机制</p>
+<p>d. 对于数据库锁，加锁和解锁必须在一个数据库连接里，否则会出现解锁失效</p>
+
       
     </div>
     
@@ -452,8 +463,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -471,7 +491,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">85</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -518,6 +538,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#并发编程的挑战"><span class="nav-number">1.</span> <span class="nav-text">并发编程的挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#减少上下文切换"><span class="nav-number">1.1.</span> <span class="nav-text">减少上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免死锁"><span class="nav-number">1.2.</span> <span class="nav-text">避免死锁</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

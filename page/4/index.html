@@ -275,6 +275,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/04/剑指Offer-37/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/04/剑指Offer-37/" itemprop="url">剑指Offer_37</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T17:09:55+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>统计一个数字在排序数组中出现的次数。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>二分搜索法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumberOfK</span><span class="params">(<span class="keyword">int</span> [] array , <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(array == <span class="keyword">null</span> || array.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">       </div><div class="line">        <span class="keyword">int</span> lo = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> hi = array.length-<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> mid = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(lo &lt;= hi)&#123;</div><div class="line">            mid = (hi + lo) &gt;&gt; <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &lt; k)&#123;</div><div class="line">                lo = mid + <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(array[mid] &gt; k)&#123;</div><div class="line">                hi = mid - <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                cnt = <span class="number">1</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(cnt == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> i = mid - <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> j = mid + <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(i &gt;= <span class="number">0</span> &amp;&amp; array[i--] == k) &#123; ++cnt; &#125;</div><div class="line">        <span class="keyword">while</span>(j &lt; array.length &amp;&amp; array[j++] == k) &#123; ++cnt; &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> cnt;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/04/剑指Offer-36/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1567,137 +1710,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/03/剑指Offer-27/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/03/剑指Offer-27/" itemprop="url">剑指Offer_27</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T19:36:26+08:00">
-                2017-12-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。</p>
-<p><strong>输入描述:</strong></p>
-<p>输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>输入一个字符串，打印出该字符串中字符的所有排列。例如输入字符串abc，则输出由字符a，b，c所能排列出来的所有字符串abc，acb，bac，bca，cab和cba</p>
-<p>正常人的思维是，固定第一个字符，然后依次将后面的字符串与前面的交换，那么排列的个数就是除了第一个字符以外，其他字符的排列个数+1。</p>
-<p>也就是固定一个字符串之后，之后再将问题变小，只需求出后面子串的排列个数就可以得出结果，当然第一时间想到的就是递归的算法了。</p>
-<p>下面这张图很清楚的给出了递归的过程：</p>
-<p><img src="http://ovjotnstr.bkt.clouddn.com/3" alt=""></p>
-<p><strong>去重</strong></p>
-<p>由于全排列就是从第一个数字起，每个数分别与它后面的数字交换，我们先尝试加个这样的判断——如果一个数与后面的数字相同那么这两个数就不交换了。例如abb，第一个数与后面两个数交换得bab，bba。然后abb中第二个数和第三个数相同，就不用交换了。但是对bab，第二个数和第三个数不同，则需要交换，得到bba。由于这里的bba和开始第一个数与第三个数交换的结果相同了，因此这个方法不行。</p>
-<p>换种思维，对abb，第一个数a与第二个数b交换得到bab，然后考虑第一个数与第三个数交换，此时由于第三个数等于第二个数，所以第一个数就不再用与第三个数交换了。再考虑bab，它的第二个数与第三个数交换可以解决bba。此时全排列生成完毕！</p>
-<p>这样，我们得到在全排列中去掉重复的规则：<br>去重的全排列就是从第一个数字起，每个数分别与它后面非重复出现的数字交换。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Collections;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; A = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">private</span> <span class="keyword">char</span> []chars;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">PermutationHelper</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(index == chars.length-<span class="number">1</span>)&#123;</div><div class="line">            A.add(<span class="keyword">new</span> String(chars));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = index; i &lt; chars.length; ++i)&#123;</div><div class="line">        	<span class="comment">//if条件句 去重操作</span></div><div class="line">        	<span class="comment">//第一次进入循环  i == index 总是成立</span></div><div class="line">            <span class="keyword">if</span>(i != index &amp;&amp; chars[i] == chars[index])&#123;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            swap(i, index);</div><div class="line">            PermutationHelper(index+<span class="number">1</span>);</div><div class="line">            swap(i, index);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">        <span class="keyword">char</span> x = chars[i];</div><div class="line">        chars[i] = chars[j];</div><div class="line">        chars[j] = x;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title">Permutation</span><span class="params">(String str)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(str == <span class="keyword">null</span> || str.length() == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> A;</div><div class="line">        &#125;</div><div class="line">        chars = str.toCharArray();</div><div class="line">        PermutationHelper(<span class="number">0</span>);</div><div class="line">        Collections.sort(A);</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> A;</div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1751,7 +1763,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">85</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
