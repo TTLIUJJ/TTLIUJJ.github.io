@@ -95,14 +95,17 @@
 
 
 
+<meta name="description" content="Java内存模型在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。 在共享内存的并发模型里，线程之间共享程序的公共状态，通过读一写内存中的公共状态进行隐式传递。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。 Java的并发采用的共享内存模型。 Java内存模型的基础内存模型的抽象结构JMM通过控制主内存与每个线程的本地内存之间进行交互，提供内存可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发编程的艺术-学习笔记-3">
 <meta property="og:url" content="http://yoursite.com/2017/12/10/Java并发编程的艺术-学习笔记-3/index.html">
 <meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="Java内存模型在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。 在共享内存的并发模型里，线程之间共享程序的公共状态，通过读一写内存中的公共状态进行隐式传递。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。 Java的并发采用的共享内存模型。 Java内存模型的基础内存模型的抽象结构JMM通过控制主内存与每个线程的本地内存之间进行交互，提供内存可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-10T04:37:53.001Z">
+<meta property="og:updated_time" content="2017-12-13T02:24:31.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程的艺术-学习笔记-3">
+<meta name="twitter:description" content="Java内存模型在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。 在共享内存的并发模型里，线程之间共享程序的公共状态，通过读一写内存中的公共状态进行隐式传递。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。 Java的并发采用的共享内存模型。 Java内存模型的基础内存模型的抽象结构JMM通过控制主内存与每个线程的本地内存之间进行交互，提供内存可">
 
 
 
@@ -364,7 +367,24 @@
       
 
       
-        
+        <h1 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h1><p>在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。</p>
+<p>在共享内存的并发模型里，线程之间共享程序的公共状态，通过读一写内存中的公共状态进行隐式传递。<br>在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。</p>
+<p>Java的并发采用的共享内存模型。</p>
+<h2 id="Java内存模型的基础"><a href="#Java内存模型的基础" class="headerlink" title="Java内存模型的基础"></a>Java内存模型的基础</h2><h3 id="内存模型的抽象结构"><a href="#内存模型的抽象结构" class="headerlink" title="内存模型的抽象结构"></a>内存模型的抽象结构</h3><p>JMM通过控制主内存与每个线程的本地内存之间进行交互，提供内存可见性的保证。</p>
+<p>抽象地看，JMM定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读/写共享变量的副本。<br>本地内存是JMM的一个抽象概念，并不真实存在，它涵盖了缓存、写缓存区、寄存器与其他的硬件和编译器优化。</p>
+<p>在Java中，所有实例域、静态域和数组元素都储存在堆内存中，堆内存在线程之间共享。</p>
+<h3 id="源代码到指令序列的重排序"><a href="#源代码到指令序列的重排序" class="headerlink" title="源代码到指令序列的重排序"></a>源代码到指令序列的重排序</h3><p>为了提高性能，编译器和处理器会对指令进行一共三种重排序。</p>
+<p>a. 编译器优化的重排序（不改变单线程程序语义的前提下）</p>
+<p>b. 指令级并行的重排序（不存在数据依赖的前提下）</p>
+<p>c. 内存系统的重排序。由于处理器使用缓存和读/写缓冲区，使得加载和存储操作看起来像是在乱序执行。</p>
+<p>重排序会导致多线程出现内存不可见性问题。<br>对于编译器，JMM的编译器重排序规则会禁止特定类型的重排序<br>对于处理器，JMM的处理器要求编译器生成指令序列时，插入特定类型的内存屏障。</p>
+<h2 id="双重检查锁定与延迟初始化"><a href="#双重检查锁定与延迟初始化" class="headerlink" title="双重检查锁定与延迟初始化"></a>双重检查锁定与延迟初始化</h2><p>单例模式下的懒汉模式，在多线程的的条件下可能会出现问题。</p>
+<h3 id="基于voltatile的解决方案"><a href="#基于voltatile的解决方案" class="headerlink" title="基于voltatile的解决方案"></a>基于voltatile的解决方案</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Instance</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SafeDoubleCheckedLocking</span> </span>&#123;                     <span class="comment">//1</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Instance instance;              <span class="comment">//2</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title">getInstance</span><span class="params">()</span></span>&#123;                   <span class="comment">//3</span></div><div class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;                               <span class="comment">//4 第一次检查</span></div><div class="line">            <span class="keyword">synchronized</span> (SafeDoubleCheckedLocking.class)&#123;  <span class="comment">//5 加锁</span></div><div class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;                       <span class="comment">//6 第二次检查</span></div><div class="line">                    instance = <span class="keyword">new</span> Instance();              <span class="comment">//7 可能会出现问题的地方</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>问题根源</strong>:如上，在线程执行到第4行，当instance!=null的时候，实际上instance引用的对象初始化可能还没有完成。</p>
+<p>解决思路是，使用volatile禁止上面2,3行代码的重排序，来保证线程安全的延迟初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">instance = <span class="keyword">new</span> Instance();</div><div class="line"><span class="comment">//新建一个对象Instance可分解为如下三行伪代码</span></div><div class="line"></div><div class="line">memory = allocate();	<span class="comment">//1 分配对象的内存空间</span></div><div class="line">ctorInstance(memory);	<span class="comment">//2 初始化对象</span></div><div class="line">instance = memory;	    <span class="comment">//3 设置Instance指向分配的空间</span></div></pre></td></tr></table></figure>
+<p>实际上，上面的伪代码操作2,3可能会重排序，这是不改变单线程程序执行结果的重排序。<br>但是在多线程，instance可能会先指向一个未被初始化的空间，调用者使用这个未初始化的内存空间，bug就出现了。</p>
+
       
     </div>
     
@@ -397,6 +417,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/13/Java并发编程的艺术-学习笔记-4/" rel="prev" title="Java并发编程的艺术-学习笔记-4">
+                Java并发编程的艺术-学习笔记-4 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -448,8 +472,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -467,7 +500,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -514,6 +547,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java内存模型"><span class="nav-number">1.</span> <span class="nav-text">Java内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java内存模型的基础"><span class="nav-number">1.1.</span> <span class="nav-text">Java内存模型的基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存模型的抽象结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">内存模型的抽象结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码到指令序列的重排序"><span class="nav-number">1.1.2.</span> <span class="nav-text">源代码到指令序列的重排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双重检查锁定与延迟初始化"><span class="nav-number">1.2.</span> <span class="nav-text">双重检查锁定与延迟初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于voltatile的解决方案"><span class="nav-number">1.2.1.</span> <span class="nav-text">基于voltatile的解决方案</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
