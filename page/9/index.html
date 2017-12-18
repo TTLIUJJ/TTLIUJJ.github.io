@@ -275,6 +275,333 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/19/从零开始的Servlet-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/19/从零开始的Servlet-1/" itemprop="url">从零开始的Servlet(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-19T22:38:59+08:00">
+                2017-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Servlet基础"><a href="#Servlet基础" class="headerlink" title="Servlet基础"></a>Servlet基础</h1><p>Servlet是JSP的前身。Servlet是在服务端上运行的小程序，一个Servlet就是一个Java类，并且可以通过“请求–响应”编程模型来访问的这个驻留在服务器内存里的Servlet程序。</p>
+<h2 id="Tomcat容器等级"><a href="#Tomcat容器等级" class="headerlink" title="Tomcat容器等级"></a>Tomcat容器等级</h2><p>Tomcat的容器分为四个等级：<br>Servlet的容器管理Context容器，一个Context对应于一个web工程<br><img src="http://owj98yrme.bkt.clouddn.com/java/servlet2.jpg" alt=""></p>
+<h2 id="创建Servlet"><a href="#创建Servlet" class="headerlink" title="创建Servlet"></a>创建Servlet</h2><p>Servelet的继承体系如下：<br>自定义Servlet –&gt; Abstract class HttpServlet –&gt; Abstract class GenericServlet –&gt; interface Servlet</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/java/servlet1.png" alt=""></p>
+<h3 id="写个小例子"><a href="#写个小例子" class="headerlink" title="写个小例子"></a>写个小例子</h3><ol>
+<li>继承HttpServlet</li>
+<li>重写doGet()和doPost()方法</li>
+<li>在web.xml中注册Servlet</li>
+</ol>
+<p>这个方式和Django里的View.py里处理request和response的方式有点像。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.servlet.ackerman;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line"><span class="comment">//        super.doGet(request, response);</span></div><div class="line">        System.out.println(<span class="string">"处理Get（）请求"</span>);</div><div class="line">        PrintWriter out = response.getWriter();</div><div class="line">        response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">        out.println(<span class="string">"&lt;Strong&gt;Hello World&lt;/Strong&gt;"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line"><span class="comment">//        super.doPost(req, resp);</span></div><div class="line">        System.out.println(<span class="string">"处理Post（）请求"</span>);</div><div class="line">        PrintWriter out = response.getWriter();</div><div class="line">        response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">        out.println(<span class="string">"&lt;Strong&gt;Hello MyBaby&lt;/Strong&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接着在web.xml注册HelloServlet类，就像在Django的admin.py里注册一样<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">servlet</span>.<span class="title">ackerman</span>.<span class="title">HelloServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">class</span>&gt;</span></div><div class="line"><span class="class">&lt;/<span class="title">servlet</span>&gt;</span></div><div class="line"><span class="class">&lt;<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">servlet</span>-<span class="title">name</span>&gt;<span class="title">HelloServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">name</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/<span class="title">HelloServlet</span>&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></div><div class="line"><span class="class">&lt;/<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在页面上使用Servlet，注意这里的href和action的链接与上面的url-pattern要匹配<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;第一个Servlet例子&lt;/h1&gt;</div><div class="line">&lt;a href="HelloServlet"&gt;Get方式请求HelloServlet&lt;/a&gt;</div><div class="line">&lt;form action=<span class="string">"HelloServlet"</span> method=<span class="string">"POST"</span>&gt;</div><div class="line">  &lt;input type=<span class="string">"submit"</span> value=<span class="string">"Post方式提交HelloServlet"</span>/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Servlet的执行流程"><a href="#Servlet的执行流程" class="headerlink" title="Servlet的执行流程"></a>Servlet的执行流程</h2><p>Get方式请求HelloServlet –&gt; &lt;\a href=”appNames/HelloServlet”&gt; –&gt; 在web.xml寻找对应的url-pattern –&gt; 在web.xml寻找对应的servlet-class –&gt; 寻找HelloServlet类中的doGet()请求方法</p>
+<p>HttpServlet类扩展了GenericServlet类，实现了GenericServlet类的抽象方法。<br>HttpServlet类有两个service()方法。<br>我们自己编写的Servlet继承了HttpServlet类，一般只需覆盖doPost或者doGet方法，不必覆盖service方法，因为service()会调用doPost或者doGet方法。</p>
+<h2 id="Servlet生命周期"><a href="#Servlet生命周期" class="headerlink" title="Servlet生命周期"></a>Servlet生命周期</h2><p>三个阶段：</p>
+<ol>
+<li>初始化阶段，Servlet类先被创建，然后调用init()方法(如果Servlet已经被加载，直接进行第二步)。</li>
+<li>响应客户请求阶段，调用service()方法。由service()方法根据提交方式选择执行doGet()或者doPost()方法。</li>
+<li>终止阶段，调用destroy方法。</li>
+</ol>
+<p><img src="http://owj98yrme.bkt.clouddn.com/java/servlet3.jpg" alt=""></p>
+<h3 id="servlet加载的三种情况"><a href="#servlet加载的三种情况" class="headerlink" title="servlet加载的三种情况"></a>servlet加载的三种情况</h3><p>首先要记得Servlet实例化对象是长期存放在内存中的。<br>在下列时刻Servlet容器装载Servlet：</p>
+<ol>
+<li><p>Servlet容器启动时自动装载某些Servlet，实现它只需要在web.xml文件中Servlet标签中添加如下代码，数字越小表示优先级越高。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;loadon-startup&gt;1&lt;/loadon-startup&gt;</div></pre></td></tr></table></figure>
+<p>这样启动Tomcat容器后Servlet类会被创建并调用init()方法。</p>
+</li>
+<li>在Servlet容器启动后，客户首次向Servlet发送请求。</li>
+<li>Servlet类文件被更新后，重新加载Servlet。</li>
+</ol>
+<p>Servlet被加载后，Servlet容器创建一个Servlet实例并且调用Servlet的init()方法进行初始化。在整个Servlet的整个生命周期内，init()方法只被调用一次。</p>
+<h2 id="Servlet和JSP内置对象"><a href="#Servlet和JSP内置对象" class="headerlink" title="Servlet和JSP内置对象"></a>Servlet和JSP内置对象</h2><p>下面展示的是JSP九大内置对象怎么在Servlet中获得<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">out				resp.getWriter</div><div class="line">request			service()方法中的req参数</div><div class="line">response		service()方法中的resp参数</div><div class="line">session			req.getSession函数</div><div class="line">application		getServletContext()函数</div><div class="line">exception				Throwable</div><div class="line">page					this</div><div class="line">pageContext			PageContext</div><div class="line">Config				getServletConfig()函数</div></pre></td></tr></table></figure></p>
+<h2 id="Servlet-路径跳转"><a href="#Servlet-路径跳转" class="headerlink" title="Servlet 路径跳转"></a>Servlet 路径跳转</h2><h2 id="Servlet-获取初始化参数"><a href="#Servlet-获取初始化参数" class="headerlink" title="Servlet 获取初始化参数"></a>Servlet 获取初始化参数</h2><p>第一步：<br>写JSP页面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;获取初始化参数&lt;/h1&gt;</div><div class="line">&lt;a href="GetInitParameterServlet"&gt;点我点我&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>第二步：<br>写Servlet类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.servlet;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.sun.deploy.net.HttpResponse;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.Servlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> javax.xml.ws.http.HTTPException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetInitParameterServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.password = password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//在初始化Servlet类的时候会调用该函数</span></div><div class="line">    <span class="comment">//获取在web.xml中的参数</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException</span>&#123;</div><div class="line">        <span class="keyword">this</span>.setUsername(<span class="keyword">this</span>.getInitParameter(<span class="string">"username"</span>));</div><div class="line">        <span class="keyword">this</span>.setPassword(<span class="keyword">this</span>.getInitParameter(<span class="string">"password"</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> HTTPException, IOException</span>&#123;</div><div class="line">        doPost(request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> HTTPException, IOException</span>&#123;</div><div class="line">        <span class="comment">//将获得的初始化参数返回在页面</span></div><div class="line">        response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">        PrintWriter outer = response.getWriter();</div><div class="line">        outer.println(<span class="keyword">this</span>.getUsername() + <span class="string">"&lt;br/&gt;"</span>);</div><div class="line">        outer.println(<span class="keyword">this</span>.getPassword() );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第三步：<br>在web.xml中注册Servlet类并设置初始参数<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;InitParameter&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">servlet</span>.<span class="title">GetInitParameterServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">class</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;</span></div><div class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">username</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></div><div class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">ackerman</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;</span></div><div class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;</span></div><div class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">password</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></div><div class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">javaweb</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;</span></div><div class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;</span></div><div class="line"><span class="class">&lt;/<span class="title">servlet</span>&gt;</span></div><div class="line"><span class="class">&lt;<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">servlet</span>-<span class="title">name</span>&gt;<span class="title">InitParameter</span>&lt;/<span class="title">servlet</span>-<span class="title">name</span>&gt;</span></div><div class="line"><span class="class">    &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/<span class="title">GetInitParameterServlet</span>&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></div><div class="line"><span class="class">&lt;/<span class="title">servlet</span>-<span class="title">mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/19/从零开始的JDBC-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/19/从零开始的JDBC-1/" itemprop="url">从零开始的JDBC(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-19T09:45:34+08:00">
+                2017-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JDBC入门"><a href="#JDBC入门" class="headerlink" title="JDBC入门"></a>JDBC入门</h1><h2 id="使用IDEA连接JDBC"><a href="#使用IDEA连接JDBC" class="headerlink" title="使用IDEA连接JDBC"></a>使用IDEA连接JDBC</h2><p>准备：到MySQL官网下载JDBC驱动</p>
+<ol>
+<li>新建Java工程 View –&gt; Tool Windows –&gt;  Database –&gt; 添加DataSource –&gt; MySQL</li>
+<li>填写参数：<br>Host：localhost<br>DataBase：数据库名称<br>User：root<br>Password：xxxooo</li>
+<li>点击Test Connection 测试是否成功，否则按照提示解决</li>
+<li>File –&gt; Project Structure –&gt; Modules –&gt; Dependencies –&gt; 添加刚刚卸载的mysql驱动</li>
+<li>在工程目录下的External Libraries找到驱动就完成了</li>
+</ol>
+<h2 id="使用IDEA连接MySQL数据库"><a href="#使用IDEA连接MySQL数据库" class="headerlink" title="使用IDEA连接MySQL数据库"></a>使用IDEA连接MySQL数据库</h2><p>测试JDBC是否能够正常工作。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.jdbc.one_piece;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.sql.Connection;</div><div class="line"><span class="keyword">import</span> java.sql.DriverManager;</div><div class="line"><span class="keyword">import</span> java.sql.ResultSet;</div><div class="line"><span class="keyword">import</span> java.sql.Statement;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Operation</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"jdbc:mysql://127.0.0.1/ackerman?useSSL=false"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String USER = <span class="string">"root"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PASSWORD = <span class="string">"ljj5588006"</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        <span class="comment">//加载MySQL驱动</span></div><div class="line">        Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line"></div><div class="line">        <span class="comment">//连接到数据库</span></div><div class="line">        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);</div><div class="line"></div><div class="line">        <span class="comment">//测试是否成功，并查询数据</span></div><div class="line">        Statement stat = conn.createStatement();</div><div class="line">        ResultSet rs = stat.executeQuery(<span class="string">"SELECT name, age FROM person"</span>);</div><div class="line">        <span class="keyword">while</span>(rs.next())&#123;</div><div class="line">            System.out.println(rs.getString(<span class="string">"name"</span>) + <span class="string">": "</span> + rs.getInt(<span class="string">"age"</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="JDBC实例"><a href="#JDBC实例" class="headerlink" title="JDBC实例"></a>JDBC实例</h2><p>JDBC说白了就是在Java程序中调用一些API使用SQL语句。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/从零开始的JSP-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1362,7 +1689,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">88</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

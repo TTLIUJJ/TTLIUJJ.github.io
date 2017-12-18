@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="题目输入一个链表，反转链表后，输出链表的所有元素。 解题思路三个指针来记录位置，反转链表。 12345678910111213141516171819202122232425262728293031/*public class ListNode &amp;#123;    int val;    ListNode next = null;    ListNode(int val) &amp;#123;">
+<meta name="description" content="定义模板方法模式是类的行为模式。准备一个抽象类，将部分逻辑以具体方法以及具体构造函数的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而剩余的逻辑有不同的实现。 模式中的角色抽象类（AbstractClass）：实现模板方法，定义了算法的骨架具体类（ConcreteClass）：实现抽象类中的抽象方法，已完成完整的算法 123456789101">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer_15">
-<meta property="og:url" content="http://yoursite.com/2017/12/01/剑指Offer-15/index.html">
+<meta property="og:title" content="设计模式-模板模式">
+<meta property="og:url" content="http://yoursite.com/2017/12/14/设计模式-模板模式/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="题目输入一个链表，反转链表后，输出链表的所有元素。 解题思路三个指针来记录位置，反转链表。 12345678910111213141516171819202122232425262728293031/*public class ListNode &amp;#123;    int val;    ListNode next = null;    ListNode(int val) &amp;#123;">
+<meta property="og:description" content="定义模板方法模式是类的行为模式。准备一个抽象类，将部分逻辑以具体方法以及具体构造函数的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而剩余的逻辑有不同的实现。 模式中的角色抽象类（AbstractClass）：实现模板方法，定义了算法的骨架具体类（ConcreteClass）：实现抽象类中的抽象方法，已完成完整的算法 123456789101">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-07T01:43:30.206Z">
+<meta property="og:updated_time" content="2017-12-14T05:59:45.618Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指Offer_15">
-<meta name="twitter:description" content="题目输入一个链表，反转链表后，输出链表的所有元素。 解题思路三个指针来记录位置，反转链表。 12345678910111213141516171819202122232425262728293031/*public class ListNode &amp;#123;    int val;    ListNode next = null;    ListNode(int val) &amp;#123;">
+<meta name="twitter:title" content="设计模式-模板模式">
+<meta name="twitter:description" content="定义模板方法模式是类的行为模式。准备一个抽象类，将部分逻辑以具体方法以及具体构造函数的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而剩余的逻辑有不同的实现。 模式中的角色抽象类（AbstractClass）：实现模板方法，定义了算法的骨架具体类（ConcreteClass）：实现抽象类中的抽象方法，已完成完整的算法 123456789101">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/01/剑指Offer-15/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/14/设计模式-模板模式/"/>
 
 
 
 
 
-  <title>剑指Offer_15 | 10000小时</title>
+  <title>设计模式-模板模式 | 10000小时</title>
   
 
 
@@ -278,7 +278,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/01/剑指Offer-15/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/设计模式-模板模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔头刘德华">
@@ -295,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指Offer_15</h1>
+          <h1 class="post-title" itemprop="name headline">设计模式-模板模式</h1>
         
 
         <div class="post-meta">
@@ -307,8 +307,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T10:17:00+08:00">
-                2017-12-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T09:46:01+08:00">
+                2017-12-14
               </time>
             
 
@@ -330,8 +330,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -367,9 +367,13 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>输入一个链表，反转链表后，输出链表的所有元素。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>三个指针来记录位置，反转链表。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">public class ListNode &#123;</span></div><div class="line"><span class="comment">    int val;</span></div><div class="line"><span class="comment">    ListNode next = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    ListNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment">&#125;*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> head;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode pre = <span class="keyword">null</span>;</div><div class="line">        ListNode cur = head;</div><div class="line">        ListNode post = head.next;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(post != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = pre;</div><div class="line">            pre = cur;</div><div class="line">            cur = post;</div><div class="line">            post = post.next;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//循环退出条件post == null</span></div><div class="line">        <span class="comment">//最后一个节点还未指向它的前一节点</span></div><div class="line">        cur.next = pre;</div><div class="line">        <span class="keyword">return</span> cur;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>模板方法模式是类的行为模式。准备一个抽象类，将部分逻辑以具体方法以及具体构造函数的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而剩余的逻辑有不同的实现。</p>
+<h4 id="模式中的角色"><a href="#模式中的角色" class="headerlink" title="模式中的角色"></a>模式中的角色</h4><p><strong>抽象类（AbstractClass）</strong>：实现模板方法，定义了算法的骨架<br><strong>具体类（ConcreteClass）</strong>：实现抽象类中的抽象方法，已完成完整的算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showCar</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.name();</div><div class="line">        <span class="keyword">this</span>.location();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">name</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">location</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Benzi</span> <span class="keyword">extends</span>  <span class="title">CarFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">name</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"benzi"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">location</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"tatou"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bmw</span> <span class="keyword">extends</span>  <span class="title">CarFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">name</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"BMW"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">location</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"touta"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        CarFactory carFactory  = <span class="keyword">new</span> Benzi();</div><div class="line">        carFactory.showCar();</div><div class="line"></div><div class="line">        Bmw bmw = <span class="keyword">new</span> Bmw();</div><div class="line">        bmw.showCar();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">benzi</div><div class="line">tatou</div><div class="line">BMW</div><div class="line">touta</div></pre></td></tr></table></figure>
+<h4 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h4><p><strong>优点</strong>：模板方法模式通过把不变的行为搬移到超类，去除了子类中重复的代码。子类实现算法的某些细节，有助于算法的扩展。通过一个父类调用子类实现的操作，通过子类扩展增加新的行为，符合“开放-封闭原则”。<br><strong>缺点</strong>：每个不同的实现都需要定义一个子类，这会导致类的个数增加，设计更加抽象。</p>
+
       
     </div>
     
@@ -393,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/01/剑指Offer-14/" rel="next" title="剑指Offer_14">
-                <i class="fa fa-chevron-left"></i> 剑指Offer_14
+              <a href="/2017/12/14/Java并发编程的艺术-学习笔记-5/" rel="next" title="Java并发编程的艺术-学习笔记-5">
+                <i class="fa fa-chevron-left"></i> Java并发编程的艺术-学习笔记-5
               </a>
             
           </div>
@@ -402,10 +406,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/01/剑指Offer-16/" rel="prev" title="剑指Offer_16">
-                剑指Offer_16 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -542,7 +542,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式中的角色"><span class="nav-number">2.</span> <span class="nav-text">模式中的角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评价"><span class="nav-number">3.</span> <span class="nav-text">评价</span></a></li></ol></div>
             
 
           </div>
