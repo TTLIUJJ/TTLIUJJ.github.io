@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Executor 框架Java的线程是程序的执行机制，也是工作单位。从JDK 5开始，把工作单元和执行机制分离开。执行机制由Executor提供，而工作单元包括Runnable和Callable。 Executor 框架简介Executor 框架的两级调度模型在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发编程的艺术-学习笔记-10">
+<meta property="og:url" content="http://yoursite.com/2017/12/22/Java并发编程的艺术-学习笔记-10/index.html">
+<meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="Executor 框架Java的线程是程序的执行机制，也是工作单位。从JDK 5开始，把工作单元和执行机制分离开。执行机制由Executor提供，而工作单元包括Runnable和Callable。 Executor 框架简介Executor 框架的两级调度模型在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent13">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent14.png">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent15.png">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent16.png">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/17.jpg">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent18.jpg">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/19.jpg">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent20.png">
+<meta property="og:updated_time" content="2017-12-24T05:22:38.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java并发编程的艺术-学习笔记-10">
+<meta name="twitter:description" content="Executor 框架Java的线程是程序的执行机制，也是工作单位。从JDK 5开始，把工作单元和执行机制分离开。执行机制由Executor提供，而工作单元包括Runnable和Callable。 Executor 框架简介Executor 框架的两级调度模型在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线">
+<meta name="twitter:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent13">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/22/Java并发编程的艺术-学习笔记-10/"/>
+
+
+
+
+
+  <title>Java并发编程的艺术-学习笔记-10 | 10000小时</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">10000小时</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/Java并发编程的艺术-学习笔记-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java并发编程的艺术-学习笔记-10</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T20:54:28+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Executor-框架"><a href="#Executor-框架" class="headerlink" title="Executor 框架"></a>Executor 框架</h1><p>Java的线程是程序的执行机制，也是工作单位。<br>从JDK 5开始，把工作单元和执行机制分离开。执行机制由Executor提供，而工作单元包括Runnable和Callable。</p>
+<h2 id="Executor-框架简介"><a href="#Executor-框架简介" class="headerlink" title="Executor 框架简介"></a>Executor 框架简介</h2><h3 id="Executor-框架的两级调度模型"><a href="#Executor-框架的两级调度模型" class="headerlink" title="Executor 框架的两级调度模型"></a>Executor 框架的两级调度模型</h3><p>在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程被终止时，这个操作系统线程也会被回收。操作系统会调度所有线程并将它们分配给可用的CPU。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent13" alt="点击加载"> </p>
+<h4 id="Executor-框架的结构与成员"><a href="#Executor-框架的结构与成员" class="headerlink" title="Executor 框架的结构与成员"></a>Executor 框架的结构与成员</h4><p><strong>任务</strong>：包括被执行任务需要实现的接口：Runnable接口或Callable接口。<br><strong>任务的执行</strong>：包括任务的执行机制的核心接口Executor，以及继承自Executor的ExecutorService接口。框架主要有两个关键类实现了ExecutorService接口（ThreadPoolExecutor和ScheduledThreadPoolExecutor）。<br><strong>异步计算的结果</strong>：包括接口Futrue和实现接口的FutureTask类。</p>
+<p>接口和类的简介</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executor</td>
+<td>接口，将任务的提交和任务的执行分离开</td>
+</tr>
+<tr>
+<td>ThreadPoolExecutor</td>
+<td>线程池核心实现类，用来执行被提交的任务</td>
+</tr>
+<tr>
+<td>ScheduledThreadPoolExecutor</td>
+<td>实现类，可以在给定的延迟后运行命令，或者定期执行命令</td>
+</tr>
+<tr>
+<td>FutureTask</td>
+<td>实现Future接口的类，代表异步计算的结果</td>
+</tr>
+<tr>
+<td>Runnable和Callable</td>
+<td>实现了这两个接口的类，都可以被线程池执行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ThreadPoolExecutor-详解"><a href="#ThreadPoolExecutor-详解" class="headerlink" title="ThreadPoolExecutor 详解"></a>ThreadPoolExecutor 详解</h2><p>Executor框架最核心的类ThreadPoolExecutor，主要由4个组件构成</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>corePool</td>
+<td>核心线程池的大小</td>
+</tr>
+<tr>
+<td>maximumPool</td>
+<td>最大线程池的大小</td>
+</tr>
+<tr>
+<td>BlockingQueue</td>
+<td>用来暂时保存任务的工作队列</td>
+</tr>
+<tr>
+<td>rejectedExecutionHandler</td>
+<td>当Excutor框架已经关闭，或者饱和（达到最大线程池大小且工作队列已满），execute()方法将要调用的Handler</td>
+</tr>
+</tbody>
+</table>
+<p>通过Executor框架的工具类Executors可以创建3种不同类型的ThreadPoolExecutor。</p>
+<h3 id="FixedThreadPool"><a href="#FixedThreadPool" class="headerlink" title="FixedThreadPool"></a>FixedThreadPool</h3><p>可重用固定线程数的线程池。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="keyword">int</span> corePoolSize,</div><div class="line">                            <span class="keyword">int</span> nThreads,	<span class="comment">//maximumPoolSize</span></div><div class="line">                            <span class="number">0L</span>,		<span class="comment">//keepAliveTime</span></div><div class="line">                            TimeUnit unit,</div><div class="line">                            BlockingQueue&lt;Runnable&gt; workQueue);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>FixedThreadPool的corePoolSize和maximumPoolSize都被设置为创建nThread。<br>当线程池的线程数大于corePoolSize时，keepAliveTime为多余的空闲线程等待的最长时间，超过这个时间后多余的线程将被终止。<br>这里把keepAliveTime设置为0L，意味着多余的空余线程会被立刻终止。</p>
+<p>FixedThreadPool使用无界队列LinkedBlockingQueue作为线程池的工作队列（队列最大容量为Integer.MAX_VALUE）。使用无界队列作为工作队列会对线程池带来如下影响。</p>
+<ol>
+<li>当线程池线程数等于corePoolSize，新任务将会在无界队列中等待，因此线程中的线程不会超过corePoolSize。</li>
+<li>由于1，使用无界队列maximumPoolSize将是一个无效的参数</li>
+<li>由于1和2，使用无界队列keepAliveTime也是个无效的参数</li>
+<li>不会由于饱和策略而处理handler</li>
+</ol>
+<h3 id="SingleThreadExecutor-详解"><a href="#SingleThreadExecutor-详解" class="headerlink" title="SingleThreadExecutor 详解"></a>SingleThreadExecutor 详解</h3><p>SingleThreadExecutor是使用单个worker线程的Executor。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>,</div><div class="line">                                <span class="number">1</span>,</div><div class="line">                                <span class="number">0L</span>,</div><div class="line">                                TimeUnit unit,</div><div class="line">                                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent14.png" alt="点击加载"></p>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li>如果当前线程池无运行程序，创建一个新线程执行任务</li>
+<li>在线程池预热之后，将任务加入LinkedBlockingQueue</li>
+<li>线程执行完1中的任务后，会在一个无限循环中反复从LinkedBlockingQueue获取任务来执行</li>
+</ol>
+<h3 id="CachedThreadPool-详解"><a href="#CachedThreadPool-详解" class="headerlink" title="CachedThreadPool 详解"></a>CachedThreadPool 详解</h3><p>一个会根据需要创建新线程的线程池。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span></span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>,</div><div class="line">                                Integer.MAX_VALUE,</div><div class="line">                                keepAliveTime</div><div class="line">                                TimeUnit.SECONDS,</div><div class="line">                                <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>无核心线程池，空闲线程超过keepAliveTime之后会被终止。<br>CachedThreadPool使用没有容量的SynchronousQueue作为线程池的工作队列，但是CachedThreadPool的maximumPool是无边界的(Integer.MAX_VALUE)。这意味着，如果主线程提交任务的速度高于maximumPoolSize中线程处理任务的速度，CachedThreadPool会不断创建新线程。可能会耗尽CPU。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent15.png" alt="点击加载"></p>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li>首先执行offer操作，往队列中塞任务， 由于一个offer操作阻塞等待一个poll操作，如果maximumPool有空闲线程正在执行SynchronousQueue.poll(keepAliveTime, TimeUnit unit)，那么配对成功，线程执行任务。否则执行下面的步骤2</li>
+<li>当初始maximumPool为空，或者maximumPool中没有空闲的线程，将没有线程执行poll()操作（空闲线程会一直调用超时返回的pool），也就是步骤1失败的情况，此时CachedThreadPool会创建一个新线程执行任务，execute()方法执行成功。</li>
+<li>在步骤2中新创建的线程在任务执行完毕之后，会执行poll(keepAliveTIme, TimeUnit)。这个poll操作会让空闲线程最多等待keepAliveTime，如果时间内主线程提交了一个新任务(offer()操作)，那么这个空闲的线程会执行任务；否则，空闲线程被终止。如此一来，长时间保持空闲的CachedThreadPool不会使用任何资源。</li>
+</ol>
+<h2 id="ScheduledThreadPoolExecutor-详解"><a href="#ScheduledThreadPoolExecutor-详解" class="headerlink" title="ScheduledThreadPoolExecutor 详解"></a>ScheduledThreadPoolExecutor 详解</h2><p>ScheduledThreadPoolExecutor继承自ThreadPoolExecutor。它主要用来在给定的延迟之后运行任务，或者定期执行任务。ScheduledThreadPoolExecutor可以在构造函数中指定多个对应的后台线程数。</p>
+<h3 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h3><p>工作流程如图</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent16.png" alt="点击加载"></p>
+<p>DelayQueue是一个无界队列，所以ScheduledThreadPoolExecutor中的maximumPoolSize的大小没有什么效果。<br>任务的执行主要分成两大部分：</p>
+<ol>
+<li>当调用scheduleAtFixedRate()方法或者scheduleWithFixedDelay()方法时，会向队列添加一个是实现了RunableScheduledFuture接口的ScheduledFutureTask。</li>
+<li>线程池中的线程从DelayQueue中获取了ScheduledFutureTask，然后执行任务。</li>
+</ol>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>ScheduledFutureTask主要包括三个long型成员变量</p>
+<ol>
+<li>time，表示这个任务要被执行的具体时间</li>
+<li>sequenceNumber，表示这个任务被添加到框架中的序号</li>
+<li>period，表示任务执行的间隔周期。</li>
+</ol>
+<p>DelayQueue封装了PriorityQueue，这个优先队列会对队列中的任务进行排序。time时间早的任务先被执行，如果相同，再比较sequenceNumber。</p>
+<p>take操作和poll操作会阻塞线程，在对立中使用take是为了有task可获取，就把它取出来，然后设置时间，再从新使用add入队，以time排序。</p>
+<p><strong>下图是线程1执行某个周期任务的4个步骤</strong></p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/17.jpg" alt="点击加载"></p>
+<p>工作流程：</p>
+<ol>
+<li>线程1从DelayQueue中获取已经到期的ScheduledFutureTask(DelayQueue.take())。到期任务指的是ScheduledFutureTask的time大于等于当前时间</li>
+<li>线程1执行这个ScheduledFutureTask。</li>
+<li>线程1修改ScheduledFutureTask的time变量为下次将要被执行的时间。</li>
+<li>线程1把这个修改time之后的ScheduledFutureTask放回到DelayQueue中(DelayQueue.add())。</li>
+</ol>
+<p>DelayQueue.take()方法的源代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> E <span class="title">take</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</div><div class="line">    <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</div><div class="line">    lock.lockInterruptibly();                                       <span class="comment">// 1</span></div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        <span class="keyword">for</span>( ; ; )&#123;</div><div class="line">            E first = q.peek();</div><div class="line">            <span class="keyword">if</span>(first == <span class="keyword">null</span>)&#123;</div><div class="line">                available.await();                                  <span class="comment">// 2.1</span></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">long</span> delay = first.getDelay(TimeUnit.NANOSECONDS);</div><div class="line">                <span class="keyword">if</span>(delay &gt; <span class="number">0</span>)&#123;</div><div class="line">                    <span class="keyword">long</span> t1 = available.awaitNanos(delay);          <span class="comment">// 2.2 </span></div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span>&#123;</div><div class="line">                    E x = q.poll();                                 <span class="comment">// 2.3.1</span></div><div class="line">                    <span class="keyword">assert</span>(x != <span class="keyword">null</span>);</div><div class="line">                    <span class="keyword">if</span>(q.size() != <span class="number">0</span>)&#123;</div><div class="line">                        available.signalAll();                      <span class="comment">// 2.3.2</span></div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">return</span> x;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;<span class="keyword">finally</span> &#123;</div><div class="line">        lock.unlock();                                              <span class="comment">// 3</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>获取任务的工作流程</strong><br>1.获取Lock<br>2.获取周期任务<br>如果PriorityQueue为空，当前线程到Condition中等待；否则执行2.2<br>如果PriorityQueue的头元素的time时间比当前时间大，到Conditon中等待到time时间；否则执行下面的2.3<br>获取PriorityQueue的头元素(2.3.1)；如果PriorityQueue不为空，则唤醒在Condition中等待的所有线程。<br>3.释放Lock</p>
+<p>ScheduledThreadPoolExecutor在一个循环中执行步骤2，知道线程从PriorityQueue获取到最后一个元素之后，才会退出循环（结束步骤2）</p>
+<p>下面是DelayQueue.add()的源码分析</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">offer</span><span class="params">(E e)</span></span>&#123;</div><div class="line">    <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</div><div class="line">    lock.lock();                                            <span class="comment">// 1</span></div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        E first = q.peek();</div><div class="line">        q.offer(e);                                         <span class="comment">// 2.1</span></div><div class="line">        <span class="keyword">if</span>(first  == <span class="keyword">null</span> || e.compareTo(first) &lt; <span class="number">0</span>)&#123;           </div><div class="line">            avaiable.singalAll();                           <span class="comment">// 2.2</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;<span class="keyword">finally</span> &#123;</div><div class="line">        lock.unlock();                                      <span class="comment">// 3</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>添加任务的工作流程</strong><br>1.获取Lock<br>2.添加任务<br>向PriorityQueue添加任务<br>如果在在上面2.1中添加的任务是PrioityQueue的头元素，唤醒在Condition中等待的所有线程。<br>3.释放所有Lock</p>
+<h2 id="FutureTask-详解"><a href="#FutureTask-详解" class="headerlink" title="FutureTask 详解"></a>FutureTask 详解</h2><p>FutureTask除了实现Future接口外，还实现了Runnable接口。因此，FutureTask可以交给Executor执行，也可以由调用线程直接运行(FutureTask.run())。<br>根据FutureTask.run()方法被执行的时机，FutureTask可以处于3种状态：未启动、已启动和已完成。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent18.jpg" alt="点击加载"></p>
+<p>当FutureTask处于未启动或已启动状态时，执行FutureTask.get()方法将导致调用线程阻塞；当FutureTask处于已完成状态时，执行FutureTask.get()方法将导致调用线程立即返回结果或抛出异常。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/19.jpg" alt="点击加载"></p>
+<h2 id="FutureTask的实现"><a href="#FutureTask的实现" class="headerlink" title="FutureTask的实现"></a>FutureTask的实现</h2><p>FutureTask的实现基于AbstractQueuedSynchronizer。</p>
+<p>每一个基于AQS实现的同步器都会包含两种类型的操作：</p>
+<ol>
+<li>至少一个acquire操作。这个操作阻塞调用线程，除非/直到AQS的状态允许这个线程继续执行。FutureTask的acquire操作为get()/get(timeoout, TimeUnit)方法调用。</li>
+<li>至少一个release操作。这个操作改变AQS的状态，改变后的状态可允许一个或多个阻塞线程被解除阻塞。FutureTask的release操作包括run()方法和cancel(…)方法。</li>
+</ol>
+<p>基于”复合优先于继承”的原则，FutureTask声明了一个内部私有的继承于AQS的子类Sync，对FutureTask所有公有方法的调用都会委托给这个内部子类。<br>Sync实现了AQS的tryActuireShared(int)方法，和tryReleaseShared(int)方法，Sync通过这两个方法来检查和更新同步状态。</p>
+<p>Sync是FutureTask的内部私有类，它继承自AQS。创建FutureTask时会创建内部私有的成员对象Sync，FutureTask所有的公有方法都直接委托了内部私有的Sync。</p>
+<h3 id="FutureTask-get"><a href="#FutureTask-get" class="headerlink" title="FutureTask.get()"></a>FutureTask.get()</h3><p>FutureTask.get()方法会调用AQS.acquireSharedInterruptibly(int arg)，这个方法的执行过程如下。</p>
+<ol>
+<li>调用AQS.acquireSharedInterruptibly(int arg)方法，这个方法首先会回调在子类Sync中实现的tryAcquireShared()方法来判断acquire操作是否可以成功。acquire操作可以成功的的条件为：state为执行完成状态RAN或者已取消状态CANCELLED，且runneer不为null。</li>
+<li>如果成功则get()方法立即返回。如果失败则到线程等待队列中去等待其他线程执行release操作。</li>
+<li>当其他线程执行release操作（比如FutureTask.run()或者FutureTask.cancel(…)）唤醒当前队列后，当前线程再次执行tryAcquireShared()将返回1，当前线程离开线程等待队列并唤醒它的后继线程（这里会产生级联唤醒效果）</li>
+<li>最后返回计算的结果或抛出异常</li>
+</ol>
+<h3 id="FutureTask-run"><a href="#FutureTask-run" class="headerlink" title="FutureTask.run()"></a>FutureTask.run()</h3><p>工作流程：</p>
+<ol>
+<li>执行在构造函数中指定的任务(Callable.call())。</li>
+<li>以原子方式来更新同步状态（调用AQS.compareAndSetState(int expect, int update)，设置state为执行完成状态RAN）。如果这个原子操作成功，就设置代表计算结果的变量result的值为Callable.call的返回值，然后调用AQS.releaseShared(int arg)。</li>
+<li>AQS.releaseShared(int arg)首先会回调在子类Sync中实现的tryReleaseShared(arg)来执行release操作（设置运行任务的线程runner为null，然后返回true）；AQS.releaseShared(int arg)，然后唤醒线程等待队列中的第一个线程。</li>
+<li>调用FutureTask.don()</li>
+</ol>
+<p>当执行FutureTask.get()方法时，如果FutureTask不是处于执行完成状态RAN或已取消状态CANCELLED，当前执行线程将到AQS的线程等待队列中等待（如下图的线程A、B、C和D）。当某个线程执行FutureTask.run()方法或FutureTask.cancel(…)方法时，会唤醒线程等待队列的第一个线程（如下图线程E唤醒线程A）。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent20.png" alt="点击加载"></p>
+<p>假设开始时FutureTask处于未启动状态或者已启动状态，等待队列中已经有三个线程等待(A、B和C)，此刻，后续的线程D执行get()方法将导致线程D也到等待队列中等待。<br>当线程E执行run()方法时，会唤醒队列中的第一个线程A。线程A被唤醒后，首先把自己从队列中删除，然后唤醒它的后继线程B，最后线程A从get()方法返回。线程B、C和D重复线程A的处理流程。最终，在队列中等待的所有线程都被级联唤醒并且从get()方法返回。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/22/Java并发编程的艺术-学习笔记-9/" rel="next" title="Java并发编程的艺术-学习笔记-9">
+                <i class="fa fa-chevron-left"></i> Java并发编程的艺术-学习笔记-9
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.png"
+              alt="塔头刘德华" />
+          
+            <p class="site-author-name" itemprop="name">塔头刘德华</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Executor-框架"><span class="nav-number">1.</span> <span class="nav-text">Executor 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Executor-框架简介"><span class="nav-number">1.1.</span> <span class="nav-text">Executor 框架简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Executor-框架的两级调度模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Executor 框架的两级调度模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor-框架的结构与成员"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Executor 框架的结构与成员</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor-详解"><span class="nav-number">1.2.</span> <span class="nav-text">ThreadPoolExecutor 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FixedThreadPool"><span class="nav-number">1.2.1.</span> <span class="nav-text">FixedThreadPool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SingleThreadExecutor-详解"><span class="nav-number">1.2.2.</span> <span class="nav-text">SingleThreadExecutor 详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CachedThreadPool-详解"><span class="nav-number">1.2.3.</span> <span class="nav-text">CachedThreadPool 详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ScheduledThreadPoolExecutor-详解"><span class="nav-number">1.3.</span> <span class="nav-text">ScheduledThreadPoolExecutor 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行机制"><span class="nav-number">1.3.1.</span> <span class="nav-text">运行机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.3.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FutureTask-详解"><span class="nav-number">1.4.</span> <span class="nav-text">FutureTask 详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FutureTask的实现"><span class="nav-number">1.5.</span> <span class="nav-text">FutureTask的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FutureTask-get"><span class="nav-number">1.5.1.</span> <span class="nav-text">FutureTask.get()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FutureTask-run"><span class="nav-number">1.5.2.</span> <span class="nav-text">FutureTask.run()</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔头刘德华</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
