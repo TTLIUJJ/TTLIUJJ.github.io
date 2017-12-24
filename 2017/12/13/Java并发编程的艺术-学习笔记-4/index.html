@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent1.jpg">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent2.jpg">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent3.jpg">
-<meta property="og:updated_time" content="2017-12-13T13:28:10.014Z">
+<meta property="og:updated_time" content="2017-12-24T13:25:29.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程的艺术-学习笔记-4">
 <meta name="twitter:description" content="Java并发编程的基础现代操作系调度的最小单元是线程，也叫轻量级进程，在一个进程里可以创建多个线程，这些线程都拥有各自的计数器、栈和局部变量，并且能够访问共享变量。处理器在这些线程上高速切换。执行main()方法是一个名称为main的线程。 线程简介线程优先级现代操作系统基本采用时分的形式调度运行的线程，操作系统会分出一个个时间片，线程会分配到若干时间片，当线程的时间片用完了就会发生线程调度，并等">
@@ -439,7 +439,7 @@
 <li>使用wait()、notify()和notifyAll()需要先对调用对象加锁</li>
 <li>调用wait()方法后，将当前线程放置到对象的等待队列。</li>
 <li>notify()/notifyAll()调用后，等待线程依旧不会从wait()返回，需要调用notfify()/notifyAll()的线程释放锁之后，等待线程才有机会从wait()返回。</li>
-<li>notify()将等待队列中的一个等待线程从等待队列移到同步队列，而notify()方法将等待队列中的所有线程全部移到同步队列。</li>
+<li>notify()将等待队列中的一个等待线程从等待队列移到同步队列，而notifyAll()方法将等待队列中的所有线程全部移到同步队列。</li>
 <li>从wait()方法中返回的前提是获得了对象的锁。</li>
 </ol>
 <p>等待/通知机制依托于同步机制，其目的就是确保等待线程从wait()返回时能够感知到通知线程对变量做出的改变。</p>
