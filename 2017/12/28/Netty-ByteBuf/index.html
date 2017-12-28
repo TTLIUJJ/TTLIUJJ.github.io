@@ -95,17 +95,14 @@
 
 
 
-<meta name="description" content="题目输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 解题思路判断树root2是不是root1的子树 a. 在主函数HasSubtree中，先设置了而标志位ret为false，当从辅助函数isSubtree返回true之后，就退出递归，否则， 继续递归。如果在主函数中输入的root1和root2其一为null时，程序退出。 b. 进入辅助函数isSubtr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer_17">
-<meta property="og:url" content="http://yoursite.com/2017/12/02/剑指Offer-17/index.html">
+<meta property="og:title" content="Netty-ByteBuf">
+<meta property="og:url" content="http://yoursite.com/2017/12/28/Netty-ByteBuf/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="题目输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 解题思路判断树root2是不是root1的子树 a. 在主函数HasSubtree中，先设置了而标志位ret为false，当从辅助函数isSubtree返回true之后，就退出递归，否则， 继续递归。如果在主函数中输入的root1和root2其一为null时，程序退出。 b. 进入辅助函数isSubtr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-07T01:22:48.683Z">
+<meta property="og:updated_time" content="2017-12-28T08:32:35.611Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指Offer_17">
-<meta name="twitter:description" content="题目输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 解题思路判断树root2是不是root1的子树 a. 在主函数HasSubtree中，先设置了而标志位ret为false，当从辅助函数isSubtree返回true之后，就退出递归，否则， 继续递归。如果在主函数中输入的root1和root2其一为null时，程序退出。 b. 进入辅助函数isSubtr">
+<meta name="twitter:title" content="Netty-ByteBuf">
 
 
 
@@ -135,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/02/剑指Offer-17/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/28/Netty-ByteBuf/"/>
 
 
 
 
 
-  <title>剑指Offer_17 | 10000小时</title>
+  <title>Netty-ByteBuf | 10000小时</title>
   
 
 
@@ -278,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/02/剑指Offer-17/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/Netty-ByteBuf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔头刘德华">
@@ -295,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指Offer_17</h1>
+          <h1 class="post-title" itemprop="name headline">Netty-ByteBuf</h1>
         
 
         <div class="post-meta">
@@ -307,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T08:40:00+08:00">
-                2017-12-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T16:32:04+08:00">
+                2017-12-28
               </time>
             
 
@@ -330,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -367,12 +364,7 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>判断树root2是不是root1的子树</p>
-<p>a. 在主函数HasSubtree中，先设置了而标志位ret为false，当从辅助函数isSubtree返回true之后，就退出递归，否则， 继续递归。如果在主函数中输入的root1和root2其一为null时，程序退出。</p>
-<p>b. 进入辅助函数isSubtree的条件是， 当前两个树的节点值是一样的。</p>
-<p>c. ret返回true的条件是，root2的每个节点值都等于对应的root1的节点值，直到root2为null。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">public class TreeNode &#123;</span></div><div class="line"><span class="comment">    int val = 0;</span></div><div class="line"><span class="comment">    TreeNode left = null;</span></div><div class="line"><span class="comment">    TreeNode right = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    public TreeNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isSubtree</span><span class="params">(TreeNode root1, TreeNode root2)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root2 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//当root2 != null 而 root1 == null 时，肯定不是子树</span></div><div class="line">        <span class="keyword">if</span>(root1 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root1.val != root2.val)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//如果上述条件都通过，递归判断是否子树</span></div><div class="line">        <span class="keyword">return</span> isSubtree(root1.left, root2.left) &amp;&amp; isSubtree(root1.right, root2.right);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">HasSubtree</span><span class="params">(TreeNode root1,TreeNode root2)</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> ret = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">if</span>(root1 != <span class="keyword">null</span> &amp;&amp; root2 != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(root1.val == root2.val)&#123;</div><div class="line">                ret = isSubtree(root1, root2);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(ret == <span class="keyword">false</span>)&#123;</div><div class="line">                ret = HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        
       
     </div>
     
@@ -396,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/01/剑指Offer-16/" rel="next" title="剑指Offer_16">
-                <i class="fa fa-chevron-left"></i> 剑指Offer_16
+              <a href="/2017/12/28/Netty-传输/" rel="next" title="Netty-传输">
+                <i class="fa fa-chevron-left"></i> Netty-传输
               </a>
             
           </div>
@@ -405,10 +397,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/02/剑指Offer-18/" rel="prev" title="剑指Offer_18">
-                剑指Offer_18 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -460,17 +448,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -535,22 +514,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
