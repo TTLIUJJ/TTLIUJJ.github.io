@@ -95,17 +95,20 @@
 
 
 
-<meta name="description" content="题目输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。 解题思路解法一： 递归 123456789101112131415161718192021/**public class TreeNode &amp;#123;    int val = 0;    TreeNode left = null;    TreeNode right =">
+<meta name="description" content="传输API 每个Chnnel都会被分配一个ChannelPipeline和ChannelConfig。 由于Channel是独一无二的，所以为了保证顺序将Channel声明为java.lang.Compare的一个子接口。因此，如果两个不同的Channel实例都返回了相同的散列码，那么AbstractChannel中的compareTe()方法的实现将会抛出一个Error。 ChannelPipe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer_38">
-<meta property="og:url" content="http://yoursite.com/2017/12/04/剑指Offer-38/index.html">
+<meta property="og:title" content="Netty-传输">
+<meta property="og:url" content="http://yoursite.com/2017/12/28/Netty-传输/index.html">
 <meta property="og:site_name" content="10000小时">
-<meta property="og:description" content="题目输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。 解题思路解法一： 递归 123456789101112131415161718192021/**public class TreeNode &amp;#123;    int val = 0;    TreeNode left = null;    TreeNode right =">
+<meta property="og:description" content="传输API 每个Chnnel都会被分配一个ChannelPipeline和ChannelConfig。 由于Channel是独一无二的，所以为了保证顺序将Channel声明为java.lang.Compare的一个子接口。因此，如果两个不同的Channel实例都返回了相同的散列码，那么AbstractChannel中的compareTe()方法的实现将会抛出一个Error。 ChannelPipe">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-07T01:16:36.787Z">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/netty2.JPG">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/3.png">
+<meta property="og:updated_time" content="2017-12-28T08:29:25.049Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指Offer_38">
-<meta name="twitter:description" content="题目输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。 解题思路解法一： 递归 123456789101112131415161718192021/**public class TreeNode &amp;#123;    int val = 0;    TreeNode left = null;    TreeNode right =">
+<meta name="twitter:title" content="Netty-传输">
+<meta name="twitter:description" content="传输API 每个Chnnel都会被分配一个ChannelPipeline和ChannelConfig。 由于Channel是独一无二的，所以为了保证顺序将Channel声明为java.lang.Compare的一个子接口。因此，如果两个不同的Channel实例都返回了相同的散列码，那么AbstractChannel中的compareTe()方法的实现将会抛出一个Error。 ChannelPipe">
+<meta name="twitter:image" content="http://owj98yrme.bkt.clouddn.com/netty2.JPG">
 
 
 
@@ -135,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/04/剑指Offer-38/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/28/Netty-传输/"/>
 
 
 
 
 
-  <title>剑指Offer_38 | 10000小时</title>
+  <title>Netty-传输 | 10000小时</title>
   
 
 
@@ -278,7 +281,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/04/剑指Offer-38/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/Netty-传输/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔头刘德华">
@@ -295,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指Offer_38</h1>
+          <h1 class="post-title" itemprop="name headline">Netty-传输</h1>
         
 
         <div class="post-meta">
@@ -307,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T19:22:44+08:00">
-                2017-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T15:39:38+08:00">
+                2017-12-28
               </time>
             
 
@@ -330,8 +333,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -367,13 +370,88 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>解法一：</p>
-<p>递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">public class TreeNode &#123;</span></div><div class="line"><span class="comment">    int val = 0;</span></div><div class="line"><span class="comment">    TreeNode left = null;</span></div><div class="line"><span class="comment">    TreeNode right = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    public TreeNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Math.max(TreeDepth(root.left), TreeDepth(root.right)) + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>解法二：</p>
-<p>非递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.LinkedList;</div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">public class TreeNode &#123;</span></div><div class="line"><span class="comment">    int val = 0;</span></div><div class="line"><span class="comment">    TreeNode left = null;</span></div><div class="line"><span class="comment">    TreeNode right = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    public TreeNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        LinkedList&lt;TreeNode&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">        list.add(root);</div><div class="line">        <span class="keyword">int</span> depth = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(!list.isEmpty())&#123;</div><div class="line">            ++depth;</div><div class="line">            </div><div class="line">            <span class="comment">//计算深度的时候，每次都要把队列里的节点（一层）全部抛出</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); ++i)&#123;</div><div class="line">                TreeNode node = list.pollFirst();</div><div class="line">                <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)&#123;</div><div class="line">                    list.add(node.left);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)&#123;</div><div class="line">                    list.add(node.right);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> depth;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h4 id="传输API"><a href="#传输API" class="headerlink" title="传输API"></a>传输API</h4><p><img src="http://owj98yrme.bkt.clouddn.com/netty2.JPG" alt="点击加载"></p>
+<p>每个Chnnel都会被分配一个ChannelPipeline和ChannelConfig。</p>
+<p>由于Channel是独一无二的，所以为了保证顺序将Channel声明为java.lang.Compare的一个子接口。因此，如果两个不同的Channel实例都返回了相同的散列码，那么AbstractChannel中的compareTe()方法的实现将会抛出一个Error。</p>
+<p>ChannelPipeline持有将应用于入站和出站数据以及事件的ChannelHanlder实例，这些ChannelHandler实现了应用程序用于处理状态变化以及数据处理的逻辑。<br>ChannelHandler的典型用途包括：</p>
+<p>&gt;<br>将数据从一种格式转换为另一种格式<br>提供异常的通知<br>提供Channel变为活动或者非活动的通知；<br>提供当Channel注册到EventLoop或者从EventLoop注销时的通知；<br>提供有关用户自定义事件的通知。</p>
+<p><strong>Channel的方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eventLoop</td>
+<td>返回分配给Channel的EventLoop</td>
+</tr>
+<tr>
+<td>pipeLine</td>
+<td>返回分配给Channel的ChannelPipeline</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>如果Channel是活动的，返回true</td>
+</tr>
+<tr>
+<td>localAddress</td>
+<td>返回本地的SocketAddress</td>
+</tr>
+<tr>
+<td>remoteAddress</td>
+<td>返回远程的ScoketAddress</td>
+</tr>
+<tr>
+<td>write</td>
+<td>将数据写到远程节点，这个数据将被传递给ChannelPipeline，并且排队直到它被冲刷</td>
+</tr>
+<tr>
+<td>flush</td>
+<td>将之前已写的数据立即冲刷到底层，进行传输，如一个socket</td>
+</tr>
+<tr>
+<td>writeAndFlush</td>
+<td>等同于两个方法的复合</td>
+</tr>
+</tbody>
+</table>
+<p>Netty的Channel实现是线程安全的，因此可以在多线程情况下将数据存储到同一个Channel。</p>
+<h3 id="NIO——非阻塞I-O"><a href="#NIO——非阻塞I-O" class="headerlink" title="NIO——非阻塞I/O"></a>NIO——非阻塞I/O</h3><p>NIO提供了一个所有I/O操作的全异步的实现。他利用了自NIO子系统被引入JDK1.4时便可以用的基于选择器的API。<br>选择器背后的基本概念是充当一个注册表，在那里可以将请求在Channel的状态变化发生变化时得到通知。可能的状态变化有：</p>
+<p>&gt;<br>新的Channel已被接受并且就绪；<br>Channel连接已经完成；<br>Channel有已经就绪的可供读取的数据；<br>Channel可用于写数据。</p>
+<p>选择器运行在一个检查状态变化并对其做出响应的线程上，在应用程序状态的改变做出响应后，选择器会被重置，然后重复这个过程。</p>
+<p><strong>选择操作的位模式</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OP_ACCEPT</td>
+<td>请求在接受新连接并创建Channel时获得通知</td>
+</tr>
+<tr>
+<td>OP_CONNECT</td>
+<td>请求在建立一个连接时获得通知</td>
+</tr>
+<tr>
+<td>OP_READ</td>
+<td>请求当数据已经就绪，可以从Channel中读取时获取通知</td>
+</tr>
+<tr>
+<td>OP_WRITE</td>
+<td>请求当可以向Channel中写更多的数据时获得通知。这处理了套接字缓冲区被完全填满的情况，这种情况通常发生在数据的发送速度大于远程节点的接收数据速度</td>
+</tr>
+</tbody>
+</table>
+<p>对于所有Netty的传输实现都公有的级别API完全地隐藏了这些NIO的内部细节。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/3.png" alt="点击加载"></p>
+<h4 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h4><p>零拷贝是一种目前只有在使用NIO和Epoll传输时候才可以使用的特性。它快速高效地将数据从文件系统移动到网络接口，而不需要将其从内核空间复制到用户空间，像在FTP或者HTTP这样的协议中可以显著地提升性能。但是，并不是所有的操作系统都支持这个特性。特别，他对于实现了数据加密或者压缩的文件系统都不可用——只能传输文件的原始内容。</p>
 
       
     </div>
@@ -398,8 +476,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/04/剑指Offer-37/" rel="next" title="剑指Offer_37">
-                <i class="fa fa-chevron-left"></i> 剑指Offer_37
+              <a href="/2017/12/28/Netty-组件和设计/" rel="next" title="Netty-组件和设计">
+                <i class="fa fa-chevron-left"></i> Netty-组件和设计
               </a>
             
           </div>
@@ -407,10 +485,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/04/剑指Offer-39/" rel="prev" title="剑指Offer_39">
-                剑指Offer_39 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -547,7 +621,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#传输API"><span class="nav-number">1.</span> <span class="nav-text">传输API</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO——非阻塞I-O"><span class="nav-number"></span> <span class="nav-text">NIO——非阻塞I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#零拷贝"><span class="nav-number">1.</span> <span class="nav-text">零拷贝</span></a></li></ol></div>
             
 
           </div>

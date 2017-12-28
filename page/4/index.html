@@ -275,6 +275,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/剑指Offer-48/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/05/剑指Offer-48/" itemprop="url">剑指Offer_48</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T12:40:44+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p><a href="https://www.nowcoder.com/questionTerminal/59ac416b4b944300b617d4f7f111b215" target="_blank" rel="external">来自牛客网，点击跳转到链接</a> </p>
+<p>a. 按位与是查看两个数哪些二进制位都为1，这些都是进位位，结果需左移一位，表示进位后的结果<br>b. 异或是查看两个数哪些二进制位只有一个为1，这些是非进位位，可以直接加、减，结果表示非进位位进行加操作后的结果<br>c. n1&amp;n2是查看有没有进位位了，如果有，需要重复a、b；如果没有，保留n1、n2上二进制为1的部分，用或将之合为一个数，即为最后结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2)</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span>(num2 != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">int</span> temp = num1 ^ num2;</div><div class="line">            num2 = (num1 &amp; num2) &lt;&lt; <span class="number">1</span>;</div><div class="line">            num1 = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> num1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/剑指Offer-47/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1580,154 +1724,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/04/剑指Offer-38/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/04/剑指Offer-38/" itemprop="url">剑指Offer_38</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T19:22:44+08:00">
-                2017-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>解法一：</p>
-<p>递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">public class TreeNode &#123;</span></div><div class="line"><span class="comment">    int val = 0;</span></div><div class="line"><span class="comment">    TreeNode left = null;</span></div><div class="line"><span class="comment">    TreeNode right = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    public TreeNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Math.max(TreeDepth(root.left), TreeDepth(root.right)) + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>解法二：</p>
-<p>非递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.LinkedList;</div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">public class TreeNode &#123;</span></div><div class="line"><span class="comment">    int val = 0;</span></div><div class="line"><span class="comment">    TreeNode left = null;</span></div><div class="line"><span class="comment">    TreeNode right = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    public TreeNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        LinkedList&lt;TreeNode&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">        list.add(root);</div><div class="line">        <span class="keyword">int</span> depth = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(!list.isEmpty())&#123;</div><div class="line">            ++depth;</div><div class="line">            </div><div class="line">            <span class="comment">//计算深度的时候，每次都要把队列里的节点（一层）全部抛出</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); ++i)&#123;</div><div class="line">                TreeNode node = list.pollFirst();</div><div class="line">                <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)&#123;</div><div class="line">                    list.add(node.left);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)&#123;</div><div class="line">                    list.add(node.right);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> depth;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1781,7 +1777,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
