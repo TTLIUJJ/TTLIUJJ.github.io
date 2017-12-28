@@ -103,8 +103,9 @@
 <meta property="og:description" content="Java并发容器和框架CurrentHashMap的实现原理和使用ConcurrentHashMap是线程安全又高效的HashMap 线程不安全的HashMap：在多线程的环境下，使用HashMap进行put操作可能导致死循环。由于哈希桶的存在，在多线程竞争的条件下，可能导致Entry链表形成环形的数据结构，一旦形成环形数据结构，Entry的next节点永远不为空，就会产生死循环获取Entry。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent9.jpg">
+<meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent22.jpg">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent10.jpg">
-<meta property="og:updated_time" content="2017-12-19T05:39:16.072Z">
+<meta property="og:updated_time" content="2017-12-25T03:28:59.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程的艺术-学习笔记-6">
 <meta name="twitter:description" content="Java并发容器和框架CurrentHashMap的实现原理和使用ConcurrentHashMap是线程安全又高效的HashMap 线程不安全的HashMap：在多线程的环境下，使用HashMap进行put操作可能导致死循环。由于哈希桶的存在，在多线程竞争的条件下，可能导致Entry链表形成环形的数据结构，一旦形成环形数据结构，Entry的next节点永远不为空，就会产生死循环获取Entry。">
@@ -391,7 +392,9 @@
 <p>ConcurrentLinkedQueue是一个基于链接节点的无界线程安全队列，采用FIFO的规则对节点进行排序。</p>
 <h3 id="ConcurreentLinkedQueue的结构"><a href="#ConcurreentLinkedQueue的结构" class="headerlink" title="ConcurreentLinkedQueue的结构"></a>ConcurreentLinkedQueue的结构</h3><p>队列有一个头节点和一个尾节点，头节点不存线程相关信息，只有下一个节点next的指针。默认情况下，head节点存储的元素为空，tail节点等于head节点。在队列非空的情况下，队列的尾节点就是tail。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Node&lt;E&gt; tail = head;</div></pre></td></tr></table></figure>
-<h4 id="入队"><a href="#入队" class="headerlink" title="入队"></a>入队</h4><p><strong>入队的过程</strong>：<br>入队主要做两件事情，第一是将入队节点设置为当前队列尾节点的一个节点；第二是更新tail节点，如果tail节点的next不为空，则将入队节点设置为tail节点，如果tail节点的next节点为空，则将入队节点设置为tail的next节点，<strong>所以tail节点不总是尾节点</strong>。</p>
+<h4 id="入队"><a href="#入队" class="headerlink" title="入队"></a>入队</h4><p><strong>入队的过程</strong>：</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent22.jpg" alt="点击加载"></p>
+<p>入队主要做两件事情，第一是将入队节点设置为当前队列尾节点的一个节点；第二是更新tail节点，如果tail节点的next不为空，则将入队节点设置为tail节点，如果tail节点的next节点为空，则将入队节点设置为tail的next节点，<strong>所以tail节点不总是尾节点</strong>。</p>
 <p>入队方法永远返回true，所以不要通过返回值判断入队是否成功。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HOPS = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">offer</span><span class="params">(E e)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(e == <span class="keyword">null</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//创建准备入队的节点</span></div><div class="line">    Node&lt;E&gt; node = <span class="keyword">new</span> Node&lt;E&gt;(e);</div><div class="line"></div><div class="line">    retry:</div><div class="line"></div><div class="line">    <span class="comment">//死循环, 入队不成功反复入队</span></div><div class="line">    <span class="keyword">for</span>( ; ; )&#123;</div><div class="line">        Node&lt;E&gt; t = tail;   <span class="comment">//创建一个指向tail节点的引用</span></div><div class="line">        Node&lt;E&gt; p = t;      <span class="comment">//p用来表示队列的尾节点, 默认情况下等于tail</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> hops = <span class="number">0</span>; ; hops++)&#123;</div><div class="line">            Node&lt;E&gt; next = succ(p);</div><div class="line">            <span class="comment">// next != null说明p不是尾节点, 需要更新p后, 在将它指向next节点</span></div><div class="line">            <span class="keyword">if</span>(next != <span class="keyword">null</span>)&#123;</div><div class="line">                <span class="comment">//默认情况下 HOPS == 1</span></div><div class="line">                <span class="comment">//循环了两次及其以上, 并且当前节点还是不等于尾节点</span></div><div class="line">                <span class="keyword">if</span>(hops &gt; HOPS &amp;&amp; t != <span class="keyword">null</span>)&#123;</div><div class="line">                    <span class="keyword">continue</span> retry;</div><div class="line">                &#125;</div><div class="line">                p = next;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//如果p是尾节点, 则设置p的next节点为入队节点</span></div><div class="line">            <span class="comment">//</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(p.casNext(<span class="keyword">null</span>, n))&#123;</div><div class="line">                <span class="keyword">if</span>(hops &gt;= HOPS)&#123;</div><div class="line">                    casTail(t, n);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//p有next节点, 表示p的next节点有可能是尾节点</span></div><div class="line">                p = succ(p);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>定位尾节点</strong>：</p>
@@ -592,7 +595,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">95</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -603,7 +606,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

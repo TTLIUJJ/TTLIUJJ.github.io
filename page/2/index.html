@@ -275,6 +275,346 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/10/Java并发编程的艺术-学习笔记-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/10/Java并发编程的艺术-学习笔记-3/" itemprop="url">Java并发编程的艺术-学习笔记-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-10T12:36:52+08:00">
+                2017-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h1><p>在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。</p>
+<p>在共享内存的并发模型里，线程之间共享程序的公共状态，通过读一写内存中的公共状态进行隐式传递。<br>在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。</p>
+<p>Java的并发采用的共享内存模型。</p>
+<h2 id="Java内存模型的基础"><a href="#Java内存模型的基础" class="headerlink" title="Java内存模型的基础"></a>Java内存模型的基础</h2><h3 id="内存模型的抽象结构"><a href="#内存模型的抽象结构" class="headerlink" title="内存模型的抽象结构"></a>内存模型的抽象结构</h3><p>JMM通过控制主内存与每个线程的本地内存之间进行交互，提供内存可见性的保证。</p>
+<p>抽象地看，JMM定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读/写共享变量的副本。<br>本地内存是JMM的一个抽象概念，并不真实存在，它涵盖了缓存、写缓存区、寄存器与其他的硬件和编译器优化。</p>
+<p>在Java中，所有实例域、静态域和数组元素都储存在堆内存中，堆内存在线程之间共享。</p>
+<h3 id="源代码到指令序列的重排序"><a href="#源代码到指令序列的重排序" class="headerlink" title="源代码到指令序列的重排序"></a>源代码到指令序列的重排序</h3><p>为了提高性能，编译器和处理器会对指令进行一共三种重排序。</p>
+<p>a. 编译器优化的重排序（不改变单线程程序语义的前提下）</p>
+<p>b. 指令级并行的重排序（不存在数据依赖的前提下）</p>
+<p>c. 内存系统的重排序。由于处理器使用缓存和读/写缓冲区，使得加载和存储操作看起来像是在乱序执行。</p>
+<p>重排序会导致多线程出现内存不可见性问题。<br>对于编译器，JMM的编译器重排序规则会禁止特定类型的重排序<br>对于处理器，JMM的处理器要求编译器生成指令序列时，插入特定类型的内存屏障。</p>
+<h2 id="volatile的内存语义"><a href="#volatile的内存语义" class="headerlink" title="volatile的内存语义"></a>volatile的内存语义</h2><p>编译器不会对volatile读与volatile读后面的任意内存操作重排序；（volatile读先）<br>编译器不会对volatile写与volatile写前面的任意内存操作重排序。（volatile写后）<br>组合两个条件，意味着为了同时实现volatile读和volatile写的内存语义，编译器不能对CAS与CAS前面和后面的任意内存操作重排序。</p>
+<p>volatile变量的特性：</p>
+<ol>
+<li>可见性。对一个volatile变量的读，总是能看到（任意线程）对这个volatile变量最后的写入。</li>
+<li>原子性。任意单个volatile变量的读/写操作具有原子性，但类似于volatile++这个复合操作不具有原子性。</li>
+</ol>
+<h2 id="Java锁的内存语义"><a href="#Java锁的内存语义" class="headerlink" title="Java锁的内存语义"></a>Java锁的内存语义</h2><p>锁是Java并发编程中最重要的同步机制。锁除了让临界区互斥执行之外，还可以让释放锁的线程获取同一个锁的线程发送消息。</p>
+<p>锁释放与volatile的读写有着相同的内存语义</p>
+<ol>
+<li>线程A释放一个锁，实质上是线程A向接下来将要获取这个锁的某个线程发出了（线程A对共享变量所做修改的）消息。</li>
+<li>线程B获取一个锁，实质上线程B接受了某个线程（在释放这个锁之前对共享变量所做修改的）消息。</li>
+<li>线程A释放锁，随后线程B获取这个锁，这个过程实质上是线程A通过主内存向线程B发送消息。</li>
+</ol>
+<p><strong>底层实现</strong></p>
+<h3 id="concurrent的实现"><a href="#concurrent的实现" class="headerlink" title="concurrent的实现"></a>concurrent的实现</h3><p>由于Java的CAS同时具有volatile读和volatile写的内存语义，因此Java线程之间的通信有了下面4种方式。</p>
+<ol>
+<li>线程A写volatile变量，随后线程B读这个volatile变量</li>
+<li>线程A写volatile变量，随后线程B用CAS更新这个volatile变量</li>
+<li>线程A用CAS更新一个volatile变量，随后线程B用CAS更新这个volatile变量</li>
+<li>线程A用CAS更新一个volatile变量，随后线程B这个volatile变量</li>
+</ol>
+<p>Java的CAS会使用现代处理器上提供的高效机器级别的原子指令，这些原子指令以原子方式对内存执行读-写-改操作，是顺序计算图灵机的异步等价机器。volatile变量的读/写和CAS可以实现线程之间的通信。这些特性形成了concurreent包得以实现的基石。</p>
+<p><img src="http://owj98yrme.bkt.clouddn.com/artOfConcurrent21.png" alt="点击加载"></p>
+<h2 id="final域的内存语义"><a href="#final域的内存语义" class="headerlink" title="final域的内存语义"></a>final域的内存语义</h2><h3 id="final域的重排序规则"><a href="#final域的重排序规则" class="headerlink" title="final域的重排序规则"></a>final域的重排序规则</h3><p>a. 在构造函数内对一个final域的写入，与随后把这个构造对象的引用赋值给一个引用变量，这两个操作之间不能重排序<br>b. 初次读一个final域的对象的引用，与随后初次读这个final域，这两个操作之间不能重排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalTest</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> j;</div><div class="line">    <span class="keyword">static</span> FinalTest obj;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FinalTest</span><span class="params">()</span></span>&#123;             <span class="comment">//构造函数</span></div><div class="line">        i = <span class="number">1</span>;                      <span class="comment">//写普通域</span></div><div class="line">        j = <span class="number">2</span>;                      <span class="comment">//写final域</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span>&#123;    <span class="comment">//写线程A的执行</span></div><div class="line">        obj = <span class="keyword">new</span> FinalTest();   </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span>&#123;    <span class="comment">//读线程B的执行</span></div><div class="line">        FinalTest object = obj;     <span class="comment">//读对象的引用</span></div><div class="line">        <span class="keyword">int</span> a = object.i;           <span class="comment">//读普通域</span></div><div class="line">        <span class="keyword">int</span> b = object.j;           <span class="comment">//读final域</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里假设一个线程A执行writer()方法，随后另一个线程B执行reader()方法。下面我们通过这两个线程的交互来说明重排序规则。</p>
+<h3 id="写final域的重排序规则"><a href="#写final域的重排序规则" class="headerlink" title="写final域的重排序规则"></a>写final域的重排序规则</h3><p>写final域的重排序规则禁止把final域的写重排序到构造函数之外。实现包括</p>
+<ol>
+<li>JMM禁止编译器把final域的写重排序到构造函数之外。</li>
+<li>编译器会在final域的写之后，构造函数return之前，插入一个StoreStore屏障。这个屏障禁止处理器把final域的写重排序到构造函数之外。</li>
+</ol>
+<p>在示例代码中，由于线程A,B竞争，由于线程B”看到”对象引用obj时，很可能obj对象还没有构造完成（对普通域i的写操作被重排序到构造函数外，此时初始值1还没有写入普通域）。<br>而写final域的重排序规则可以确保：在对象引用为任意线程可见之前，对象的final域已经被正确初始化过了，而普通域没有这个保障</p>
+<h3 id="读final域的重排序规则"><a href="#读final域的重排序规则" class="headerlink" title="读final域的重排序规则"></a>读final域的重排序规则</h3><p>在一个线程中，初次读对象引用与初次读该对象包含的final域，JMM禁止处理器重排序这两个操作。</p>
+<p>读final域的重排序规则可以确保：在读一个对象的final域之前，一定会先读包含这个final域的对象的引用。</p>
+<h3 id="final域为引用类型"><a href="#final域为引用类型" class="headerlink" title="final域为引用类型"></a>final域为引用类型</h3><p>对于final域为引用类型，写final域的重排序规则对编译器和处理器增加了约束：在构造函数内对一个final引用的对象的成员域的写入，与随后在构造函数外把这个被构造函数对象的引用赋值给一个引用变量，这两个操作不能重排序。</p>
+<p>比如，引用的final域是int数组，该规则保证了，数组元素再被使用之前，已经被初始化了。</p>
+<h3 id="final引用不能从构造函数中”溢出”"><a href="#final引用不能从构造函数中”溢出”" class="headerlink" title="final引用不能从构造函数中”溢出”"></a>final引用不能从构造函数中”溢出”</h3><p>写final域引用的重排序规则可以确保：在引用变量为任意线程可见之前，该引用变量指向的对象的final域已经在构造函数中被正确初始化了。其实要得到这个效果，还需要一个保证：在构造函数内部，不能让这个被构造对象的引用为其他线程所见，也就是对象引用不能在构造函数中”溢出”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalTest</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">static</span> FinalTest obj;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FinalTest</span><span class="params">()</span></span>&#123;             <span class="comment">//构造函数</span></div><div class="line">        i = <span class="number">1</span>;                      <span class="comment">//1 写final域, 此时初始化未完成</span></div><div class="line">        obj = <span class="keyword">this</span>;                 <span class="comment">//2 this引用在此"溢出"</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> FinalTest();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(obj != <span class="keyword">null</span>)&#123;            <span class="comment">//3 由于"溢出"(obj != null)</span></div><div class="line">            <span class="keyword">int</span> t = obj.i;          <span class="comment">//4 读取未被初始化i</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有了重排序规则可以确保：在构造函数返回之前，被构造对象的引用不能为其他线程所见，因为此时的final域可能还没有被初始化。在构造函数返回之后，任意线程都将保证能看到final域正确初始化之后的值。</p>
+<h2 id="双重检查锁定与延迟初始化"><a href="#双重检查锁定与延迟初始化" class="headerlink" title="双重检查锁定与延迟初始化"></a>双重检查锁定与延迟初始化</h2><p>单例模式下的懒汉模式，在多线程的的条件下可能会出现问题。</p>
+<h3 id="基于voltatile的解决方案"><a href="#基于voltatile的解决方案" class="headerlink" title="基于voltatile的解决方案"></a>基于voltatile的解决方案</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Instance</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SafeDoubleCheckedLocking</span> </span>&#123;                     <span class="comment">//1</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Instance instance;              <span class="comment">//2</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title">getInstance</span><span class="params">()</span></span>&#123;                   <span class="comment">//3</span></div><div class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;                               <span class="comment">//4 第一次检查</span></div><div class="line">            <span class="keyword">synchronized</span> (SafeDoubleCheckedLocking.class)&#123;  <span class="comment">//5 加锁</span></div><div class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;                       <span class="comment">//6 第二次检查</span></div><div class="line">                    instance = <span class="keyword">new</span> Instance();              <span class="comment">//7 可能会出现问题的地方</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>问题根源</strong>:如上，在线程执行到第4行，当instance!=null的时候，实际上instance引用的对象初始化可能还没有完成。</p>
+<p>解决思路是，使用volatile禁止上面2,3行代码的重排序，来保证线程安全的延迟初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">instance = <span class="keyword">new</span> Instance();</div><div class="line"><span class="comment">//新建一个对象Instance可分解为如下三行伪代码</span></div><div class="line"></div><div class="line">memory = allocate();	<span class="comment">//1 分配对象的内存空间</span></div><div class="line">ctorInstance(memory);	<span class="comment">//2 初始化对象</span></div><div class="line">instance = memory;	    <span class="comment">//3 设置Instance指向分配的空间</span></div></pre></td></tr></table></figure>
+<p>实际上，上面的伪代码操作2,3可能会重排序，这是不改变单线程程序执行结果的重排序。<br>但是在多线程，instance可能会先指向一个未被初始化的空间，调用者使用这个未初始化的内存空间，bug就出现了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/07/剑指Offer-66/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/07/剑指Offer-66/" itemprop="url">剑指Offer_66</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-07T00:22:46+08:00">
+                2017-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>回溯法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">movingCountHelper</span><span class="params">(<span class="keyword">int</span> threshold, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols, <span class="keyword">boolean</span> []isVisited, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">		<span class="keyword">int</span> pos = i * cols + j;</div><div class="line">        <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt;= rows || j &lt; <span class="number">0</span> || j &gt;= cols || isVisited[pos] || !isSafe(threshold, i, j))&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        isVisited[pos] = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span> + movingCountHelper(threshold, rows, cols, isVisited, i, j-<span class="number">1</span>) </div><div class="line">            	 + movingCountHelper(threshold, rows, cols, isVisited, i, j+<span class="number">1</span>) </div><div class="line">            	 + movingCountHelper(threshold, rows, cols, isVisited, i+<span class="number">1</span>, j) </div><div class="line">            	 + movingCountHelper(threshold, rows, cols, isVisited, i-<span class="number">1</span>, j);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isSafe</span><span class="params">(<span class="keyword">int</span> threshold, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x != <span class="number">0</span>)&#123;</div><div class="line">			sum += (x % <span class="number">10</span>);</div><div class="line">            x /= <span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(y != <span class="number">0</span>)&#123;</div><div class="line">            sum += (y % <span class="number">10</span>);</div><div class="line">            y /= <span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum &gt; threshold ? <span class="keyword">false</span> : <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">movingCount</span><span class="params">(<span class="keyword">int</span> threshold, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> []isVisited = <span class="keyword">new</span> <span class="keyword">boolean</span>[rows * cols];</div><div class="line">        <span class="keyword">return</span> movingCountHelper(threshold, rows, cols, isVisited, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/06/剑指Offer-65/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1426,297 +1766,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/06/剑指Offer-57/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/06/剑指Offer-57/" itemprop="url">剑指Offer_57</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-06T00:35:01+08:00">
-                2017-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>二叉树的中序遍历要熟悉</p>
-<p><img src="http://ovjotnstr.bkt.clouddn.com/10" alt="点击加载"> </p>
-<p>该二叉树的中序遍历为：<br>G D H B E A K C I J F</p>
-<p>a. 如果该节点有右子树，那么找该右子树的最左子树节点。</p>
-<p>比如输入的节点为C，它有右子树，那么就找其右子树的最左节点 I</p>
-<p>b. 如果没有右子树，节点A的父节点的左子树等于该节点A，那么节点A的父节点就是下一节点，否则继续向上搜索</p>
-<p>比如输入的节点为H，它的父亲节的左子树不是它本身，那么就要向上搜索，<br>令pNode = pNode.next，此时PNode = D，它的父节点B就是下一节点</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">public class TreeLinkNode &#123;</span></div><div class="line"><span class="comment">    int val;</span></div><div class="line"><span class="comment">    TreeLinkNode left = null;</span></div><div class="line"><span class="comment">    TreeLinkNode right = null;</span></div><div class="line"><span class="comment">    TreeLinkNode next = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    TreeLinkNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeLinkNode <span class="title">GetNext</span><span class="params">(TreeLinkNode pNode)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(pNode == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> pNode;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(pNode.right != <span class="keyword">null</span>)&#123;</div><div class="line">			pNode = pNode.right;</div><div class="line">            <span class="keyword">while</span>(pNode.left != <span class="keyword">null</span>)&#123;</div><div class="line">                pNode = pNode.left;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> pNode;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(pNode.next != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(pNode.next.left == pNode)&#123;</div><div class="line">                <span class="keyword">return</span> pNode.next;</div><div class="line">            &#125;</div><div class="line">            pNode = pNode.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/剑指Offer-56/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/05/剑指Offer-56/" itemprop="url">剑指Offer_56</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T22:54:20+08:00">
-                2017-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> public class ListNode &#123;</span></div><div class="line"><span class="comment">    int val;</span></div><div class="line"><span class="comment">    ListNode next = null;</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">    ListNode(int val) &#123;</span></div><div class="line"><span class="comment">        this.val = val;</span></div><div class="line"><span class="comment">    &#125;</span></div><div class="line"><span class="comment">&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteDuplication</span><span class="params">(ListNode pHead)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">    	<span class="keyword">if</span>(pHead == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode header = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        header.next = pHead;</div><div class="line">        </div><div class="line">        ListNode pre = header;</div><div class="line">        ListNode cur = pHead;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">        	<span class="comment">//拥有cur.val相同节点值的最后一个</span></div><div class="line">            <span class="keyword">while</span>(cur.next != <span class="keyword">null</span> &amp;&amp; cur.val == cur.next.val)&#123;</div><div class="line">                cur = cur.next;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">//cur不出现重复值的情况，更新pre为cur</span></div><div class="line">            <span class="keyword">if</span>(pre.next == cur)&#123;</div><div class="line">                pre = cur;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//所有的cur节点都要被删除，不用更新pre节点</span></div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                pre.next = cur.next;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//更新完pre，更新cur</span></div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> header.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1770,7 +1819,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">95</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1781,7 +1830,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

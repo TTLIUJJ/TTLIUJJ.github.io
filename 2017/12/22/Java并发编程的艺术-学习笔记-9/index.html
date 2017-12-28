@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent11.jpg">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/artOfConcurrent12.jpg">
-<meta property="og:updated_time" content="2017-12-22T13:41:04.827Z">
+<meta property="og:updated_time" content="2017-12-28T06:01:45.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程的艺术-学习笔记-9">
 <meta name="twitter:description" content="Java中的线程池线程池的实现原理线程池的工作流程  线程池是否都在执行任务？如果不是，则创建一个新的工作线程来执行任务。否则，进入下个流程。 线程池判断工作队列是否已经满？没有满，则将新提交的任务储存在这个工作队列里。 再次判断线程池是否都处理工作状态，如果没有，创建一个新的工作线程来执行任务。否则，交给饱和策略来执行处理这个任务。   ThreadPoolExecutor执行的execute(">
@@ -393,12 +393,7 @@
 <h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><h3 id="线程池的创建"><a href="#线程池的创建" class="headerlink" title="线程池的创建"></a>线程池的创建</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, </div><div class="line">                            runnableTaskQueue,</div><div class="line">                            maximumPoolSize, </div><div class="line">                            keepAliveTime, </div><div class="line">                            TimeUnit,</div><div class="line">                            ThreadFactory, </div><div class="line">                            handler)</div></pre></td></tr></table></figure>
 <p><strong>corePoolSize</strong>：线程池的基本大小。当提交一个任务到线程池，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小就不再创建。如果调用了prestartAllCoreThreads()方法，线程池会提前创建并启动所有基本线程。</p>
 <p><strong>runnableTaskQueuer</strong>：任务（工作）队列。用于保存等待执行的任务的阻塞队列。可以选择以下几个队列。</p>
-<ol>
-<li>ArrayBlockingQueue    </li>
-<li>LinkedBlockingQueue，吞吐量高于ArrayBlockingQueue。静态工厂方法Executors.newFixedThreadPool()使用了这个队列</li>
-<li>SynchronousQueue，吞吐量一般高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列</li>
-<li>PriorityBlockingQueue</li>
-</ol>
+<p>1.ArrayBlockingQueue<br>2.LinkedBlockingQueue，吞吐量高于ArrayBlockingQueue。静态工厂方法Executors.newFixedThreadPool()使用了这个队列<br>3 SynchronousQueue，吞吐量一般高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列<br>4 PriorityBlockingQueue</p>
 <p><strong>maximumPoolSize</strong>：线程池最大数量。如果队列满了，并且已经创建的线程数小于最大线程数，则线程池再创建新的线程执行任务。<br>如果使用了无界阻塞队列，这个参数其实没啥意义了。</p>
 <p><strong>keepAliveTime</strong>：线程活动保持时间。线程池的工作线程空闲后，保存存活的时间。所以，如果任务很多，并且每个任务执行的时间比较短，可以调大时间，提高线程的利用率。</p>
 <p><strong>TimeUnit</strong>：线程活动保持时间的单位。天（DAYS）、小时（HOURS）、分钟（MINUTES）、毫秒（MILLISECONDS）、微秒（MICROSECONDS）和纳秒（NANOSECONDS）。</p>
@@ -519,7 +514,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">95</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -530,7 +525,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
