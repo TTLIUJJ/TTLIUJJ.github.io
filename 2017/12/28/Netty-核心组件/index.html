@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="10000小时">
 <meta property="og:description" content="ChannelChannel是Java NIO的一个基本构造 它代表一个到实体的开放连接，如读操作或写操作。这里实体指的是，一个硬件设备、一个文件、一个网络套接字或者一个能够执行一个或者多个不同的I/O操作的程序组件。 目前，Channel可以看作是传入（入站）或者传出（出站）数据的载体。因此，它可以被打开或者被关闭，连接或者断开连接。 回调一个回调就是一个方法，一个指向已经被提供给另外一个方法的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-28T06:28:49.228Z">
+<meta property="og:updated_time" content="2017-12-28T08:41:36.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty-核心组件">
 <meta name="twitter:description" content="ChannelChannel是Java NIO的一个基本构造 它代表一个到实体的开放连接，如读操作或写操作。这里实体指的是，一个硬件设备、一个文件、一个网络套接字或者一个能够执行一个或者多个不同的I/O操作的程序组件。 目前，Channel可以看作是传入（入站）或者传出（出站）数据的载体。因此，它可以被打开或者被关闭，连接或者断开连接。 回调一个回调就是一个方法，一个指向已经被提供给另外一个方法的">
@@ -379,17 +379,17 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Channel channel = ...;</div><div class="line"></div><div class="line"><span class="comment">//异步地连接到远程节点 (客户端操作)</span></div><div class="line">ChannelFuture future = channel.connect(<span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>, <span class="number">8080</span>));</div><div class="line"><span class="comment">//注册监听器ChannelFutureListener</span></div><div class="line"><span class="comment">//以便在连接操作完成的时候获得通知, 并且执行operation操作</span></div><div class="line">future.addListener(<span class="keyword">new</span> ChannelFutureListener()&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationComplete</span><span class="params">(ChannelFuture future)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(future.isSuccess())&#123;</div><div class="line">            ByteBuf byteBuf = Unpooled.copiedBuffer(<span class="string">"Cherry"</span>, CharsetUtil.UTF_8);</div><div class="line">            <span class="comment">//在连接操作完成以后, 将数据异步地发送到远程节点</span></div><div class="line">            ChannelFuture cf = future.channel().writeAndFlush(byteBuf);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            Throwable cause = future.cause();</div><div class="line">            cause.getStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h4 id="事件ChannelHandler"><a href="#事件ChannelHandler" class="headerlink" title="事件ChannelHandler"></a>事件ChannelHandler</h4><p>Netty使用不同的事件来通知状态的改变或者是操作的状态。</p>
 <p>Netty是一个网络编程框架，所以事件是按照它们与入站或者出站数据流的相关性进行分类的。<br>由入站数据或者相关的状态更改而触发的事件，包括：</p>
-<ol>
+<ul>
 <li>连接已被激活或者连接失活；</li>
 <li>数据读取；</li>
 <li>用户事件；</li>
 <li>错误事件。</li>
-</ol>
+</ul>
 <p>由出站事件是未来将会触发的某个动作的操作结果，包括</p>
-<ol>
+<ul>
 <li>打开或者关闭到远程节点的连接；</li>
 <li>将数据写或者冲刷到套接字。</li>
-</ol>
+</ul>
 
       
     </div>
@@ -506,7 +506,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

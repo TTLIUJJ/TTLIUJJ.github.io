@@ -103,7 +103,7 @@
 <meta property="og:description" content="…Channel——SocketEventLoop——控制流、多线程处理和并发ChannelFuture——异步通知 Channel接口基本的I/O操作（bind、connect、read和write）依赖于底层的网络传输提供的API。  EmbededChannel LocalServerChannel NioDatagramChannel NioSctpChannel NioSocketCha">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/netty1.png">
-<meta property="og:updated_time" content="2017-12-28T08:35:45.434Z">
+<meta property="og:updated_time" content="2017-12-28T08:40:27.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty-组件和设计">
 <meta name="twitter:description" content="…Channel——SocketEventLoop——控制流、多线程处理和并发ChannelFuture——异步通知 Channel接口基本的I/O操作（bind、connect、read和write）依赖于底层的网络传输提供的API。  EmbededChannel LocalServerChannel NioDatagramChannel NioSctpChannel NioSocketCha">
@@ -371,16 +371,20 @@
       
         <h3 id="…"><a href="#…" class="headerlink" title="…"></a>…</h3><p>Channel——Socket<br>EventLoop——控制流、多线程处理和并发<br>ChannelFuture——异步通知</p>
 <h4 id="Channel接口"><a href="#Channel接口" class="headerlink" title="Channel接口"></a>Channel接口</h4><p>基本的I/O操作（bind、connect、read和write）依赖于底层的网络传输提供的API。</p>
-<ol>
-<li>EmbededChannel<ol>
+<ul>
+<li>EmbededChannel</li>
 <li>LocalServerChannel</li>
 <li>NioDatagramChannel</li>
 <li>NioSctpChannel</li>
 <li>NioSocketChannel</li>
-</ol>
-</li>
-</ol>
-<h4 id="EventLoop接口"><a href="#EventLoop接口" class="headerlink" title="EventLoop接口"></a>EventLoop接口</h4><p>1.一个EventLoopGrroup包含一个或者多个EventLoop；<br>2.一个EventLoop在它的生命周期内只和一个Thread绑定<br>3.所有由EventLoop处理的I/O事件都将在它专有的Thread上被处理；<br>4.一个Channel在它的生命周期内注册于一个EeventLoop;<br>5.一个EventLoop可能会被分配给一个或者多个Channel</p>
+</ul>
+<h4 id="EventLoop接口"><a href="#EventLoop接口" class="headerlink" title="EventLoop接口"></a>EventLoop接口</h4><ul>
+<li>一个EventLoopGrroup包含一个或者多个EventLoop；</li>
+<li>一个EventLoop在它的生命周期内只和一个Thread绑定</li>
+<li>所有由EventLoop处理的I/O事件都将在它专有的Thread上被处理；</li>
+<li>一个Channel在它的生命周期内注册于一个EeventLoop;</li>
+<li>一个EventLoop可能会被分配给一个或者多个Channel</li>
+</ul>
 <p>一个给定的Channel的I/O操作都是由相同的Thread执行的，实际上是消除了对于同步的需求。</p>
 <p><img src="http://owj98yrme.bkt.clouddn.com/netty1.png" alt="点击加载"></p>
 <h4 id="ChannelFuture接口"><a href="#ChannelFuture接口" class="headerlink" title="ChannelFuture接口"></a>ChannelFuture接口</h4><p>Netty的所有操作都是异步的。因为一个操作可能不会立即返回，所以我们需要一种用于在之后的某个时间点确定其返回结果的方法。为此，Netty提供ChannelFuture接口，其addListener()注册了一个ChannelFutureListener，以便在某个操作完成时候得到通知。</p>
@@ -395,7 +399,12 @@
 <p>Netty能区分扩展自ChannelHandler的ChannelInboundHandler和ChannelOutboundHandler，并确保数据只会在具有相同定向类型的两个ChannelHandler之间传递。</p>
 <h4 id="ChannelHandlerContext"><a href="#ChannelHandlerContext" class="headerlink" title="ChannelHandlerContext"></a>ChannelHandlerContext</h4><p>通过使用作为参数传递到每个方法的ChannelHandlerContext，事件可以被传递给当前ChannelHandler链中的下一个ChannelHandler。通过调用ChannelHandlerContext上对应的方法，每个都提供了简单地将事件传递给下一个ChannelHandler的方法的实现。</p>
 <h4 id="ChannelHandler的适配器类"><a href="#ChannelHandler的适配器类" class="headerlink" title="ChannelHandler的适配器类"></a>ChannelHandler的适配器类</h4><p>Netty以适配器类的形式提供了大量默认的ChannelHandler实现，其旨在简化应用程序处理逻辑的开发过程。<br>有一些适配器类可以将自定义的ChannelHandler所需要的努力降到最低限度，因为它们提供了定义对应接口中所有方法的默认实现。<br>下面这些是编写自定义ChannelHandler时经常会用到的适配器类：</p>
-<p>&gt;<br> ChannelHandlerAdapter<br> ChannelInboundHandlerAdapter<br> ChannelOutboundHandlerAdapter<br> ChannelDuplexHandler<br>&gt;</p>
+<ul>
+<li>ChannelHandlerAdapter</li>
+<li>ChannelInboundHandlerAdapter</li>
+<li>ChannelOutboundHandlerAdapter</li>
+<li>ChannelDuplexHandler</li>
+</ul>
 <h4 id="抽象类SimpleChannelInboundHandler-lt-T-gt"><a href="#抽象类SimpleChannelInboundHandler-lt-T-gt" class="headerlink" title="抽象类SimpleChannelInboundHandler&lt; T&gt;"></a>抽象类SimpleChannelInboundHandler&lt; T&gt;</h4><p>最常见的情况，应用程序会利用一个ChannelHandler来接收解码消息，并对该数据应用业务逻辑。要创建一个这样的ChannelHandler，你只需要扩展基类SimpleChannelInboundHanlder&lt; T&gt;。其中最重要的方法是channelRead0(ChannelHandlerContext, ByteBuf)，除了要求不阻塞于当前I/O线程之外，其他具体实现都可以。</p>
 
       
@@ -513,7 +522,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

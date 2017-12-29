@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/netty2.JPG">
 <meta property="og:image" content="http://owj98yrme.bkt.clouddn.com/3.png">
-<meta property="og:updated_time" content="2017-12-28T08:29:25.049Z">
+<meta property="og:updated_time" content="2017-12-28T08:42:15.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty-传输">
 <meta name="twitter:description" content="传输API 每个Chnnel都会被分配一个ChannelPipeline和ChannelConfig。 由于Channel是独一无二的，所以为了保证顺序将Channel声明为java.lang.Compare的一个子接口。因此，如果两个不同的Channel实例都返回了相同的散列码，那么AbstractChannel中的compareTe()方法的实现将会抛出一个Error。 ChannelPipe">
@@ -374,7 +374,13 @@
 <p>每个Chnnel都会被分配一个ChannelPipeline和ChannelConfig。</p>
 <p>由于Channel是独一无二的，所以为了保证顺序将Channel声明为java.lang.Compare的一个子接口。因此，如果两个不同的Channel实例都返回了相同的散列码，那么AbstractChannel中的compareTe()方法的实现将会抛出一个Error。</p>
 <p>ChannelPipeline持有将应用于入站和出站数据以及事件的ChannelHanlder实例，这些ChannelHandler实现了应用程序用于处理状态变化以及数据处理的逻辑。<br>ChannelHandler的典型用途包括：</p>
-<p>&gt;<br>将数据从一种格式转换为另一种格式<br>提供异常的通知<br>提供Channel变为活动或者非活动的通知；<br>提供当Channel注册到EventLoop或者从EventLoop注销时的通知；<br>提供有关用户自定义事件的通知。</p>
+<ul>
+<li>将数据从一种格式转换为另一种格式</li>
+<li>提供异常的通知</li>
+<li>提供Channel变为活动或者非活动的通知；</li>
+<li>提供当Channel注册到EventLoop或者从EventLoop注销时的通知；</li>
+<li>提供有关用户自定义事件的通知。</li>
+</ul>
 <p><strong>Channel的方法</strong></p>
 <table>
 <thead>
@@ -420,7 +426,12 @@
 </table>
 <p>Netty的Channel实现是线程安全的，因此可以在多线程情况下将数据存储到同一个Channel。</p>
 <h3 id="NIO——非阻塞I-O"><a href="#NIO——非阻塞I-O" class="headerlink" title="NIO——非阻塞I/O"></a>NIO——非阻塞I/O</h3><p>NIO提供了一个所有I/O操作的全异步的实现。他利用了自NIO子系统被引入JDK1.4时便可以用的基于选择器的API。<br>选择器背后的基本概念是充当一个注册表，在那里可以将请求在Channel的状态变化发生变化时得到通知。可能的状态变化有：</p>
-<p>&gt;<br>新的Channel已被接受并且就绪；<br>Channel连接已经完成；<br>Channel有已经就绪的可供读取的数据；<br>Channel可用于写数据。</p>
+<ul>
+<li>新的Channel已被接受并且就绪；</li>
+<li>Channel连接已经完成；</li>
+<li>Channel有已经就绪的可供读取的数据；</li>
+<li>Channel可用于写数据。</li>
+</ul>
 <p>选择器运行在一个检查状态变化并对其做出响应的线程上，在应用程序状态的改变做出响应后，选择器会被重置，然后重复这个过程。</p>
 <p><strong>选择操作的位模式</strong></p>
 <table>
@@ -568,7 +579,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
