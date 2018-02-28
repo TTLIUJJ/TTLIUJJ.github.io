@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Leetcode206. Reverse Linked ListReverse a singly linked list. 解题思路： 翻转链表，三个指针pre, cur和next指针 12345678910111213141516171819202122232425/** * Definition for singly-linked list. * public class ListNode &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表">
+<meta property="og:url" content="http://yoursite.com/2018/02/16/链表/index.html">
+<meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="Leetcode206. Reverse Linked ListReverse a singly linked list. 解题思路： 翻转链表，三个指针pre, cur和next指针 12345678910111213141516171819202122232425/** * Definition for singly-linked list. * public class ListNode &amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-17T01:33:40.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="链表">
+<meta name="twitter:description" content="Leetcode206. Reverse Linked ListReverse a singly linked list. 解题思路： 翻转链表，三个指针pre, cur和next指针 12345678910111213141516171819202122232425/** * Definition for singly-linked list. * public class ListNode &amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/16/链表/"/>
+
+
+
+
+
+  <title>链表 | 10000小时</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">10000小时</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/16/链表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">链表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-16T07:38:00+08:00">
+                2018-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Catalina/" itemprop="url" rel="index">
+                    <span itemprop="name">Catalina</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h1><h4 id="206-Reverse-Linked-List"><a href="#206-Reverse-Linked-List" class="headerlink" title="206. Reverse Linked List"></a>206. Reverse Linked List</h4><p>Reverse a singly linked list.</p>
+<p><strong>解题思路：</strong></p>
+<p>翻转链表，三个指针pre, cur和next指针</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode pre = <span class="keyword">null</span>;</div><div class="line">        ListNode cur = head;</div><div class="line">        </div><div class="line">        <span class="comment">//当cur == null 时候，跳出循环，返回pre</span></div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode next = cur.next;</div><div class="line">            cur.next = pre;</div><div class="line">            </div><div class="line">            pre = cur;</div><div class="line">            cur = next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> pre;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="92-Reverse-Linked-List-II"><a href="#92-Reverse-Linked-List-II" class="headerlink" title="92. Reverse Linked List II"></a>92. Reverse Linked List II</h4><p>Reverse a linked list from position m to n. Do it in-place and in one-pass.</p>
+<p><strong>For example:</strong><br>Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2 and n = 4,</p>
+<p>return 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL.</p>
+<p><strong>Note:</strong><br>Given m, n satisfy the following condition:<br>1 ≤ m ≤ n ≤ length of list.</p>
+<p><strong>解题思路：</strong></p>
+<p>画图！画图！画图！<br>搞清链表的拼接处的节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseBetween</span><span class="params">(ListNode head, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode preReverse = dummyHead;</div><div class="line">        <span class="keyword">int</span> cnt = n-m+<span class="number">1</span>;    <span class="comment">//统计翻转的次数</span></div><div class="line">        </div><div class="line">        <span class="comment">//从虚拟头节点开始，找到翻转链表的前一个节点，需要m-1次</span></div><div class="line">        <span class="keyword">while</span>(--m != <span class="number">0</span>)&#123;</div><div class="line">            preReverse = preReverse.next;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ListNode pre = <span class="keyword">null</span>;</div><div class="line">        ListNode cur = preReverse.next;</div><div class="line">        <span class="comment">//翻转链表，m节点开始</span></div><div class="line">        <span class="keyword">while</span>(cnt -- != <span class="number">0</span>)&#123;</div><div class="line">            ListNode next = cur.next;</div><div class="line">            cur.next = pre;</div><div class="line"></div><div class="line">            pre = cur;</div><div class="line">            cur = next;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//pre指向翻转链表的最后一个节点, cur指向最后节点的下一个节点</span></div><div class="line">        <span class="comment">// tailOfReverse 本来是翻转链表之前的第一个节点，存储在preReverse.next</span></div><div class="line">        ListNode tailOfReverse = preReverse.next;</div><div class="line">        tailOfReverse.next = cur;   <span class="comment">//拼接翻转链表的尾部</span></div><div class="line">        preReverse.next = pre;      <span class="comment">//拼接翻转链表的头部</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="83-Remove-Duplicates-from-Sorted-List"><a href="#83-Remove-Duplicates-from-Sorted-List" class="headerlink" title="83. Remove Duplicates from Sorted List"></a>83. Remove Duplicates from Sorted List</h4><p>Given a sorted linked list, delete all duplicates such that each element appear only once.</p>
+<p>For example,<br>Given 1-&gt;1-&gt;2, return 1-&gt;2.<br>Given 1-&gt;1-&gt;2-&gt;3-&gt;3, return 1-&gt;2-&gt;3.</p>
+<p><strong>解题思路：</strong></p>
+<p>去除排序链表中重复的节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteDuplicates</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        </div><div class="line">        ListNode pre = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>)&#123;</div><div class="line">            pre = head;</div><div class="line">            head = head.next;</div><div class="line">            <span class="comment">//一直寻找，直到pre.val != head.val</span></div><div class="line">            <span class="keyword">while</span>(head != <span class="keyword">null</span> &amp;&amp; head.val == pre.val)&#123;</div><div class="line">                head = head.next;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            pre.next = head;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="86-Partition-List"><a href="#86-Partition-List" class="headerlink" title="86. Partition List"></a>86. Partition List</h4><p>Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.</p>
+<p>You should preserve the original relative order of the nodes in each of the two partitions.</p>
+<p>For example,<br>Given 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2 and x = 3,<br>return 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5.</p>
+<p><strong>解题思路：</strong></p>
+<p>拼接两条链表的操作，cur节点从虚拟头节点开始！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">partition</span><span class="params">(ListNode head, <span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        ListNode dummyHead1 = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode dummyHead2 = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode cur1 = dummyHead1;</div><div class="line">        ListNode cur2 = dummyHead2;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(head.val &lt; x)&#123;</div><div class="line">                cur1.next = head;</div><div class="line">                cur1 = cur1.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                cur2.next = head;</div><div class="line">                cur2 = cur2.next;</div><div class="line">            &#125;</div><div class="line">            head = head.next;</div><div class="line">        &#125;</div><div class="line">        cur1.next = dummyHead2.next;	<span class="comment">//拼接链表</span></div><div class="line">        cur2.next = <span class="keyword">null</span>;	<span class="comment">//链表的尾部置为null，以防循环</span></div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead1.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="328-Odd-Even-Linked-List"><a href="#328-Odd-Even-Linked-List" class="headerlink" title="328. Odd Even Linked List"></a>328. Odd Even Linked List</h4><p>Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.</p>
+<p>You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Given <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>-&gt;NULL,</div><div class="line"><span class="keyword">return</span> <span class="number">1</span>-&gt;<span class="number">3</span>-&gt;<span class="number">5</span>-&gt;<span class="number">2</span>-&gt;<span class="number">4</span>-&gt;NULL.</div></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">The relative order inside both the even and odd groups should remain as it was in the input. </div><div class="line">The first node is considered odd, the second node even and so on ...</div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>和上一道题目一模一样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">oddEvenList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode dummyHeadOdd = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode dummyHeadEven = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode curOdd = dummyHeadOdd;</div><div class="line">        ListNode curEven = dummyHeadEven;</div><div class="line">        </div><div class="line">        <span class="keyword">boolean</span> odd = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(odd)&#123;</div><div class="line">                curOdd.next = head;</div><div class="line">                curOdd = curOdd.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                curEven.next = head;</div><div class="line">                curEven = curEven.next;</div><div class="line">            &#125;</div><div class="line">            odd = !odd;</div><div class="line">            head = head.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        curEven.next = <span class="keyword">null</span>;</div><div class="line">        curOdd.next = dummyHeadEven.next;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHeadOdd.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-Add-Two-Numbers"><a href="#2-Add-Two-Numbers" class="headerlink" title="2. Add Two Numbers"></a>2. Add Two Numbers</h4><p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p><strong>Example</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Input: (<span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">3</span>) + (<span class="number">5</span> -&gt; <span class="number">6</span> -&gt; <span class="number">4</span>)</div><div class="line">Output: <span class="number">7</span> -&gt; <span class="number">0</span> -&gt; <span class="number">8</span></div><div class="line">Explanation: <span class="number">342</span> + <span class="number">465</span> = <span class="number">807</span>.</div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>把两条链表对应的值相加，得到的值的个位数创建新的节点，保留进位；<br>注意循环退出的条件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode cur = dummyHead;</div><div class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span> || carry != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(l1 != <span class="keyword">null</span>)&#123;</div><div class="line">                sum += l1.val;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(l2 != <span class="keyword">null</span>)&#123;</div><div class="line">                sum += l2.val;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            sum += carry;</div><div class="line">            ListNode node = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</div><div class="line">            cur.next = node;</div><div class="line">            cur = cur.next;</div><div class="line">            </div><div class="line">            carry = sum / <span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="445-Add-Two-Numbers-II"><a href="#445-Add-Two-Numbers-II" class="headerlink" title="445. Add Two Numbers II"></a>445. Add Two Numbers II</h4><p>You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p><strong>Follow up:</strong></p>
+<p>What if you cannot modify the input lists? In other words, reversing the lists is not allowed.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Input: (<span class="number">7</span> -&gt; <span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">3</span>) + (<span class="number">5</span> -&gt; <span class="number">6</span> -&gt; <span class="number">4</span>)</div><div class="line">Output: <span class="number">7</span> -&gt; <span class="number">8</span> -&gt; <span class="number">0</span> -&gt; <span class="number">7</span></div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>本道题目与上一题是类似的，只不过对于输入和输出都需要先翻转链表<br>然而题目步允许翻转链表，借助两个栈进行输入的翻转，<br>输出的链表使用往前插入，达到链表翻转的目的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">        Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span>)&#123;</div><div class="line">            stack1.push(l1.val);</div><div class="line">            l1 = l1.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(l2 != <span class="keyword">null</span>)&#123;</div><div class="line">            stack2.push(l2.val);</div><div class="line">            l2 = l2.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(!stack1.isEmpty() || !stack2.isEmpty() || carry != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">int</span> sum = carry;</div><div class="line">            <span class="keyword">if</span>(!stack1.isEmpty())&#123;</div><div class="line">                sum += stack1.pop();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(!stack2.isEmpty())&#123;</div><div class="line">                sum += stack2.pop();</div><div class="line">            &#125;</div><div class="line">            carry = sum / <span class="number">10</span>;</div><div class="line">            ListNode node = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</div><div class="line">            node.next = dummyHead.next;</div><div class="line">            dummyHead.next = node;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="203-Remove-Linked-List-Elements"><a href="#203-Remove-Linked-List-Elements" class="headerlink" title="203. Remove Linked List Elements"></a>203. Remove Linked List Elements</h4><p>Remove all elements from a linked list of integers that have value val.</p>
+<p><strong>Example：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Given: <span class="number">1</span> --&gt; <span class="number">2</span> --&gt; <span class="number">6</span> --&gt; <span class="number">3</span> --&gt; <span class="number">4</span> --&gt; <span class="number">5</span> --&gt; <span class="number">6</span>, val = <span class="number">6</span></div><div class="line">Return: <span class="number">1</span> --&gt; <span class="number">2</span> --&gt; <span class="number">3</span> --&gt; <span class="number">4</span> --&gt; <span class="number">5</span></div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>删除链表中特定的值，一个一个遍历，很简单；<br>注意更新pre节点的时机</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode pre = dummyHead;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(head.val == val)&#123;</div><div class="line">                pre.next = head.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                pre = pre.next;</div><div class="line">            &#125;</div><div class="line">            head = head.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="82-Remove-Duplicates-from-Sorted-List-II"><a href="#82-Remove-Duplicates-from-Sorted-List-II" class="headerlink" title="82. Remove Duplicates from Sorted List II"></a>82. Remove Duplicates from Sorted List II</h4><p>Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.</p>
+<p><strong>Example：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Given <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>, <span class="keyword">return</span> <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">5</span>.</div><div class="line">Given <span class="number">1</span>-&gt;<span class="number">1</span>-&gt;<span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>, <span class="keyword">return</span> <span class="number">2</span>-&gt;<span class="number">3</span>.</div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>输入的链表是排序链表；<br>重复的节点全部删除，注意pre的处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteDuplicates</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode pre = dummyHead;</div><div class="line">        ListNode cur = head;</div><div class="line">        </div><div class="line">       <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">           <span class="comment">//若出现重复的数值，cur指向重复节点的最后一个</span></div><div class="line">           <span class="keyword">while</span>(cur.next != <span class="keyword">null</span> &amp;&amp; cur.val == cur.next.val)&#123;</div><div class="line">               cur = cur.next;</div><div class="line">           &#125;</div><div class="line">           <span class="comment">//条件成立：cur是没有重复的节点, pre前进</span></div><div class="line">           <span class="keyword">if</span>(pre.next == cur)&#123;</div><div class="line">               pre = cur;</div><div class="line">           &#125;</div><div class="line">           <span class="comment">//否则，cur目前是重复的节点, 跳过cur，并且pre不前进</span></div><div class="line">           <span class="keyword">else</span>&#123;</div><div class="line">               pre.next = cur.next;</div><div class="line">           &#125;</div><div class="line">           <span class="comment">//cur照常前进</span></div><div class="line">           cur = cur.next;</div><div class="line">       &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="21-Merge-Two-Sorted-Lists"><a href="#21-Merge-Two-Sorted-Lists" class="headerlink" title="21. Merge Two Sorted Lists"></a>21. Merge Two Sorted Lists</h4><p>Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.</p>
+<p><strong>Example：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Input: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">4</span>, <span class="number">1</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span></div><div class="line">Output: <span class="number">1</span>-&gt;<span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">4</span></div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>合并链表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode cur = dummyHead;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(l1.val &lt; l2.val)&#123;</div><div class="line">                cur.next = l1;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                cur.next = l2;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        cur.next = l1 == <span class="keyword">null</span> ? l2 : l1;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>解法二：</strong></p>
+<p>递归实现：用心去感受，难以说明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(l1 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> l2;</div><div class="line">        &#125;    </div><div class="line">        <span class="keyword">if</span>(l2 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> l1;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode mergeNode = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span>(l1.val &lt; l2.val)&#123;</div><div class="line">            mergeNode = l1;</div><div class="line">            mergeNode.next = mergeTwoLists(l1.next, l2);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            mergeNode = l2;</div><div class="line">            mergeNode.next = mergeTwoLists(l1, l2.next);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> mergeNode;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="24-Swap-Nodes-in-Pairs"><a href="#24-Swap-Nodes-in-Pairs" class="headerlink" title="24. Swap Nodes in Pairs"></a>24. Swap Nodes in Pairs</h4><p>Given a linked list, swap every two adjacent nodes and return its head.</p>
+<p>For example,<br>Given 1-&gt;2-&gt;3-&gt;4, you should return the list as 2-&gt;1-&gt;4-&gt;3.</p>
+<p>Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.</p>
+<p><strong>解题思路：</strong></p>
+<p>四个指针，pre, node1, node2 和 next</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode pre = dummyHead;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(pre.next != <span class="keyword">null</span> &amp;&amp; pre.next.next != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode node1 = pre.next;</div><div class="line">            ListNode node2 = pre.next.next;</div><div class="line">            ListNode next = node2.next;</div><div class="line">            </div><div class="line">            pre.next = node2;</div><div class="line">            node2.next = node1;</div><div class="line">            node1.next = next;</div><div class="line">            </div><div class="line">            pre = node1;    <span class="comment">//注意更新的节点pre</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="25-Reverse-Nodes-in-k-Group"><a href="#25-Reverse-Nodes-in-k-Group" class="headerlink" title="25. Reverse Nodes in k-Group"></a>25. Reverse Nodes in k-Group</h4><p>Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.</p>
+<p>k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.</p>
+<p>You may not alter the values in the nodes, only nodes itself may be changed.</p>
+<p>Only constant memory is allowed.</p>
+<p><strong>example：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Given <span class="keyword">this</span> linked list: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span></div><div class="line"></div><div class="line">For k = <span class="number">2</span>, you should <span class="keyword">return</span>: <span class="number">2</span>-&gt;<span class="number">1</span>-&gt;<span class="number">4</span>-&gt;<span class="number">3</span>-&gt;<span class="number">5</span></div><div class="line"></div><div class="line">For k = <span class="number">3</span>, you should <span class="keyword">return</span>: <span class="number">3</span>-&gt;<span class="number">2</span>-&gt;<span class="number">1</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span></div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>更新两个关键的节点，<br>一个是待翻转链表的前一个节点(PreOfReverse)<br>一个是链表翻转之后的尾节点，即未翻转链表的头节点</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseKGroup</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        </div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode cur = head;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            ++total;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> times = total / k;</div><div class="line">        cur = head;</div><div class="line">        ListNode preOfReverse = dummyHead;  <span class="comment">//翻转链表的前一个节点</span></div><div class="line">        ListNode tailOfReverse = cur;       <span class="comment">//尾节点，本来是第一个链表的头节点，翻转之后变尾节点</span></div><div class="line">        <span class="keyword">while</span>(times-- &gt; <span class="number">0</span>)&#123;</div><div class="line">            ListNode pre = preOfReverse;    <span class="comment">//待翻转链表的前一个节点</span></div><div class="line">            <span class="keyword">int</span> cnt = k;</div><div class="line">            <span class="comment">//翻转链表操作</span></div><div class="line">            <span class="keyword">while</span>(cnt-- != <span class="number">0</span>)&#123;</div><div class="line">                ListNode next = cur.next;</div><div class="line">                cur.next = pre;</div><div class="line">                </div><div class="line">                pre = cur;</div><div class="line">                cur = next;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">//更新节点操作</span></div><div class="line">            preOfReverse.next = pre;    </div><div class="line">            tailOfReverse.next = cur;</div><div class="line">            preOfReverse = tailOfReverse;</div><div class="line">            tailOfReverse = cur;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="147-Insertion-Sort-List"><a href="#147-Insertion-Sort-List" class="headerlink" title="147. Insertion Sort List"></a>147. Insertion Sort List</h4><p>Sort a linked list using insertion sort.</p>
+<p><strong>解题思路：</strong></p>
+<p>使用插入排序，每次取旧队列头节点，插入到新队列的合适位置，pre.val &lt;= cur.val</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">insertionSortList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);  <span class="comment">//新链表的虚拟头节点</span></div><div class="line">        ListNode cur = head;    </div><div class="line">        </div><div class="line">        <span class="comment">//依次遍历cur节点，将其插入到新链表中合适的位置</span></div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode pre = dummyHead;</div><div class="line">            ListNode next = cur.next;</div><div class="line">            <span class="keyword">while</span>(pre.next != <span class="keyword">null</span> &amp;&amp; pre.next.val &lt; cur.val)&#123;</div><div class="line">                pre = pre.next;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//将cur移到新链表，插入位置为pre和pre.next之间</span></div><div class="line">            cur.next = pre.next;</div><div class="line">            pre.next = cur;</div><div class="line">            </div><div class="line">            cur = next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="148-Sort-List"><a href="#148-Sort-List" class="headerlink" title="148. Sort List"></a>148. Sort List</h4><p>Sort a linked list in O(n log n) time using constant space complexity.</p>
+<p><strong>解题思路：</strong></p>
+<p>归并排序链表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">sortList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="comment">//不足一个节点，不需要再分割</span></div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> head;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode fast = head;</div><div class="line">        ListNode slow = head;</div><div class="line">        ListNode middleTail = <span class="keyword">null</span>;</div><div class="line">        </div><div class="line">        <span class="comment">//切分两条链表</span></div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</div><div class="line">            middleTail = slow;</div><div class="line">            slow = slow.next;</div><div class="line">            fast = fast.next.next;</div><div class="line">        &#125;</div><div class="line">        middleTail.next = <span class="keyword">null</span>;</div><div class="line">        ListNode l1 = sortList(head);</div><div class="line">        ListNode l2 = sortList(slow);</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> merge(l1, l2);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//合并链表操作</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">merge</span><span class="params">(ListNode l1, ListNode l2)</span></span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode cur = dummyHead;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(l1.val &lt; l2.val)&#123;</div><div class="line">                cur.next = l1;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                cur.next = l2;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        cur.next = (l1 == <span class="keyword">null</span>) ? l2 : l1;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="237-Delete-Node-in-a-Linked-List"><a href="#237-Delete-Node-in-a-Linked-List" class="headerlink" title="237. Delete Node in a Linked List"></a>237. Delete Node in a Linked List</h4><p>Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.</p>
+<p>Supposed the linked list is 1 -&gt; 2 -&gt; 3 -&gt; 4 and you are given the third node with value 3, the linked list should become 1 -&gt; 2 -&gt; 4 after calling your function.</p>
+<p><strong>解题思路：</strong></p>
+<p>删除指定的节点，修改节点值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(node == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(node.next == <span class="keyword">null</span>)&#123;</div><div class="line">            node = <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        node.val = node.next.val;</div><div class="line">        node.next = node.next.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="19-Remove-Nth-Node-From-End-of-List"><a href="#19-Remove-Nth-Node-From-End-of-List" class="headerlink" title="19. Remove Nth Node From End of List"></a>19. Remove Nth Node From End of List</h4><p>Given a linked list, remove the n(th) node from the end of list and return its head.</p>
+<p><strong>Example：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Given linked list: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>, and n = <span class="number">2</span>.</div><div class="line"></div><div class="line">  After removing the second node from the end, the linked list becomes <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">5</span>.</div></pre></td></tr></table></figure>
+<p><strong>Note：</strong><br>Given n will always be valid.<br>Try to do this in one pass.</p>
+<p><strong>解题思路：</strong></p>
+<p>双指针问题，注意preOfRemoveNode的位置，画图，枚举</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode p = dummyHead;</div><div class="line">        ListNode preOfRemoveNode = dummyHead;</div><div class="line">        </div><div class="line">        <span class="comment">// dummyHead -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; null</span></div><div class="line">        <span class="keyword">while</span>(n-- != -<span class="number">1</span>)&#123;</div><div class="line">            p = p.next;    </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(p != <span class="keyword">null</span>)&#123;</div><div class="line">            p = p.next;</div><div class="line">            preOfRemoveNode = preOfRemoveNode.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//验证preOfRemoveNode是否为尾节点</span></div><div class="line">        <span class="keyword">if</span>(preOfRemoveNode.next == <span class="keyword">null</span>)&#123;</div><div class="line">            preOfRemoveNode = <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            preOfRemoveNode.next = preOfRemoveNode.next.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="61-Rotate-List"><a href="#61-Rotate-List" class="headerlink" title="61. Rotate List"></a>61. Rotate List</h4><p>Given a list, rotate the list to the right by k places, where k is non-negative.</p>
+<p><strong>Example：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Given <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>-&gt;NULL and k = <span class="number">2</span>,</div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="number">4</span>-&gt;<span class="number">5</span>-&gt;<span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;NULL.</div></pre></td></tr></table></figure>
+<p><strong>解题思路：</strong></p>
+<p>其实问题挺简单的，就是preOfRotateNode要找对了，还有节点tail</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">rotateRight</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || k == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> head;</div><div class="line">        &#125;</div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        dummyHead.next = head;</div><div class="line">        ListNode tail = dummyHead;</div><div class="line">        </div><div class="line">        <span class="comment">//统计节点个数, 并保存尾节点</span></div><div class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(tail.next != <span class="keyword">null</span>)&#123;</div><div class="line">            tail = tail.next;</div><div class="line">            ++n;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//处理 k &gt; n || k == 0 的情况</span></div><div class="line">        k %= n;</div><div class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> head;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode preOfRotateNode = dummyHead;</div><div class="line">        k = n - k;      <span class="comment">//dummyHead -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; null</span></div><div class="line">        <span class="keyword">while</span>(k-- != <span class="number">0</span>)&#123;</div><div class="line">            preOfRotateNode = preOfRotateNode.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//旋转</span></div><div class="line">        tail.next = dummyHead.next;</div><div class="line">        dummyHead.next = preOfRotateNode.next;</div><div class="line">        preOfRotateNode.next = <span class="keyword">null</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dummyHead.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="143-Reorder-List"><a href="#143-Reorder-List" class="headerlink" title="143. Reorder List"></a>143. Reorder List</h4><p>Given a singly linked list L: L0→L1→…→Ln-1→Ln,<br>reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…</p>
+<p>You must do this in-place without altering the nodes’ values.</p>
+<p>For example,<br>Given {1,2,3,4}, reorder it to {1,4,2,3}.</p>
+<p><strong>解题思路：</strong></p>
+<p>分割链表，并重装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//链表一分为二</span></div><div class="line">        ListNode fast = head;</div><div class="line">        ListNode slow = head;</div><div class="line">        ListNode middleTail = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</div><div class="line">            middleTail = slow;</div><div class="line">            slow = slow.next;</div><div class="line">            fast = fast.next.next;</div><div class="line">        &#125;</div><div class="line">        middleTail.next = <span class="keyword">null</span>;         <span class="comment">//第一条链表的尾后节点置位空</span></div><div class="line">        ListNode l1 = head;             <span class="comment">//假设l1 有 n 个节点</span></div><div class="line">        ListNode l2 = reverse(slow);    <span class="comment">//那么l2 有 n 个或者 n+1 个</span></div><div class="line">        </div><div class="line">        ListNode dummyHead = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        ListNode cur = dummyHead;</div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = l1;</div><div class="line">            l1 = l1.next;</div><div class="line">            </div><div class="line">            cur.next.next = l2;</div><div class="line">            l2 = l2.next;</div><div class="line">            </div><div class="line">            cur = cur.next.next;</div><div class="line">        &#125;</div><div class="line">        cur.next = l2;      <span class="comment">//l2可能还有1个节点</span></div><div class="line">        </div><div class="line">        head = dummyHead.next;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//翻转链表，并返回新链表的头节点</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">reverse</span><span class="params">(ListNode head)</span></span>&#123;</div><div class="line">        ListNode pre = <span class="keyword">null</span>;</div><div class="line">        ListNode cur = head;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode next = cur.next;</div><div class="line">            cur.next = pre;</div><div class="line">            </div><div class="line">            pre = cur;</div><div class="line">            cur = next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> pre;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="234-Palindrome-Linked-List"><a href="#234-Palindrome-Linked-List" class="headerlink" title="234. Palindrome Linked List"></a>234. Palindrome Linked List</h4><p>Given a singly linked list, determine if it is a palindrome.</p>
+<p><strong>Follow up：</strong><br>Could you do it in O(n) time and O(1) space?</p>
+<p><strong>解题思路：</strong></p>
+<p>解法与上一题一样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode fast = head;</div><div class="line">        ListNode slow = head;</div><div class="line">        ListNode middleTail = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast. next != <span class="keyword">null</span>)&#123;</div><div class="line">            middleTail = slow;</div><div class="line">            slow = slow.next;</div><div class="line">            fast = fast.next.next;</div><div class="line">        &#125;</div><div class="line">        middleTail.next = <span class="keyword">null</span>;</div><div class="line">        ListNode l1 = head;</div><div class="line">        ListNode l2 = reverse(slow);</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(l1.val != l2.val)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">            l1 = l1.next;</div><div class="line">            l2 = l2.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">reverse</span><span class="params">(ListNode head)</span></span>&#123;</div><div class="line">        ListNode pre = <span class="keyword">null</span>;</div><div class="line">        ListNode cur = head;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode next = cur.next;</div><div class="line">            cur.next = pre;</div><div class="line">            </div><div class="line">            pre = cur;</div><div class="line">            cur = next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> pre;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/14/查找/" rel="next" title="查找">
+                <i class="fa fa-chevron-left"></i> 查找
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/17/栈和队列/" rel="prev" title="栈和队列">
+                栈和队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.png"
+              alt="塔头刘德华" />
+          
+            <p class="site-author-name" itemprop="name">塔头刘德华</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Leetcode"><span class="nav-number">1.</span> <span class="nav-text">Leetcode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#206-Reverse-Linked-List"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">206. Reverse Linked List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#92-Reverse-Linked-List-II"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">92. Reverse Linked List II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#83-Remove-Duplicates-from-Sorted-List"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">83. Remove Duplicates from Sorted List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#86-Partition-List"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">86. Partition List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#328-Odd-Even-Linked-List"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">328. Odd Even Linked List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Add-Two-Numbers"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">2. Add Two Numbers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#445-Add-Two-Numbers-II"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">445. Add Two Numbers II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#203-Remove-Linked-List-Elements"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">203. Remove Linked List Elements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#82-Remove-Duplicates-from-Sorted-List-II"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">82. Remove Duplicates from Sorted List II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-Merge-Two-Sorted-Lists"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">21. Merge Two Sorted Lists</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-Swap-Nodes-in-Pairs"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">24. Swap Nodes in Pairs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#25-Reverse-Nodes-in-k-Group"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">25. Reverse Nodes in k-Group</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#147-Insertion-Sort-List"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">147. Insertion Sort List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#148-Sort-List"><span class="nav-number">1.0.0.14.</span> <span class="nav-text">148. Sort List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#237-Delete-Node-in-a-Linked-List"><span class="nav-number">1.0.0.15.</span> <span class="nav-text">237. Delete Node in a Linked List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-Remove-Nth-Node-From-End-of-List"><span class="nav-number">1.0.0.16.</span> <span class="nav-text">19. Remove Nth Node From End of List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#61-Rotate-List"><span class="nav-number">1.0.0.17.</span> <span class="nav-text">61. Rotate List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#143-Reorder-List"><span class="nav-number">1.0.0.18.</span> <span class="nav-text">143. Reorder List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#234-Palindrome-Linked-List"><span class="nav-number">1.0.0.19.</span> <span class="nav-text">234. Palindrome Linked List</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔头刘德华</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

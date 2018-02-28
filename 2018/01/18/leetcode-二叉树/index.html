@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1. Maximum Depth of Binary Tree(104)二叉树的最大深度 Given a binary tree, find its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-二叉树">
+<meta property="og:url" content="http://yoursite.com/2018/01/18/leetcode-二叉树/index.html">
+<meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="1. Maximum Depth of Binary Tree(104)二叉树的最大深度 Given a binary tree, find its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf n">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-19T06:15:12.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode-二叉树">
+<meta name="twitter:description" content="1. Maximum Depth of Binary Tree(104)二叉树的最大深度 Given a binary tree, find its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf n">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/18/leetcode-二叉树/"/>
+
+
+
+
+
+  <title>leetcode-二叉树 | 10000小时</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">10000小时</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/18/leetcode-二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leetcode-二叉树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T19:25:43+08:00">
+                2018-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-Maximum-Depth-of-Binary-Tree-104"><a href="#1-Maximum-Depth-of-Binary-Tree-104" class="headerlink" title="1. Maximum Depth of Binary Tree(104)"></a>1. Maximum Depth of Binary Tree(104)</h4><p>二叉树的最大深度</p>
+<p>Given a binary tree, find its maximum depth.</p>
+<p>The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> Math.max( maxDepth(root.left), maxDepth(root.right) ) + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-Invert-Binary-Tree-226"><a href="#2-Invert-Binary-Tree-226" class="headerlink" title="2. Invert Binary Tree(226)"></a>2. Invert Binary Tree(226)</h4><p>翻转二叉树</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Invert a binary tree.</div><div class="line">     <span class="number">4</span></div><div class="line">   /   \</div><div class="line">  <span class="number">2</span>     <span class="number">7</span></div><div class="line"> / \   / \</div><div class="line"><span class="number">1</span>   <span class="number">3</span> <span class="number">6</span>   <span class="number">9</span></div></pre></td></tr></table></figure>
+<p>to</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">     4</div><div class="line">   /   \</div><div class="line">  7     2</div><div class="line"> / \   / \</div><div class="line">9   6 3   1</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">invertTree</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>( root == <span class="keyword">null</span> )&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        TreeNode tmp = root.left;</div><div class="line">        root.left = invertTree( root.right );</div><div class="line">        root.right = invertTree( tmp );</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-Same-Tree-100"><a href="#3-Same-Tree-100" class="headerlink" title="3. Same Tree(100)"></a>3. Same Tree(100)</h4><p>相同二叉树</p>
+<p>Given two binary trees, write a function to check if they are the same or not.</p>
+<p>Two binary trees are considered the same if they are structurally identical and the nodes have the same value.</p>
+<p>Example 1:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Input:     <span class="number">1</span>         <span class="number">1</span></div><div class="line">          / \       / \</div><div class="line">         <span class="number">2</span>   <span class="number">3</span>     <span class="number">2</span>   <span class="number">3</span></div><div class="line"></div><div class="line">        [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],   [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</div><div class="line"></div><div class="line">Output: <span class="keyword">true</span></div></pre></td></tr></table></figure>
+<p>Example 2:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Input:     <span class="number">1</span>         <span class="number">1</span></div><div class="line">          /           \</div><div class="line">         <span class="number">2</span>             <span class="number">2</span></div><div class="line"></div><div class="line">        [<span class="number">1</span>,<span class="number">2</span>],     [<span class="number">1</span>,<span class="keyword">null</span>,<span class="number">2</span>]</div><div class="line"></div><div class="line">Output: <span class="keyword">false</span></div></pre></td></tr></table></figure>
+<p>Example 3:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Input:     <span class="number">1</span>         <span class="number">1</span></div><div class="line">          / \       / \</div><div class="line">         <span class="number">2</span>   <span class="number">1</span>     <span class="number">1</span>   <span class="number">2</span></div><div class="line"></div><div class="line">        [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],   [<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>]</div><div class="line"></div><div class="line">Output: <span class="keyword">false</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSameTree</span><span class="params">(TreeNode p, TreeNode q)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(p == <span class="keyword">null</span> &amp;&amp; q == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( p != <span class="keyword">null</span> &amp;&amp; q != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> p.val == q.val &amp;&amp; isSameTree( p.left, q.left ) &amp;&amp; isSameTree( p.right, q.right );</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4-Symmetric-Tree-101"><a href="#4-Symmetric-Tree-101" class="headerlink" title="4.  Symmetric Tree(101)"></a>4.  Symmetric Tree(101)</h4><p>对称二叉树</p>
+<p>Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).</p>
+<p>For example, this binary tree [1,2,2,3,4,4,3] is symmetric:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    <span class="number">1</span></div><div class="line">   / \</div><div class="line">  <span class="number">2</span>   <span class="number">2</span></div><div class="line"> / \ / \</div><div class="line"><span class="number">3</span>  <span class="number">4</span> <span class="number">4</span>  <span class="number">3</span></div></pre></td></tr></table></figure>
+<p>But the following [1,2,2,null,3,null,3] is not:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  <span class="number">1</span></div><div class="line"> / \</div><div class="line"><span class="number">2</span>   <span class="number">2</span></div><div class="line"> \   \</div><div class="line"> <span class="number">3</span>    <span class="number">3</span></div></pre></td></tr></table></figure>
+<p>Note:<br>Bonus points if you could solve it both recursively and iteratively.</p>
+<p><strong>递归版</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSymmetric</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> helper(root.left, root.right);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">helper</span><span class="params">(TreeNode l, TreeNode r)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(l == <span class="keyword">null</span> &amp;&amp; r == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(l == <span class="keyword">null</span> || r == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> l.val == r.val &amp;&amp; helper(l.left, r.right) &amp;&amp; helper(l.right, r.left);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>迭代版</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSymmetric</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    	<span class="comment">//Q1和Q2以root为中心</span></div><div class="line">    	<span class="comment">//将二叉树一分为二,</span></div><div class="line">    	<span class="comment">//root以左的节点左至右顺序入队</span></div><div class="line">    	<span class="comment">//root以右的节点右至左顺序入队</span></div><div class="line">    	<span class="comment">//相当于对称方向的层序遍历二叉树</span></div><div class="line">        Queue&lt;TreeNode&gt; Q1 = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</div><div class="line">        Queue&lt;TreeNode&gt; Q2 = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        Q1.add(root.left);</div><div class="line">        Q2.add(root.right);</div><div class="line">        <span class="keyword">while</span>(!Q1.isEmpty() &amp;&amp; !Q2.isEmpty())&#123;</div><div class="line">            <span class="keyword">int</span> size1 = Q1.size();</div><div class="line">            <span class="keyword">int</span> size2 = Q2.size();</div><div class="line">            <span class="keyword">if</span>(size1 != size2)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size1; ++i)&#123;</div><div class="line">                TreeNode n1 = Q1.remove();</div><div class="line">                TreeNode n2 = Q2.remove();</div><div class="line">                <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; n2 == <span class="keyword">null</span>)&#123;</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(n1 == <span class="keyword">null</span> || n2 == <span class="keyword">null</span> || n1.val != n2.val)&#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                &#125;</div><div class="line">                Q1.add(n1.left);</div><div class="line">                Q1.add(n1.right);</div><div class="line">                Q2.add(n2.right);</div><div class="line">                Q2.add(n2.left);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Q1.isEmpty() &amp;&amp; Q2.isEmpty();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="5-Count-Complete-Tree-Nodes-222"><a href="#5-Count-Complete-Tree-Nodes-222" class="headerlink" title="5. Count Complete Tree Nodes(222)"></a>5. Count Complete Tree Nodes(222)</h4><p>完全二叉树</p>
+<p>Given a complete binary tree, count the number of nodes.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countNodes</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> leftHeight = height(root.left);</div><div class="line">        <span class="keyword">int</span> rightHeight = height(root.right);</div><div class="line">        <span class="keyword">if</span>(leftHeight == rightHeight)&#123;</div><div class="line">            <span class="keyword">return</span> (<span class="number">1</span> &lt;&lt; leftHeight) + countNodes(root.right);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> (<span class="number">1</span> &lt;&lt; rightHeight) + countNodes(root.left);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">height</span><span class="params">(TreeNode node)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(node == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span> + height(node.left);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="6-Balanced-Binary-Tree-110"><a href="#6-Balanced-Binary-Tree-110" class="headerlink" title="6.  Balanced Binary Tree(110)"></a>6.  Balanced Binary Tree(110)</h4><p>平衡二叉树</p>
+<p>Given a binary tree, determine if it is height-balanced.</p>
+<p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBalanced</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> helper(root, <span class="number">0</span>) &gt;= <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//自底往上进行判断</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">helper</span><span class="params">(TreeNode root, <span class="keyword">int</span> height)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> height;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> leftHeight = helper(root.left, height+<span class="number">1</span>);</div><div class="line">        <span class="keyword">int</span> rightHeight = helper(root.right, height+<span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(Math.abs(leftHeight - rightHeight) &gt; <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Math.max(leftHeight, rightHeight);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="7-Path-Sum-112"><a href="#7-Path-Sum-112" class="headerlink" title="7. Path Sum(112)"></a>7. Path Sum(112)</h4><p>根节点到叶节点的路径和</p>
+<p>Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.</p>
+<p>For example:<br>Given the below binary tree and sum = 22,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">      <span class="number">5</span></div><div class="line">     / \</div><div class="line">    <span class="number">4</span>   <span class="number">8</span></div><div class="line">   /   / \</div><div class="line">  <span class="number">11</span>  <span class="number">13</span>  <span class="number">4</span></div><div class="line"> /  \      \</div><div class="line"><span class="number">7</span>    <span class="number">2</span>      <span class="number">1</span></div></pre></td></tr></table></figure>
+<p>eturn true, as there exist a root-to-leaf path 5-&gt;4-&gt;11-&gt;2 which sum is 22.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasPathSum</span><span class="params">(TreeNode root, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> sum == root.val;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> remain = sum - root.val;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> hasPathSum(root.left, remain)</div><div class="line">                || hasPathSum(root.right, remain);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="8-Sum-of-Left-Leaves-404"><a href="#8-Sum-of-Left-Leaves-404" class="headerlink" title="8. Sum of Left Leaves(404)"></a>8. Sum of Left Leaves(404)</h4><p>二叉树左叶节点的和</p>
+<p>Find the sum of all left leaves in a given binary tree.</p>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="number">3</span></div><div class="line">   / \</div><div class="line">  <span class="number">9</span>  <span class="number">20</span></div><div class="line">    /  \</div><div class="line">   <span class="number">15</span>   <span class="number">7</span></div><div class="line"></div><div class="line">There are two left leaves in the binary tree, with values <span class="number">9</span> and <span class="number">15</span> respectively. Return <span class="number">24</span>.</div><div class="line"></div><div class="line">```java</div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sumOfLeftLeaves</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(root.left != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(root.left.left == <span class="keyword">null</span> &amp;&amp; root.left.right == <span class="keyword">null</span>)&#123;</div><div class="line">                ret = root.left.val;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                ret = sumOfLeftLeaves(root.left);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        ret += sumOfLeftLeaves(root.right);</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="9-Binary-Tree-Paths-257"><a href="#9-Binary-Tree-Paths-257" class="headerlink" title="9. Binary Tree Paths(257)"></a>9. Binary Tree Paths(257)</h4><p>返回二叉树的路径</p>
+<p>Given a binary tree, return all root-to-leaf paths.</p>
+<p>For example, given the following binary tree:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   <span class="number">1</span></div><div class="line"> /   \</div><div class="line"><span class="number">2</span>     <span class="number">3</span></div><div class="line"> \</div><div class="line">  <span class="number">5</span></div></pre></td></tr></table></figure>
+<p>All root-to-leaf paths are:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">"1-&gt;2-&gt;5"</span>, <span class="string">"1-&gt;3"</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * public class TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode left;</span></div><div class="line"><span class="comment"> *     TreeNode right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;String&gt; ret = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> ret;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>)&#123;</div><div class="line">            ret.add( String.valueOf(root.val));</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//把当前节点，接到每条路径上</span></div><div class="line">        List&lt;String&gt; LList = binaryTreePaths(root.left);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; LList.size(); ++i)&#123;</div><div class="line">            ret.add(root.val + <span class="string">"-&gt;"</span> + LList.get(i));</div><div class="line">        &#125;</div><div class="line">            </div><div class="line">        List&lt;String&gt; RList = binaryTreePaths(root.right);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; RList.size(); ++i)&#123;</div><div class="line">            ret.add(root.val + <span class="string">"-&gt;"</span> + RList.get(i));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="10-Path-Sum-II-113"><a href="#10-Path-Sum-II-113" class="headerlink" title="10. Path Sum II(113)"></a>10. Path Sum II(113)</h4><p>Given a binary tree and a sum, find all root-to-leaf paths where each path’s sum equals the given sum.</p>
+<p>For example:<br>Given the below binary tree and sum = 22,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">      <span class="number">5</span></div><div class="line">     / \</div><div class="line">    <span class="number">4</span>   <span class="number">8</span></div><div class="line">   /   / \</div><div class="line">  <span class="number">11</span>  <span class="number">13</span>  <span class="number">4</span></div><div class="line"> /  \    / \</div><div class="line"><span class="number">7</span>    <span class="number">2</span>  <span class="number">5</span>   <span class="number">1</span></div></pre></td></tr></table></figure>
+<p>return</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">   [<span class="number">5</span>,<span class="number">4</span>,<span class="number">11</span>,<span class="number">2</span>],</div><div class="line">   [<span class="number">5</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">5</span>]</div><div class="line">]</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/15/数据库笔记-查询处理/" rel="next" title="数据库笔记-查询处理">
+                <i class="fa fa-chevron-left"></i> 数据库笔记-查询处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/13/数组/" rel="prev" title="数组">
+                数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.png"
+              alt="塔头刘德华" />
+          
+            <p class="site-author-name" itemprop="name">塔头刘德华</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Maximum-Depth-of-Binary-Tree-104"><span class="nav-number">1.</span> <span class="nav-text">1. Maximum Depth of Binary Tree(104)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Invert-Binary-Tree-226"><span class="nav-number">2.</span> <span class="nav-text">2. Invert Binary Tree(226)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Same-Tree-100"><span class="nav-number">3.</span> <span class="nav-text">3. Same Tree(100)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Symmetric-Tree-101"><span class="nav-number">4.</span> <span class="nav-text">4.  Symmetric Tree(101)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Count-Complete-Tree-Nodes-222"><span class="nav-number">5.</span> <span class="nav-text">5. Count Complete Tree Nodes(222)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Balanced-Binary-Tree-110"><span class="nav-number">6.</span> <span class="nav-text">6.  Balanced Binary Tree(110)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Path-Sum-112"><span class="nav-number">7.</span> <span class="nav-text">7. Path Sum(112)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Sum-of-Left-Leaves-404"><span class="nav-number">8.</span> <span class="nav-text">8. Sum of Left Leaves(404)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Binary-Tree-Paths-257"><span class="nav-number">9.</span> <span class="nav-text">9. Binary Tree Paths(257)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-Path-Sum-II-113"><span class="nav-number">10.</span> <span class="nav-text">10. Path Sum II(113)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔头刘德华</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

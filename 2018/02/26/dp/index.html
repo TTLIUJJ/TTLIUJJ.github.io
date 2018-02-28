@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Leetcode70. Climbing StairsYou are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dp">
+<meta property="og:url" content="http://yoursite.com/2018/02/26/dp/index.html">
+<meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="Leetcode70. Climbing StairsYou are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: G">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leetcode.com/static/images/problemset/robot_maze.png">
+<meta property="og:updated_time" content="2018-02-28T12:31:58.389Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dp">
+<meta name="twitter:description" content="Leetcode70. Climbing StairsYou are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: G">
+<meta name="twitter:image" content="https://leetcode.com/static/images/problemset/robot_maze.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/26/dp/"/>
+
+
+
+
+
+  <title>dp | 10000小时</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">10000小时</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/26/dp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dp</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T23:17:31+08:00">
+                2018-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h1><h4 id="70-Climbing-Stairs"><a href="#70-Climbing-Stairs" class="headerlink" title="70. Climbing Stairs"></a>70. Climbing Stairs</h4><p>You are climbing a stair case. It takes n steps to reach to the top.</p>
+<p>Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?</p>
+<p><strong>Note:</strong> Given n will be a positive integer.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Input: <span class="number">2</span></div><div class="line">Output:  <span class="number">2</span></div><div class="line">Explanation:  There are two ways to climb to the top.</div><div class="line"></div><div class="line"><span class="number">1</span>. <span class="number">1</span> step + <span class="number">1</span> step</div><div class="line"><span class="number">2</span>. <span class="number">2</span> steps</div></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Input: <span class="number">3</span></div><div class="line">Output:  <span class="number">3</span></div><div class="line">Explanation:  There are three ways to climb to the top.</div><div class="line"></div><div class="line"><span class="number">1</span>. <span class="number">1</span> step + <span class="number">1</span> step + <span class="number">1</span> step</div><div class="line"><span class="number">2</span>. <span class="number">1</span> step + <span class="number">2</span> steps</div><div class="line"><span class="number">3</span>. <span class="number">2</span> steps + <span class="number">1</span> step</div></pre></td></tr></table></figure>
+<p><strong>递归版本</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> climbStairs(n-<span class="number">1</span>) + climbStairs(n-<span class="number">2</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>dp版本</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> []A = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</div><div class="line">        A[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        A[<span class="number">1</span>] = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</div><div class="line">            A[i] = A[i-<span class="number">1</span>] + A[i-<span class="number">2</span>];    </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> A[n];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="120-Triangle"><a href="#120-Triangle" class="headerlink" title="120. Triangle"></a>120. Triangle</h4><p>Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">     [<span class="number">2</span>],</div><div class="line">    [<span class="number">3</span>,<span class="number">4</span>],</div><div class="line">   [<span class="number">6</span>,<span class="number">5</span>,<span class="number">7</span>],</div><div class="line">  [<span class="number">4</span>,<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>]</div><div class="line">]</div><div class="line">The minimum path sum from top to bottom is <span class="number">11</span> (i.e., <span class="number">2</span> + <span class="number">3</span> + <span class="number">5</span> + <span class="number">1</span> = <span class="number">11</span>).</div></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.</p>
+<p><strong>解题思路:</strong></p>
+<p>自底向上的搜索并记录最小的路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumTotal</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangle)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> []A = <span class="keyword">new</span> <span class="keyword">int</span>[triangle.size()+<span class="number">1</span>];</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = triangle.size()-<span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)&#123;</div><div class="line">            List&lt;Integer&gt; row = triangle.get(i);</div><div class="line">            </div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; row.size(); ++j)&#123;</div><div class="line">                A[j] = Math.min(A[j], A[j+<span class="number">1</span>]) + row.get(j);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> A[<span class="number">0</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="64-Minimum-Path-Sum"><a href="#64-Minimum-Path-Sum" class="headerlink" title="64. Minimum Path Sum"></a>64. Minimum Path Sum</h4><p>Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.</p>
+<p><strong>Note:</strong></p>
+<p>You can only move either down or right at any point in time.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line"> [<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>],</div><div class="line"> [<span class="number">1</span>,<span class="number">5</span>,<span class="number">1</span>],</div><div class="line"> [<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>]</div><div class="line">]</div><div class="line"> Given the above grid map, <span class="keyword">return</span> <span class="number">7</span>. Because the path <span class="number">1</span>→<span class="number">3</span>→<span class="number">1</span>→<span class="number">1</span>→<span class="number">1</span> minimizes the sum.</div></pre></td></tr></table></figure>
+<p><strong>解题思路:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">在<span class="number">2</span>X2数组中，从<span class="number">1</span>到<span class="number">4</span>的最小路径只有一条，<span class="number">1</span> -&gt; <span class="number">2</span> -&gt; <span class="number">4</span></div><div class="line">在<span class="number">1</span>+<span class="number">2</span>+<span class="number">4</span>和<span class="number">1</span>+<span class="number">3</span>+<span class="number">4</span>的比较之后选取的最小值可得</div><div class="line">[</div><div class="line">	[<span class="number">1</span>, <span class="number">2</span>],</div><div class="line">	[<span class="number">3</span>, <span class="number">4</span>]</div><div class="line">]</div><div class="line">依次可类推，除了第一行和第一列之后</div><div class="line">所有待处理的元素，都是从上和左中选择最小的元素</div><div class="line">直到元素[m-<span class="number">1</span>, n-<span class="number">1</span>]，每次选择的都是最小元素累加得到的</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minPathSum</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> m = grid.length;</div><div class="line">        <span class="keyword">int</span> n = grid[<span class="number">0</span>].length;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(i != <span class="number">0</span> &amp;&amp; j != <span class="number">0</span>)&#123;</div><div class="line">                    grid[i][j] = Math.min(grid[i][j-<span class="number">1</span>], grid[i-<span class="number">1</span>][j]) + grid[i][j];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i == <span class="number">0</span> &amp;&amp; j != <span class="number">0</span>)&#123;</div><div class="line">                    grid[i][j] = grid[i][j-<span class="number">1</span>] + grid[i][j];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i != <span class="number">0</span> &amp;&amp; j == <span class="number">0</span>)&#123;</div><div class="line">                    grid[i][j] = grid[i-<span class="number">1</span>][j] + grid[i][j];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> grid[m-<span class="number">1</span>][n-<span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="343-Integer-Break"><a href="#343-Integer-Break" class="headerlink" title="343. Integer Break"></a>343. Integer Break</h4><p>Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get.</p>
+<p><strong>Example:</strong> </p>
+<p>given n = 2, return 1 (2 = 1 + 1); given n = 10, return 36 (10 = 3 + 3 + 4).</p>
+<p><strong>Note:</strong></p>
+<p> You may assume that n is not less than 2 and not larger than 58.</p>
+<p><strong>递归版本</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">max3</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> Math.max(x, Math.max(y, z));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">breakHelper</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            res = max3(res, i * (n-i), i * breakHelper(n-i));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">integerBreak</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> breakHelper(n);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>自顶向下的记忆化搜索</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] memo;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">max3</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> Math.max(x, Math.max(y, z));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">breakHelper</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(memo[n] != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> memo[n];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            <span class="comment">//重叠的子问题 存在memo数组中了,</span></div><div class="line">            <span class="comment">//一旦break的元素发现已经被处理，直接取出来</span></div><div class="line">            res = max3(res, i * (n-i), i * breakHelper(n-i));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        memo[n] = res;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">integerBreak</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        memo = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> breakHelper(n);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>dp版本</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">max3</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> Math.max(x, Math.max(y, z));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">integerBreak</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> []memo = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</div><div class="line">            </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; ++j)&#123;</div><div class="line">                <span class="comment">//memo[i-j]相当于记忆化搜索时，进入子结构breakHelper()</span></div><div class="line">                memo[i] = max3(memo[i], j * (i-j), j * memo[i-j]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[n];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="279-Perfect-Squares"><a href="#279-Perfect-Squares" class="headerlink" title="279. Perfect Squares"></a>279. Perfect Squares</h4><p>Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, …) which sum to n.</p>
+<p>For example, given n = 12, return 3 because 12 = 4 + 4 + 4; given n = 13, return 2 because 13 = 4 + 9.</p>
+<p><strong>状态转移方程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//      0 1 2 3 4 5 6 7 8 9 10 11</div><div class="line">//  1   0 1 2 3 4 5 6 7 8 9 10 11</div><div class="line">//  4   0 0 0 0 1 2 3 4 2 3 4  5</div><div class="line">//  9   0 0 0 0 0 0 0 0 0 1 2  3</div><div class="line"></div><div class="line">F(i, c) = min&#123; F(i-1, c), F(i-1, c-v[i]) &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numSquares</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> C = n;</div><div class="line">        <span class="keyword">int</span> []memo = <span class="keyword">new</span> <span class="keyword">int</span>[C+<span class="number">1</span>];</div><div class="line">        Arrays.fill(memo, Integer.MAX_VALUE);</div><div class="line">        memo[<span class="number">0</span>] = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= C; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j * j&lt;= i; ++j)&#123;</div><div class="line">                memo[i] = Math.min(memo[i], <span class="number">1</span> + memo[i-j*j]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> memo[C];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="91-Decode-Ways"><a href="#91-Decode-Ways" class="headerlink" title="91. Decode Ways"></a>91. Decode Ways</h4><p>A message containing letters from A-Z is being encoded to numbers using the following mapping:</p>
+<p>Given an encoded message containing digits, determine the total number of ways to decode it.</p>
+<p><strong>Example:</strong></p>
+<p>Given encoded message “12”, it could be decoded as “AB” (1 2) or “L” (12).</p>
+<p>The number of ways decoding “12” is 2.</p>
+<p><strong>解题思路:</strong></p>
+<p>自右往左</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h4 id="62-Unique-Paths"><a href="#62-Unique-Paths" class="headerlink" title="62. Unique Paths"></a>62. Unique Paths</h4><p>A robot is located at the top-left corner of a m x n grid (marked ‘Start’ in the diagram below).</p>
+<p>The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked ‘Finish’ in the diagram below).</p>
+<p>How many possible unique paths are there?</p>
+<p><img src="https://leetcode.com/static/images/problemset/robot_maze.png" alt="点击加载"> </p>
+<p><strong>解题思路:</strong></p>
+<p>对于第一行和第一列，每个元素的可到达路径只有1种<br>对于其他元素，每个元素可到达的路径都是由上和左两个元素的和</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> [][]memo = <span class="keyword">new</span> <span class="keyword">int</span>[m][n];</div><div class="line">        memo[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(i != <span class="number">0</span> &amp;&amp; j != <span class="number">0</span>)&#123;</div><div class="line">                    memo[i][j] = memo[i][j-<span class="number">1</span>] + memo[i-<span class="number">1</span>][j];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span>&#123;</div><div class="line">                    memo[i][j] = <span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> memo[m-<span class="number">1</span>][n-<span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="63-Unique-Paths-II"><a href="#63-Unique-Paths-II" class="headerlink" title="63. Unique Paths II"></a>63. Unique Paths II</h4><p>Follow up for “Unique Paths”:</p>
+<p>Now consider if some obstacles are added to the grids. How many unique paths would there be?</p>
+<p>An obstacle and empty space is marked as 1 and 0 respectively in the grid.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">There is one obstacle in the middle of a <span class="number">3</span>x3 grid as illustrated below.</div><div class="line"></div><div class="line">[</div><div class="line">  [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</div><div class="line">  [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</div><div class="line">  [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</div><div class="line">]</div><div class="line"></div><div class="line">The total number of unique paths is <span class="number">2</span>.</div></pre></td></tr></table></figure>
+<p><strong>解题思路:</strong></p>
+<p>若当前元素是1，会干扰到后续元素的判断，<br>因为它不知道这是障碍或者是路径1<br>所以开辟新空间给新数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="keyword">int</span>[][] obstacleGrid)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> m = obstacleGrid.length;</div><div class="line">        <span class="keyword">int</span> n = obstacleGrid[<span class="number">0</span>].length;        </div><div class="line">        <span class="keyword">int</span> [][]A = <span class="keyword">new</span> <span class="keyword">int</span>[m][n];</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            A[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(obstacleGrid[i][j] == <span class="number">1</span>)&#123;</div><div class="line">                    A[i][j] = <span class="number">0</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i != <span class="number">0</span> &amp;&amp; j != <span class="number">0</span>)&#123;</div><div class="line">                    A[i][j] = A[i-<span class="number">1</span>][j] + A[i][j-<span class="number">1</span>];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i != <span class="number">0</span>)&#123;</div><div class="line">                    A[i][j] = A[i-<span class="number">1</span>][j];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j != <span class="number">0</span>)&#123;</div><div class="line">                    A[i][j] = A[i][j-<span class="number">1</span>];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> A[m-<span class="number">1</span>][n-<span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="198-House-Robber"><a href="#198-House-Robber" class="headerlink" title="198. House Robber"></a>198. House Robber</h4><p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
+<p>Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.</p>
+<p><strong>解题思路:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态转移函数	考虑偷取[x...n-<span class="number">1</span>]范围里的房子</div><div class="line">f(<span class="number">0</span>) = max&#123; v(<span class="number">0</span>) + f(<span class="number">2</span>), v(<span class="number">1</span>) + f(<span class="number">3</span>), .... , v(n-<span class="number">3</span>) + f(n-<span class="number">1</span>), v(n-<span class="number">2</span>), v(n-<span class="number">1</span>) &#125;</div></pre></td></tr></table></figure>
+<p><strong>暴力搜索法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">tryRob</span><span class="params">(<span class="keyword">int</span> []nums, <span class="keyword">int</span> index)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(index &gt;= nums.length)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = index; i &lt; nums.length; ++i)&#123;</div><div class="line">            res = Math.max(res, nums[i] + tryRob(nums, i+<span class="number">2</span>));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> tryRob(nums, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>记忆化搜索:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[]memo;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">tryRob</span><span class="params">(<span class="keyword">int</span> []nums, <span class="keyword">int</span> index)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(index &gt;= nums.length)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(memo[index] != -<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> memo[index];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = index; i &lt; nums.length; ++i)&#123;</div><div class="line">            res = Math.max(res, nums[i] + tryRob(nums, i+<span class="number">2</span>));</div><div class="line">        &#125;</div><div class="line">        memo[index] = res;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        memo = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i)&#123;</div><div class="line">            memo[i] = -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">            </div><div class="line">        <span class="keyword">return</span> tryRob(nums, <span class="number">0</span>);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>dp</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> []memo = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">        memo[n-<span class="number">1</span>] = nums[n-<span class="number">1</span>];</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n-<span class="number">2</span>; i &gt;= <span class="number">0</span>; --i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; n; ++j)&#123;</div><div class="line">                memo[i] = Math.max(memo[i], nums[j] + (j+<span class="number">2</span> &lt; n ? memo[j+<span class="number">2</span>] : <span class="number">0</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[<span class="number">0</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="121-Best-Time-to-Buy-and-Sell-Stock"><a href="#121-Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="121. Best Time to Buy and Sell Stock"></a>121. Best Time to Buy and Sell Stock</h4><p>Say you have an array for which the Ith element is the price of a given stock on day i.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Input: [<span class="number">7</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">4</span>]</div><div class="line">Output: <span class="number">5</span></div><div class="line"></div><div class="line">max. difference = <span class="number">6</span>-<span class="number">1</span> = <span class="number">5</span> (not <span class="number">7</span>-<span class="number">1</span> = <span class="number">6</span>, as selling price needs to be larger than buying price)</div><div class="line"></div><div class="line"></div><div class="line">Input: [<span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>]</div><div class="line">Output: <span class="number">0</span></div><div class="line"></div><div class="line">In <span class="keyword">this</span> <span class="keyword">case</span>, no transaction is done, i.e. max profit = <span class="number">0</span>.</div></pre></td></tr></table></figure>
+<p><strong>状态转移方程</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F(i) = max&#123; maxProfit, F(i+<span class="number">1</span>)&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(prices.length &lt; <span class="number">2</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> minPrice = Integer.MAX_VALUE;</div><div class="line">        <span class="keyword">int</span> maxProfit = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; prices.length; ++i)&#123;</div><div class="line">            minPrice = Math.min(minPrice, prices[i]);</div><div class="line">            maxProfit = Math.max(maxProfit, prices[i] - minPrice);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> maxProfit;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h2><p>有一个背包，它的容量为C(capacity)。现在有n种不同的物品，编号为0到n-1，其中每一个物品的重量为W(i)，价值为V(i)，问可以在这个背包中放哪些东西，使得在不超过C的基础上，物品的总价值最大。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">F(n, C)考虑将n个物品放入容量为C的背包，使得价值最大</div><div class="line">状态转移方程：</div><div class="line">F(i, c) = max&#123; F(i-1, c), v(i) + F(i-1, c-w(i))&#125;</div></pre></td></tr></table></figure>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//记忆化搜索</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QKnapsack</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> [][]memo;</div><div class="line"></div><div class="line">    <span class="comment">//用[0 ... index]的物品, 填充容积为C的背包的最大价值</span></div><div class="line">    <span class="comment">//index 物品的编号  w[index] 物品的重量</span></div><div class="line">    <span class="comment">//                v[index] 物品的价值</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">bestValue</span><span class="params">(<span class="keyword">int</span> []w, <span class="keyword">int</span> []v, <span class="keyword">int</span> index, <span class="keyword">int</span> c)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || c &lt;= <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(memo[index][c] != -<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> memo[index][c];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> res = bestValue(w, v, index-<span class="number">1</span>, c);</div><div class="line">        <span class="keyword">if</span>(c &gt;= w[index])&#123;</div><div class="line">            res = Math.max(res, v[index] + bestValue(w, v, index-<span class="number">1</span>, c-w[index]));</div><div class="line">        &#125;</div><div class="line">        memo[index][c] = res;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack01</span><span class="params">(<span class="keyword">int</span> []w, <span class="keyword">int</span> []v, <span class="keyword">int</span> C)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> n = w.length;</div><div class="line">        memo = <span class="keyword">new</span> <span class="keyword">int</span>[n][C+<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] A : memo)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length; ++i)&#123;</div><div class="line">                A[i] = -<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> bestValue(w, v, n-<span class="number">1</span>, C);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//动态规划</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack01_1</span><span class="params">(<span class="keyword">int</span> []w, <span class="keyword">int</span> []v, <span class="keyword">int</span> C)</span></span>&#123;</div><div class="line">        <span class="keyword">assert</span> (w.length == v.length);</div><div class="line">        <span class="keyword">int</span> n = w.length;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> [][] memo = <span class="keyword">new</span> <span class="keyword">int</span>[n][C+<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> []A : memo)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length; ++i)&#123;</div><div class="line">                A[i] = -<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//编号0的物品, 尝试放入背包内</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= C; ++k)&#123;</div><div class="line">            memo[<span class="number">0</span>][k] = (k &gt;= w[<span class="number">0</span>]) ? v[<span class="number">0</span>] : <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= C; ++j)&#123;</div><div class="line">                memo[i][j] = memo[i-<span class="number">1</span>][j];  <span class="comment">//当前物品i不放入背包的情况</span></div><div class="line">                <span class="comment">//背包空间足够</span></div><div class="line">                <span class="keyword">if</span>(j &gt;= w[i])&#123;  </div><div class="line">                    <span class="comment">//memo[i-1][j-w[i]] 当存入物品i-1的时,并且空间只有j-w[i]的情况下</span></div><div class="line">                    memo[i][j] = Math.max(memo[i][j], v[i]+memo[i-<span class="number">1</span>][j-w[i]]);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[n-<span class="number">1</span>][C];</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>dp优化</strong></p>
+<p>空间优化<br>第i行元素只依赖于第i-1行元素，理论上只需要保持两行元素<br>空间复杂度 O(2*C) = O(C)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack01_2</span><span class="params">(<span class="keyword">int</span> []w, <span class="keyword">int</span> v, <span class="keyword">int</span> C)</span></span>&#123;</div><div class="line">     </div><div class="line">    ...</div><div class="line">    <span class="keyword">int</span> [][] memo = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][C+<span class="number">1</span>];    <span class="comment">//只创建两行背包</span></div><div class="line"></div><div class="line">    ...</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= C; ++j)&#123;</div><div class="line">            memo[i%<span class="number">2</span>][j] = memo[(i-<span class="number">1</span>)%<span class="number">2</span>][j];  <span class="comment">//当前物品i不放入背包的情况</span></div><div class="line">            <span class="comment">//背包空间足够</span></div><div class="line">            <span class="keyword">if</span>(j &gt;= w[i])&#123;</div><div class="line">                <span class="comment">//memo[i-1][j-w[i]] 当存入物品i-1的时,并且空间只有j-w[i]的情况下</span></div><div class="line">                memo[i%<span class="number">2</span>][j] = Math.max(memo[i%<span class="number">2</span>][j], v[i]+memo[(i-<span class="number">1</span>)%<span class="number">2</span>][j-w[i]]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> memo[(n-<span class="number">1</span>)%<span class="number">2</span>][C];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>空间和时间的同时优化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack01_3</span><span class="params">(<span class="keyword">int</span> []w, <span class="keyword">int</span> []v, <span class="keyword">int</span> C)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> n = w.length;</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> []memo = <span class="keyword">new</span> <span class="keyword">int</span>[C+<span class="number">1</span>];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; memo.length; ++i)&#123;</div><div class="line">        memo[i] = -<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= C; ++k)&#123;</div><div class="line">        memo[k] = (k &gt;= w[<span class="number">0</span>]) ? v[<span class="number">0</span>] : <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = C; j &gt;= w[i]; --j)&#123;</div><div class="line">            <span class="comment">//现在只有一行空间，memo索引考虑的是背包的容量</span></div><div class="line">            memo[j] = Math.max(memo[j], v[i]+memo[j-w[i]]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> memo[C];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="416-Partition-Equal-Subset-Sum"><a href="#416-Partition-Equal-Subset-Sum" class="headerlink" title="416. Partition Equal Subset Sum"></a>416. Partition Equal Subset Sum</h4><p>Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Input: [<span class="number">1</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">5</span>]</div><div class="line">Output: <span class="keyword">true</span></div><div class="line">Explanation: The array can be partitioned as [<span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>] and [<span class="number">11</span>].</div><div class="line"></div><div class="line">Input: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</div><div class="line">Output: <span class="keyword">false</span></div><div class="line">Explanation: The array cannot be partitioned into equal sum subsets.</div></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Each of the array element will not exceed 100.</li>
+<li>The array size will not exceed 200.</li>
+</ul>
+<p><strong>解题思路:</strong></p>
+<p>F(n, C)考虑将n个物品填满容量为C的背包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">F(i, c) = F(i-1, c) || F(i-1, c - w(i))</div><div class="line"></div><div class="line">时间复杂度 O(n * sum/2) = 100 * 100*200/2 = 100万</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//记忆化搜索</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="comment">//memo[index][c] 表示使用索引index为[0...index]的这些元素</span></div><div class="line">    <span class="comment">//是否可以完全填充一个容量为C的背包</span></div><div class="line">    <span class="comment">//-1表示未计算，0表示不可以，1表示可以</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> [][]memo;</div><div class="line">    </div><div class="line">    <span class="comment">//使用nums[0...index]，是否可以完全填充一个容量为c的背包</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">tryPartition</span><span class="params">(<span class="keyword">int</span> []nums, <span class="keyword">int</span> index, <span class="keyword">int</span> c)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(c == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || c &lt; <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(memo[index][c] != -<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> memo[index][c] == <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        memo[index][c] = (tryPartition(nums, index-<span class="number">1</span>, c) ||</div><div class="line">                tryPartition(nums, index-<span class="number">1</span>, c-nums[index])) ? <span class="number">1</span> : <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[index][c] == <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : nums)&#123;</div><div class="line">            sum += a;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(sum % <span class="number">2</span> == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> C = sum/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line">        memo = <span class="keyword">new</span> <span class="keyword">int</span>[n][C+<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> []A : memo)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length; ++i)&#123;</div><div class="line">                A[i] = -<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> tryPartition(nums, n-<span class="number">1</span>, C);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//动态规划</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : nums)&#123;</div><div class="line">            sum += a;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(sum % <span class="number">2</span> == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> C = sum/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line">        <span class="keyword">boolean</span> [][]memo = <span class="keyword">new</span> <span class="keyword">boolean</span>[n][C+<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= C; ++k)&#123;</div><div class="line">            memo[<span class="number">0</span>][k] = (k == nums[<span class="number">0</span>]);    <span class="comment">//当只有索引0元素的时候，背包容量为k的是否刚好被完全填充</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= C; ++j)&#123;</div><div class="line">                memo[i][j] = memo[i-<span class="number">1</span>][j];  <span class="comment">//索引i不加入背包 ---1</span></div><div class="line">                <span class="comment">//此时背包容量j足够填充nums[i]</span></div><div class="line">                <span class="keyword">if</span>(j &gt;= nums[i])&#123;</div><div class="line">                    <span class="comment">//当加入索引i,背包容量剩余j-nums[i]</span></div><div class="line">                    <span class="comment">//此时索引i-1在容量为j-nums[i]的情况下是否能够满足，与情况1取或运算</span></div><div class="line">                    memo[i][j] = memo[i][j] || memo[i-<span class="number">1</span>][j-nums[i]];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[n-<span class="number">1</span>][C];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>dp优化</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> a : nums)&#123;</div><div class="line">            sum += a;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(sum%<span class="number">2</span> == <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> C = sum/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line">        <span class="keyword">boolean</span> []memo = <span class="keyword">new</span> <span class="keyword">boolean</span>[C+<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; memo.length; ++k)&#123;</div><div class="line">            memo[k] = (k == nums[<span class="number">0</span>]) ;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = C; j &gt;= nums[i]; --j)&#123;</div><div class="line">                memo[j] = memo[j] || memo[j-nums[i]];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[C];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="322-Coin-Change"><a href="#322-Coin-Change" class="headerlink" title="322. Coin Change"></a>322. Coin Change</h4><p>You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">coins = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>], amount = <span class="number">11</span></div><div class="line"><span class="keyword">return</span> <span class="number">3</span> (<span class="number">11</span> = <span class="number">5</span> + <span class="number">5</span> + <span class="number">1</span>)</div><div class="line"></div><div class="line">coins = [<span class="number">2</span>], amount = <span class="number">3</span></div><div class="line"><span class="keyword">return</span> -<span class="number">1</span>.</div></pre></td></tr></table></figure>
+<p><strong>Note:</strong> 完全背包问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">You may assume that you have an infinite number of each kind of coin.</div></pre></td></tr></table></figure>
+<p><strong>状态转移方程</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F(i, c) = min&#123; F(i-<span class="number">1</span>, c), F(i-<span class="number">1</span>, c-v[<span class="number">1</span>])+<span class="number">1</span>, F(i-<span class="number">1</span>, c-v[<span class="number">2</span>])+<span class="number">1</span>, ..., F(i-<span class="number">1</span>, c-v[x])+<span class="number">1</span> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span>[] coins, <span class="keyword">int</span> amount)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> C = amount;</div><div class="line">        <span class="keyword">int</span> n = coins.length;</div><div class="line">        <span class="keyword">int</span> []memo = <span class="keyword">new</span> <span class="keyword">int</span>[C+<span class="number">1</span>];</div><div class="line">        Arrays.fill(memo, C+<span class="number">1</span>);</div><div class="line">        </div><div class="line">        memo[<span class="number">0</span>] = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= C; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(coins[j] &lt;= i)&#123;</div><div class="line">                    memo[i] = Math.min(memo[i], memo[i-coins[j]]+<span class="number">1</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[C] &gt; C ? -<span class="number">1</span> : memo[C];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="139-Word-Break"><a href="#139-Word-Break" class="headerlink" title="139. Word Break"></a>139. Word Break</h4><p>Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words. You may assume the dictionary does not contain duplicate words.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">given</div><div class="line">s = <span class="string">"leetcode"</span>,</div><div class="line">dict = [<span class="string">"leet"</span>, <span class="string">"code"</span>].</div><div class="line"></div><div class="line">Return <span class="keyword">true</span> because <span class="string">"leetcode"</span> can be segmented as <span class="string">"leet code"</span>.</div></pre></td></tr></table></figure>
+<p><strong>状态转移方程</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F(i, s) = F(i-<span class="number">1</span>, s-word) &amp;&amp; F(i, word)</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">wordBreak</span><span class="params">(String s, List&lt;String&gt; wordDict)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> C = s.length();</div><div class="line">        <span class="keyword">boolean</span> []memo = <span class="keyword">new</span> <span class="keyword">boolean</span>[C+<span class="number">1</span>];</div><div class="line"></div><div class="line">        memo[<span class="number">0</span>] = <span class="keyword">true</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= C; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)&#123;</div><div class="line">                memo[i] = memo[j] &amp;&amp; wordDict.contains(s.substring(j, i));</div><div class="line">                <span class="keyword">if</span>(memo[i])&#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> memo[C];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="377-Combination-Sum-IV"><a href="#377-Combination-Sum-IV" class="headerlink" title="377. Combination Sum IV"></a>377. Combination Sum IV</h4><p>Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">target = <span class="number">4</span></div><div class="line"></div><div class="line">The possible combination ways are:</div><div class="line">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</div><div class="line">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>)</div><div class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</div><div class="line">(<span class="number">1</span>, <span class="number">3</span>)</div><div class="line">(<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>)</div><div class="line">(<span class="number">2</span>, <span class="number">2</span>)</div><div class="line">(<span class="number">3</span>, <span class="number">1</span>)</div><div class="line"></div><div class="line">Note that different sequences are counted as different combinations.</div><div class="line"></div><div class="line">Therefore the output is <span class="number">7</span>.</div></pre></td></tr></table></figure>
+<p><strong>状态转移方程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F(i, c) = F(i-1) + F(c-v[i])</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">n\C - 1 2 3 4	1 2 3 4		1 2 3 4</div><div class="line">------------------------------------------------------</div><div class="line">1   - 1 1 1 1	1 1 1 1		1 1 1 1</div><div class="line">2   - 0 0 0 0	0 2 3 5		0 2 3 5</div><div class="line">3   - 0 0 0 0	0 0 0 0		0 0 4 7</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">combinationSum4</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> C = target;</div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> memo[] = <span class="keyword">new</span> <span class="keyword">int</span>[C+<span class="number">1</span>];</div><div class="line"></div><div class="line">        memo[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= C; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(nums[j] &lt;= i)&#123;</div><div class="line">                    memo[i] += memo[i-nums[j]];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> memo[C];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h2><h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a>300. Longest Increasing Subsequence</h4><p>LIS(i) 表示以第i个数字为结尾的最长上升子序列的长度<br>即[0, …, i]的范围内，选择数字nums[i]可以获得的最长上升子序列的长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LIS(i) = max(1 + LIS(j) if(nums[i] &gt; nums[j])), 任意i &gt; j</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line">        <span class="keyword">int</span> []memo = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">        Arrays.fill(memo, <span class="number">1</span>);</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)&#123;</div><div class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[j])&#123;</div><div class="line">                    memo[i] = Math.max(memo[i], memo[j]+<span class="number">1</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</div><div class="line">            res = Math.max(res, memo[i]);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="300-1-Print-LIS"><a href="#300-1-Print-LIS" class="headerlink" title="300-1. Print LIS"></a>300-1. Print LIS</h4><h4 id="376-Wiggle-Subsequence"><a href="#376-Wiggle-Subsequence" class="headerlink" title="376. Wiggle Subsequence"></a>376. Wiggle Subsequence</h4><p><strong>状态转移方程</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">i = j+<span class="number">1</span></div><div class="line"><span class="keyword">if</span> nums[i] &gt; nums[j]:</div><div class="line">	up = down +<span class="number">1</span></div><div class="line"><span class="keyword">else</span> nums[i] &lt; nums[j]:</div><div class="line">	down = up+<span class="number">1</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> n = nums.length;</div><div class="line">        <span class="keyword">int</span> []up = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">        <span class="keyword">int</span> []down = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">        </div><div class="line">        up[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        down[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i-<span class="number">1</span>] &lt; nums[i])&#123;</div><div class="line">                up[i] = down[i-<span class="number">1</span>] + <span class="number">1</span>;</div><div class="line">                down[i] = down[i-<span class="number">1</span>];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[i-<span class="number">1</span>] &gt; nums[i])&#123;</div><div class="line">                up[i] = up[i-<span class="number">1</span>];</div><div class="line">                down[i] = up[i-<span class="number">1</span>]+<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                up[i] = up[i-<span class="number">1</span>];</div><div class="line">                down[i] = down[i-<span class="number">1</span>];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> Math.max(up[n-<span class="number">1</span>], down[n-<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>优化版本</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> up = <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> down = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; ++i)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i-<span class="number">1</span>] &lt; nums[i])&#123;</div><div class="line">                up = down+<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[i-<span class="number">1</span>] &gt; nums[i])&#123;</div><div class="line">                down = up + <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> Math.max(down, up);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><h4 id="Lintcode-77-Longest-Common-Subsequence"><a href="#Lintcode-77-Longest-Common-Subsequence" class="headerlink" title="(Lintcode)77. Longest Common Subsequence"></a>(Lintcode)77. Longest Common Subsequence</h4><p><strong>状态转移方程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">LCS(m,n ) S1[0 ... m]和S2[0 .. n ]的最长公共子序列</div><div class="line">if S1[m] == S2[n]:</div><div class="line">	LCS(m, n) = 1 + LCS(m-1, n-1);</div><div class="line">else:</div><div class="line">	LCS(m, n) = max&#123; LCS(m-1, n), LCS(m, n-1) &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String A, String B)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> m = A.length();</div><div class="line">    <span class="keyword">int</span> n = B.length();</div><div class="line">    <span class="keyword">int</span> [][]memo = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)&#123;</div><div class="line">            <span class="keyword">if</span>(A.charAt(i-<span class="number">1</span>) == B.charAt(j-<span class="number">1</span>))&#123;</div><div class="line">                memo[i][j] = <span class="number">1</span> + memo[i-<span class="number">1</span>][j-<span class="number">1</span>];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                memo[i][j] = Math.max(memo[i-<span class="number">1</span>][j], memo[i][j-<span class="number">1</span>]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> memo[m][n];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/22/回溯/" rel="next" title="回溯">
+                <i class="fa fa-chevron-left"></i> 回溯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/27/Linux搜索命令/" rel="prev" title="Linux搜索命令">
+                Linux搜索命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.png"
+              alt="塔头刘德华" />
+          
+            <p class="site-author-name" itemprop="name">塔头刘德华</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Leetcode"><span class="nav-number">1.</span> <span class="nav-text">Leetcode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#70-Climbing-Stairs"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">70. Climbing Stairs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#120-Triangle"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">120. Triangle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#64-Minimum-Path-Sum"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">64. Minimum Path Sum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#343-Integer-Break"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">343. Integer Break</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#279-Perfect-Squares"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">279. Perfect Squares</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#91-Decode-Ways"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">91. Decode Ways</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#62-Unique-Paths"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">62. Unique Paths</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#63-Unique-Paths-II"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">63. Unique Paths II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#198-House-Robber"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">198. House Robber</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#121-Best-Time-to-Buy-and-Sell-Stock"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">121. Best Time to Buy and Sell Stock</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-1背包问题"><span class="nav-number">1.1.</span> <span class="nav-text">0-1背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#416-Partition-Equal-Subset-Sum"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">416. Partition Equal Subset Sum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#322-Coin-Change"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">322. Coin Change</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#139-Word-Break"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">139. Word Break</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#377-Combination-Sum-IV"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">377. Combination Sum IV</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长上升子序列"><span class="nav-number">1.2.</span> <span class="nav-text">最长上升子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#300-Longest-Increasing-Subsequence"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">300. Longest Increasing Subsequence</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#300-1-Print-LIS"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">300-1. Print LIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#376-Wiggle-Subsequence"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">376. Wiggle Subsequence</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长公共子序列"><span class="nav-number">1.3.</span> <span class="nav-text">最长公共子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lintcode-77-Longest-Common-Subsequence"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">(Lintcode)77. Longest Common Subsequence</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔头刘德华</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
