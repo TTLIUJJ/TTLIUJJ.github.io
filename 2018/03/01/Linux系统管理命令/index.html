@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux命令," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="进程查看命令ps1234567891011$ ps [选项]# -a：显示一个终端的所有进程，除了会话引线# -u：显示进程的归属用户及内存使用情况# -x：显示没有控制终端的进程# -l：长格式显示，显示各加详细的信息# -e：显示所有进程$ ps aux	# 查看系统中所有进程，没有&amp;apos;-&amp;apos;，使用BSD操作系统格式$ ps -le# 查看系统中所有进程，使用Linux标准命令">
+<meta name="keywords" content="Linux命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统管理命令">
+<meta property="og:url" content="http://yoursite.com/2018/03/01/Linux系统管理命令/index.html">
+<meta property="og:site_name" content="10000小时">
+<meta property="og:description" content="进程查看命令ps1234567891011$ ps [选项]# -a：显示一个终端的所有进程，除了会话引线# -u：显示进程的归属用户及内存使用情况# -x：显示没有控制终端的进程# -l：长格式显示，显示各加详细的信息# -e：显示所有进程$ ps aux	# 查看系统中所有进程，没有&amp;apos;-&amp;apos;，使用BSD操作系统格式$ ps -le# 查看系统中所有进程，使用Linux标准命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-02T14:18:24.602Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux系统管理命令">
+<meta name="twitter:description" content="进程查看命令ps1234567891011$ ps [选项]# -a：显示一个终端的所有进程，除了会话引线# -u：显示进程的归属用户及内存使用情况# -x：显示没有控制终端的进程# -l：长格式显示，显示各加详细的信息# -e：显示所有进程$ ps aux	# 查看系统中所有进程，没有&amp;apos;-&amp;apos;，使用BSD操作系统格式$ ps -le# 查看系统中所有进程，使用Linux标准命令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/01/Linux系统管理命令/"/>
+
+
+
+
+
+  <title>Linux系统管理命令 | 10000小时</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">10000小时</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/01/Linux系统管理命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux系统管理命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T23:45:17+08:00">
+                2018-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="进程查看命令ps"><a href="#进程查看命令ps" class="headerlink" title="进程查看命令ps"></a>进程查看命令ps</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ ps [选项]</div><div class="line"># -a：显示一个终端的所有进程，除了会话引线</div><div class="line"># -u：显示进程的归属用户及内存使用情况</div><div class="line"># -x：显示没有控制终端的进程</div><div class="line"># -l：长格式显示，显示各加详细的信息</div><div class="line"># -e：显示所有进程</div><div class="line"></div><div class="line">$ ps aux	</div><div class="line"># 查看系统中所有进程，没有&apos;-&apos;，使用BSD操作系统格式</div><div class="line">$ ps -le</div><div class="line"># 查看系统中所有进程，使用Linux标准命令格式</div></pre></td></tr></table></figure>
+<p><strong>参数</strong></p>
+<ul>
+<li>VSZ 虚拟内存 kb</li>
+<li>RSS 真实内存 kb</li>
+<li>TTY 终端</li>
+<li>STAT 进程状态</li>
+<li>START 进程启动时间</li>
+<li>TIME 进程耗费的CPU运算时间</li>
+<li>COMMAND 进程名字</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- 字符终端 tty1 - tty6</div><div class="line">- 图形终端 tty7</div><div class="line">- 远程虚拟终端 pts/0 - 255</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- R 运行</div><div class="line">- S 睡眠</div><div class="line">- Z 僵死</div><div class="line">- T 停止状态</div><div class="line">- s 包含子进程</div><div class="line">- + 位于后台</div><div class="line">- &lt; 高优先级 对其他用户不利</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ pstree [选项] </div><div class="line"># -p：增加显示进程的PID</div><div class="line"># -u：增加显示进程的所属用户</div></pre></td></tr></table></figure>
+<h4 id="进程查看命令top"><a href="#进程查看命令top" class="headerlink" title="进程查看命令top"></a>进程查看命令top</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ top [选项]</div><div class="line"># -d 秒数：top更新的间隔</div><div class="line"># -b：使用批处理模式输出，一般和&apos;-n&apos;选项合用</div><div class="line"># -n：次数：指定top命令执行的次数，一般和&apos;-b&apos;选项合用</div><div class="line"></div><div class="line">$ top -d 10 -n 3 -b &gt; aaa.log</div><div class="line"># top命令每隔10秒执行，一共执行3次，每次将结果输入到aaa.log</div></pre></td></tr></table></figure>
+<p><strong>查看系统健康状态</strong></p>
+<ul>
+<li>可以按shift+x在交互模式下执行进程排序</li>
+<li>shift+p：以CPU使用率排序，默认</li>
+<li>shift+m：以内存使用率排序</li>
+<li>shift+n：以PID排序</li>
+<li>q：退出top</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">top - 08:18:14 up 10 min,  1 user,  load average: 0.34, 0.52, 0.38</div><div class="line">Tasks: 177 total,   1 running, 176 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu(s):  1.2 us,  0.7 sy,  0.0 ni, 97.4 id,  0.1 wa,  0.0 hi,  0.6 si,  0.0 st</div><div class="line">KiB Mem :  3456512 total,  1211904 free,   940964 used,  1303644 buff/cache</div><div class="line">KiB Swap: 18811900 total, 18811900 free,        0 used.  2207300 avail Mem</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">load average: 1分钟，5分钟，15分钟CPU的平均负载</div><div class="line">%Cpu(s): 用户占比，系统占比，改变过优先级的用户进程占比，空闲占比</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bufferrs：缓冲，加速写入</div><div class="line">caches：缓存，加速读取</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep httpd</div><div class="line"># 查看进程名字为httpd的进程状态</div></pre></td></tr></table></figure>
+<p><strong>ps、pstree和top</strong></p>
+<p>ps一般用于查看所有进程<br>pstree一般用于查看所有进程数<br>top一般用于查看系统的健康状态</p>
+<h4 id="杀死进程命令"><a href="#杀死进程命令" class="headerlink" title="杀死进程命令"></a>杀死进程命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ kill -1 pid</div><div class="line"># 信号1 SIGHUP 该信号让进程立刻关闭，并重新读取配置文件后重启</div><div class="line"># 信号9 SIGKILL 该信号不能被阻塞、处理和忽略，一般用于强制终止进程。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ killall [选项] [信号] 进程名</div><div class="line"># 按照进程名杀死进程（存在一个进程名，有多个进程id）</div><div class="line"># -i：交互式</div><div class="line"># -I：忽略进程名的大小写</div></pre></td></tr></table></figure>
+<h4 id="查看后台的工作"><a href="#查看后台的工作" class="headerlink" title="查看后台的工作"></a>查看后台的工作</h4><p><strong>把进程放在后台运行</strong></p>
+<ul>
+<li>tar -zcf xx.tar /tmp &amp;<br>把命令放在后台，并在后台执行</li>
+<li>tar -zcf xx.tar /tmp<br>按下Ctrl+z，放在后台暂停</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ jobs -l</div><div class="line"># 查看后台进行的进程</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ fg %工作号</div><div class="line"># 将后台暂停的工作恢复到前台执行</div><div class="line">$ bg %工作号</div><div class="line"># 将后台暂停的工作恢复到后台执行	</div><div class="line"></div><div class="line"># 工作号诸如,[1],[2]...注意不是pid</div></pre></td></tr></table></figure>
+<h4 id="后台命令脱离终端"><a href="#后台命令脱离终端" class="headerlink" title="后台命令脱离终端"></a>后台命令脱离终端</h4><p>即使终端关闭了，进程也不关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ nohup 进程 &amp;</div><div class="line"># nohuo /root/aProcess.sh &amp;</div></pre></td></tr></table></figure>
+<h3 id="系统定时任务"><a href="#系统定时任务" class="headerlink" title="系统定时任务"></a>系统定时任务</h3><h4 id="一次性定时任务at"><a href="#一次性定时任务at" class="headerlink" title="一次性定时任务at"></a>一次性定时任务at</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">at [选项] [时间]</div></pre></td></tr></table></figure>
+<h4 id="循环定时任务crontab"><a href="#循环定时任务crontab" class="headerlink" title="循环定时任务crontab"></a>循环定时任务crontab</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux命令/" rel="tag"># Linux命令</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/28/贪心算法/" rel="next" title="贪心算法">
+                <i class="fa fa-chevron-left"></i> 贪心算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.png"
+              alt="塔头刘德华" />
+          
+            <p class="site-author-name" itemprop="name">塔头刘德华</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">113</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程查看命令ps"><span class="nav-number">1.</span> <span class="nav-text">进程查看命令ps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程查看命令top"><span class="nav-number">2.</span> <span class="nav-text">进程查看命令top</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#杀死进程命令"><span class="nav-number">3.</span> <span class="nav-text">杀死进程命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看后台的工作"><span class="nav-number">4.</span> <span class="nav-text">查看后台的工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后台命令脱离终端"><span class="nav-number">5.</span> <span class="nav-text">后台命令脱离终端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统定时任务"><span class="nav-number"></span> <span class="nav-text">系统定时任务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一次性定时任务at"><span class="nav-number">1.</span> <span class="nav-text">一次性定时任务at</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环定时任务crontab"><span class="nav-number">2.</span> <span class="nav-text">循环定时任务crontab</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔头刘德华</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -275,6 +275,177 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/剑指Offer-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔头刘德华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="10000小时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/30/剑指Offer-5/" itemprop="url">剑指Offer_5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T17:08:13+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>两个栈，一个主栈，一个辅助栈。</p>
+<p>主栈：负责pop出队操作<br>副栈：负责push入队操作</p>
+<p>因为队列是先进先出，而栈是后进先出，两者顺序相反，所以利用在数据在两个栈里面走一遍，实现了队列的先进先出的顺序。当主栈里的元素为空时，就可以去副栈里索取数据。</p>
+<pre><code class="java"><span class="keyword">import</span> java.util.Stack;
+
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{
+    <span class="keyword">private</span> Stack&lt;Integer&gt; mainStack = <span class="keyword">new</span> Stack&lt;&gt;();
+    <span class="keyword">private</span> Stack&lt;Integer&gt; auxStack = <span class="keyword">new</span> Stack&lt;&gt;();
+
+    <span class="function"><span class="keyword">public</span> Integer <span class="title">pop</span><span class="params">()</span></span>{
+        <span class="keyword">if</span>(mainStack.isEmpty()){
+            <span class="keyword">while</span> (!auxStack.isEmpty()){
+                mainStack.push(auxStack.pop());
+            }
+        }
+        <span class="keyword">if</span>(mainStack.isEmpty()){
+            <span class="keyword">return</span> Integer.MIN_VALUE;
+        }
+        <span class="keyword">else</span>{
+            <span class="keyword">return</span> mainStack.pop();
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Integer item)</span></span>{
+        auxStack.push(item);
+    }
+
+}
+</code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/剑指Offer-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1675,172 +1846,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/设计模式-工厂模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="塔头刘德华">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="10000小时">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/27/设计模式-工厂模式/" itemprop="url">设计模式--工厂模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T20:41:05+08:00">
-                2017-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>工厂模式：实例化对象，用工厂方法代替new操作。</p>
-<h4 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h4><p>简单工厂模式又称静态工厂方法模式。重命名上就可以看出这个模式一定很简单。它存在的目的很简单：定义一个用于创建对象的接口。<br>1) 工厂类角色：这是本模式的核心，含有一定的商业逻辑和判断逻辑，用来创建产品。<br>2) 抽象产品角色：它一般是具体产品继承的父类或者实现的接口。<br>3) 具体产品角色：工厂类所创建的对象就是此角色的实例。在java中由一个具体类实现。</p>
-<p>产品类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BMW</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BMW</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW320</span> <span class="keyword">extends</span> <span class="title">BMW</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BMW320</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create BMW320"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW520</span> <span class="keyword">extends</span> <span class="title">BMW</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BMW520</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create BMW520"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>工厂类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMWFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> BMW <span class="title">createBMW</span><span class="params">(<span class="keyword">int</span> type)</span></span>&#123;</div><div class="line">        <span class="keyword">switch</span> (type)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="number">320</span>: <span class="keyword">return</span> <span class="keyword">new</span> BMW320();</div><div class="line">            <span class="keyword">case</span> <span class="number">520</span>: <span class="keyword">return</span> <span class="keyword">new</span> BMW520();</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>调用者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPattern</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        BMWFactory factory = <span class="keyword">new</span> BMWFactory();</div><div class="line">        factory.createBMW(<span class="number">520</span>);</div><div class="line">        factory.createBMW(<span class="number">320</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="工厂方式模式"><a href="#工厂方式模式" class="headerlink" title="工厂方式模式"></a>工厂方式模式</h4><p>工厂方法模式组成：<br>1)抽象工厂角色： 这是工厂方法模式的核心，它与应用程序无关。是具体工厂角色必须实现的接口或者必须继承的父类。在java中它由抽象类或者接口来实现。<br>2)具体工厂角色：它含有和具体业务逻辑有关的代码。由应用程序调用以创建对应的具体产品的对象。<br> 3)抽象产品角色：它是具体产品继承的父类或者是实现的接口。在java中一般有抽象类或者接口来实现。<br>4)具体产品角色：具体工厂角色所创建的对象就是此角色的实例。在java中由具体的类来实现。 </p>
-<p>产品类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Audi</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Audi</span><span class="params">()</span></span>&#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA4</span> <span class="keyword">extends</span> <span class="title">Audi</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AudiA4</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create AudiA4"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA6</span> <span class="keyword">extends</span> <span class="title">Audi</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AudiA6</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"create AudiA6"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>工厂类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">AudiFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Audi <span class="title">createAudi</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA4Factory</span> <span class="keyword">implements</span> <span class="title">AudiFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> AudiA4 <span class="title">createAudi</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AudiA4();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiA6Factory</span> <span class="keyword">implements</span> <span class="title">AudiFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> AudiA6 <span class="title">createAudi</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AudiA6();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>调用者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPattern</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        AudiA4Factory audiA4Factory = <span class="keyword">new</span> AudiA4Factory();</div><div class="line">        AudiA4 audiA4 = audiA4Factory.createAudi();</div><div class="line">        </div><div class="line">        AudiA6Factory audiA6Factory = <span class="keyword">new</span> AudiA6Factory();</div><div class="line">        AudiA6 audiA6 = audiA6Factory.createAudi();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 工厂方法模式仿佛已经很完美的对对象的创建进行了包装，使得客户程序中仅仅处理抽象产品角色提供的接口，但使得对象的数量成倍增长。当产品种类非常多时，会出现大量的与之对应的工厂对象，这不是我们所希望的。</p>
-<h4 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h4><p>为什么引入抽象工厂模式：<br>抽象工厂模式是工厂方法模式的升级版本，他用来创建一组相关或者相互依赖的对象。比如奔驰C200使用发动机A和铁A，而奔驰C300使用发动机型号B和铁B，那么使用抽象工厂模式，在为C200系列生产相关配件时，就无需制定配件的型号，它会自动根据车型生产对应的配件。</p>
-<p>产品类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//发动机类型</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Engine</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EngineA</span> <span class="keyword">implements</span> <span class="title">Engine</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EngineA</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"with EngineA"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EngineB</span> <span class="keyword">implements</span> <span class="title">Engine</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EngineB</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"with EngineB"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//钢铁的类型</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Iron</span></span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IronA</span> <span class="keyword">implements</span> <span class="title">Iron</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IronA</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"is IronA"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IronB</span> <span class="keyword">implements</span> <span class="title">Iron</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IronB</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"is IronB"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>工厂类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//工厂接口</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">BenzFactory</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Engine <span class="title">withEngine</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> Iron <span class="title">ironType</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//奔驰C200装配工厂</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BenzC200Factory</span> <span class="keyword">implements</span> <span class="title">BenzFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> EngineA <span class="title">withEngine</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EngineA();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IronA <span class="title">ironType</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IronA();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//奔驰C300装配工厂</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BenzC300Factory</span> <span class="keyword">implements</span> <span class="title">BenzFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> EngineB <span class="title">withEngine</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EngineB();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IronB <span class="title">ironType</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IronB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>调用者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPattern</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        BenzC200Factory benzC200Factory = <span class="keyword">new</span> BenzC200Factory();</div><div class="line">        benzC200Factory.ironType();</div><div class="line">        benzC200Factory.withEngine();</div><div class="line"></div><div class="line">        BenzC300Factory benzC300Factory = <span class="keyword">new</span> BenzC300Factory();</div><div class="line">        benzC300Factory.ironType();</div><div class="line">        benzC300Factory.withEngine();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>无论是简单工厂模式，工厂方法模式，还是抽象工厂模式，他们都属于工厂模式，在形式和特点上也是极为相似的，他们的最终目的都是为了解耦。在使用时，我们不必去在意这个模式到底工厂方法模式还是抽象工厂模式，因为他们之间的演变常常是令人琢磨不透的。经常你会发现，明明使用的工厂方法模式，当新需求来临，稍加修改，加入了一个新方法后，由于类中的产品构成了不同等级结构中的产品族，它就变成抽象工厂模式了；而对于抽象工厂模式，当减少一个方法使的提供的产品不再构成产品族之后，它就演变成了工厂方法模式。<br> 所以，在使用工厂模式时，只需要关心降低耦合度的目的是否达到了。</p>
-<p> 关于抽象工厂模式的起源：<br> 贴一个连接：<a href="http://blog.csdn.net/jason0539/article/details/44976775" target="_blank" rel="external">抽象工厂的起源</a> </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1894,7 +1899,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-count">113</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
